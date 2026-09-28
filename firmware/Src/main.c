@@ -64,17 +64,21 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
-I2C_HandleTypeDef hi2c1;
+I2C_HandleTypeDef hi2c3;
 
 LTDC_HandleTypeDef hltdc;
 
 SPI_HandleTypeDef hspi5;
 
+SDRAM_HandleTypeDef hsdram2;
+
 /* USER CODE BEGIN PV */
+
+#define SDRAM_ADDR 0xD0000000UL
 
 #define LCD_W 240
 #define LCD_H 320
-uint16_t framebuffer[LCD_W * LCD_H];   // 153 600 octets, en RAM interne
+uint16_t *framebuffer = (uint16_t *)SDRAM_ADDR;   // 153 600 octets, en SDRAM externe
 
 /* USER CODE END PV */
 
@@ -83,13 +87,49 @@ void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_SPI5_Init(void);
-static void MX_I2C1_Init(void);
+static void MX_FMC_Init(void);
+static void MX_I2C3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
 
 /* Private user code ---------------------------------------------------------*/
 /* USER CODE BEGIN 0 */
+
+#define SDRAM_TIMEOUT 0xFFFF
+
+/* Séquence d'init JEDEC de la SDRAM IS42S16400J (FMC bank 2) */
+static void SDRAM_InitSequence(SDRAM_HandleTypeDef *hsdram)
+{
+  FMC_SDRAM_CommandTypeDef cmd = {0};
+
+  /* 1. Activer l'horloge SDRAM */
+  cmd.CommandMode            = FMC_SDRAM_CMD_CLK_ENABLE;
+  cmd.CommandTarget          = FMC_SDRAM_CMD_TARGET_BANK2;
+  cmd.AutoRefreshNumber      = 1;
+  cmd.ModeRegisterDefinition = 0;
+  HAL_SDRAM_SendCommand(hsdram, &cmd, SDRAM_TIMEOUT);
+
+  HAL_Delay(1);  /* >= 100 us requis */
+
+  /* 2. Precharge All */
+  cmd.CommandMode = FMC_SDRAM_CMD_PALL;
+  HAL_SDRAM_SendCommand(hsdram, &cmd, SDRAM_TIMEOUT);
+
+  /* 3. Auto-refresh x8 */
+  cmd.CommandMode       = FMC_SDRAM_CMD_AUTOREFRESH_MODE;
+  cmd.AutoRefreshNumber = 8;
+  HAL_SDRAM_SendCommand(hsdram, &cmd, SDRAM_TIMEOUT);
+
+  /* 4. Load Mode Register : burst 1, séquentiel, CAS 3, write burst single */
+  cmd.CommandMode            = FMC_SDRAM_CMD_LOAD_MODE;
+  cmd.AutoRefreshNumber      = 1;
+  cmd.ModeRegisterDefinition = 0x0230;
+  HAL_SDRAM_SendCommand(hsdram, &cmd, SDRAM_TIMEOUT);
+
+  /* 5. Refresh : 64 ms / 4096 lignes = 15.62 us ; 15.62 us * 64 MHz - 20 = 980 */
+  HAL_SDRAM_ProgramRefreshRate(hsdram, 980);
+}
 
 /* USER CODE END 0 */
 
@@ -118,19 +158,23 @@ int main(void)
 
   /* USER CODE BEGIN SysInit */
 
-  ili9341_Init();
-
   /* USER CODE END SysInit */
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
   MX_LTDC_Init();
   MX_SPI5_Init();
-  MX_I2C1_Init();
+  MX_FMC_Init();
+  MX_I2C3_Init();
   /* USER CODE BEGIN 2 */
+
+  ili9341_Init();
+
+  SDRAM_InitSequence(&hsdram2);
+
   uint32_t i = 0;
 
-  while(i < 76800)
+  while(i < LCD_W * LCD_H)
   {
     framebuffer[i] = COLOR_GREEN;
     i++;
@@ -244,50 +288,50 @@ void SystemClock_Config(void)
 }
 
 /**
-  * @brief I2C1 Initialization Function
+  * @brief I2C3 Initialization Function
   * @param None
   * @retval None
   */
-static void MX_I2C1_Init(void)
+static void MX_I2C3_Init(void)
 {
 
-  /* USER CODE BEGIN I2C1_Init 0 */
+  /* USER CODE BEGIN I2C3_Init 0 */
 
-  /* USER CODE END I2C1_Init 0 */
+  /* USER CODE END I2C3_Init 0 */
 
-  /* USER CODE BEGIN I2C1_Init 1 */
+  /* USER CODE BEGIN I2C3_Init 1 */
 
-  /* USER CODE END I2C1_Init 1 */
-  hi2c1.Instance = I2C1;
-  hi2c1.Init.ClockSpeed = 100000;
-  hi2c1.Init.DutyCycle = I2C_DUTYCYCLE_2;
-  hi2c1.Init.OwnAddress1 = 0;
-  hi2c1.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
-  hi2c1.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
-  hi2c1.Init.OwnAddress2 = 0;
-  hi2c1.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
-  hi2c1.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
-  if (HAL_I2C_Init(&hi2c1) != HAL_OK)
+  /* USER CODE END I2C3_Init 1 */
+  hi2c3.Instance = I2C3;
+  hi2c3.Init.ClockSpeed = 100000;
+  hi2c3.Init.DutyCycle = I2C_DUTYCYCLE_2;
+  hi2c3.Init.OwnAddress1 = 0;
+  hi2c3.Init.AddressingMode = I2C_ADDRESSINGMODE_7BIT;
+  hi2c3.Init.DualAddressMode = I2C_DUALADDRESS_DISABLE;
+  hi2c3.Init.OwnAddress2 = 0;
+  hi2c3.Init.GeneralCallMode = I2C_GENERALCALL_DISABLE;
+  hi2c3.Init.NoStretchMode = I2C_NOSTRETCH_DISABLE;
+  if (HAL_I2C_Init(&hi2c3) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Analogue filter
   */
-  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c1, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
+  if (HAL_I2CEx_ConfigAnalogFilter(&hi2c3, I2C_ANALOGFILTER_ENABLE) != HAL_OK)
   {
     Error_Handler();
   }
 
   /** Configure Digital filter
   */
-  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c1, 0) != HAL_OK)
+  if (HAL_I2CEx_ConfigDigitalFilter(&hi2c3, 0) != HAL_OK)
   {
     Error_Handler();
   }
-  /* USER CODE BEGIN I2C1_Init 2 */
+  /* USER CODE BEGIN I2C3_Init 2 */
 
-  /* USER CODE END I2C1_Init 2 */
+  /* USER CODE END I2C3_Init 2 */
 
 }
 
@@ -391,6 +435,53 @@ static void MX_SPI5_Init(void)
 
 }
 
+/* FMC initialization function */
+static void MX_FMC_Init(void)
+{
+
+  /* USER CODE BEGIN FMC_Init 0 */
+
+  /* USER CODE END FMC_Init 0 */
+
+  FMC_SDRAM_TimingTypeDef SdramTiming = {0};
+
+  /* USER CODE BEGIN FMC_Init 1 */
+
+  /* USER CODE END FMC_Init 1 */
+
+  /** Perform the SDRAM2 memory initialization sequence
+  */
+  hsdram2.Instance = FMC_SDRAM_DEVICE;
+  /* hsdram2.Init */
+  hsdram2.Init.SDBank = FMC_SDRAM_BANK2;
+  hsdram2.Init.ColumnBitsNumber = FMC_SDRAM_COLUMN_BITS_NUM_8;
+  hsdram2.Init.RowBitsNumber = FMC_SDRAM_ROW_BITS_NUM_12;
+  hsdram2.Init.MemoryDataWidth = FMC_SDRAM_MEM_BUS_WIDTH_16;
+  hsdram2.Init.InternalBankNumber = FMC_SDRAM_INTERN_BANKS_NUM_4;
+  hsdram2.Init.CASLatency = FMC_SDRAM_CAS_LATENCY_3;
+  hsdram2.Init.WriteProtection = FMC_SDRAM_WRITE_PROTECTION_DISABLE;
+  hsdram2.Init.SDClockPeriod = FMC_SDRAM_CLOCK_PERIOD_2;
+  hsdram2.Init.ReadBurst = FMC_SDRAM_RBURST_ENABLE;
+  hsdram2.Init.ReadPipeDelay = FMC_SDRAM_RPIPE_DELAY_1;
+  /* SdramTiming */
+  SdramTiming.LoadToActiveDelay = 2;
+  SdramTiming.ExitSelfRefreshDelay = 7;
+  SdramTiming.SelfRefreshTime = 4;
+  SdramTiming.RowCycleDelay = 7;
+  SdramTiming.WriteRecoveryTime = 3;
+  SdramTiming.RPDelay = 2;
+  SdramTiming.RCDDelay = 2;
+
+  if (HAL_SDRAM_Init(&hsdram2, &SdramTiming) != HAL_OK)
+  {
+    Error_Handler( );
+  }
+
+  /* USER CODE BEGIN FMC_Init 2 */
+
+  /* USER CODE END FMC_Init 2 */
+}
+
 /**
   * @brief GPIO Initialization Function
   * @param None
@@ -405,10 +496,11 @@ static void MX_GPIO_Init(void)
 
   /* GPIO Ports Clock Enable */
   __HAL_RCC_GPIOF_CLK_ENABLE();
+  __HAL_RCC_GPIOC_CLK_ENABLE();
   __HAL_RCC_GPIOA_CLK_ENABLE();
   __HAL_RCC_GPIOB_CLK_ENABLE();
   __HAL_RCC_GPIOG_CLK_ENABLE();
-  __HAL_RCC_GPIOC_CLK_ENABLE();
+  __HAL_RCC_GPIOE_CLK_ENABLE();
   __HAL_RCC_GPIOD_CLK_ENABLE();
 
   /*Configure GPIO pin Output Level */
