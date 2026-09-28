@@ -74,11 +74,15 @@ SDRAM_HandleTypeDef hsdram2;
 
 /* USER CODE BEGIN PV */
 
-#define SDRAM_ADDR 0xD0000000UL
-
 #define LCD_W 240
 #define LCD_H 320
-uint16_t *framebuffer = (uint16_t *)SDRAM_ADDR;   // 153 600 octets, en SDRAM externe
+
+#define SDRAM_ADDR_1 0xD0000000UL
+#define SDRAM_ADDR_2 (SDRAM_ADDR_1 + LCD_W * LCD_H * 2)
+
+uint16_t *framebuffer_1 = (uint16_t *)SDRAM_ADDR_1;   // 153 600 octets, en SDRAM externe
+uint16_t *framebuffer_2 = (uint16_t *)SDRAM_ADDR_2;   // 153 600 octets, en SDRAM externe
+
 
 /* USER CODE END PV */
 
@@ -176,10 +180,10 @@ int main(void)
 
   while(i < LCD_W * LCD_H)
   {
-    framebuffer[i] = COLOR_GREEN;
+    framebuffer_1[i] = COLOR_GREEN;
     i++;
   }
-  HAL_LTDC_SetAddress(&hltdc, (uint32_t)framebuffer, 0);
+  HAL_LTDC_SetAddress(&hltdc, (uint32_t)framebuffer_1, 0);
 
   int count = 0;
 
@@ -200,9 +204,11 @@ int main(void)
 
         while(i < 76800)
         {
-          framebuffer[i] = COLOR_BLUE;
+          framebuffer_2[i] = COLOR_BLUE;
           i++;
-        }  
+        }
+        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_2, 0);
+        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
         break;
       case 1 :
         i = 0;
@@ -211,20 +217,37 @@ int main(void)
 
         while(i < 76800)
         {
-          framebuffer[i] = COLOR_PINK;
+          framebuffer_1[i] = COLOR_PINK;
           i++;
         } 
+        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_1, 0);
+        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
         break;
       case 2 :
+        i = 0;
+
+        count++;
+
+        while(i < 76800)
+        {
+          framebuffer_2[i] = COLOR_GREEN;
+          i++;
+        }
+        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_2, 0);
+        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
+        break;
+      case 3 :
         i = 0;
 
         count = 0;
 
         while(i < 76800)
         {
-          framebuffer[i] = COLOR_GREEN;
+          framebuffer_1[i] = COLOR_GRAY;
           i++;
         }
+        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_1, 0);
+        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
         break;
         
       default:
