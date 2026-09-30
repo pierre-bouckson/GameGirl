@@ -4,6 +4,6 @@
 #include "display.h"
 #include "interface.h"
 
-void print_menu(void);
+void print_menu(int select);
 
 #endif /* __MENU_H */

@@ -7,6 +7,8 @@
 #define MENU_ROWS (LCD_H / FONT_H)   /* 40 lignes */
 #define MENU_COLS (LCD_W / FONT_W)   /* 30 colonnes */
 
+#define CHOICE_LINE 21
+
 /* +1 pour le '\0' de fin de chaque ligne */
 extern const char menu[MENU_ROWS][MENU_COLS + 1];
 
