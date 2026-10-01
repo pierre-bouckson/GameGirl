@@ -22,7 +22,7 @@ joy_mv_t selection_joy(uint16_t x, uint16_t y)
         commande = (joy_mv_t){abs(value_x) / value_x, 0};
         return commande;
     }
-    if(abs(value_y) > abs(value_x) * 3)
+    if(abs(value_y) > abs(value_x) * 2)
     {
         commande = (joy_mv_t){0, abs(value_y) / value_y};
         return commande;

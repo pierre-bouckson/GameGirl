@@ -167,11 +167,9 @@ int main(void)
 
   display_init();
 
-  int game_select = -1;
+  joy_mv_t game_select = {1,1};
 
   print_menu(game_select);
-
-  bool new_selection = false;
 
   uint16_t value_x = joy_adc[0];
   uint16_t value_y = joy_adc[1];
@@ -201,12 +199,19 @@ int main(void)
 
     if (last_selection.y != selection.y && selection.y != 0)
     {
-      game_select = selection.y;
+      printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
+      game_select.y = selection.y;
+      print_menu(game_select);
+    }
+    if ((last_selection.x != selection.x && selection.x != 0))
+    {
+      printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
+      game_select.x = selection.x;
       print_menu(game_select);
     }
 
-    printf("X = %u  %d  Y = %u  %d\r\n", value_x, selection.x, value_y, selection.y);
-    HAL_Delay(100);
+    //printf("X = %u  %d  Y = %u  %d\r\n", value_x, selection.x, value_y, selection.y);
+    //HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
