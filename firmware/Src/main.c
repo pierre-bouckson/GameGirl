@@ -169,9 +169,7 @@ int main(void)
 
   display_init();
 
-  joy_mv_t game_select = {1,1};
-
-  print_menu(game_select);
+  print_menu();
 
   uint16_t value_x = joy_adc[0];
   uint16_t value_y = joy_adc[1];
@@ -189,8 +187,8 @@ int main(void)
     {
       button_pressed = 0;
       HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-      start_game(game_select);
-      print_menu(game_select);
+      start_game();
+      print_menu();
     }
 
     uint16_t value_x = joy_adc[0];
@@ -203,14 +201,14 @@ int main(void)
     if (last_selection.y != selection.y && selection.y != 0)
     {
       printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
-      game_select.y = selection.y;
-      print_menu(game_select);
+      menu_move((joy_mv_t){0, selection.y});
+      print_menu();
     }
     if ((last_selection.x != selection.x && selection.x != 0))
     {
       printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
-      game_select.x = selection.x;
-      print_menu(game_select);
+      menu_move((joy_mv_t){selection.x, 0});
+      print_menu();
     }
 
     //printf("X = %u  %d  Y = %u  %d\r\n", value_x, selection.x, value_y, selection.y);

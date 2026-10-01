@@ -14,18 +14,31 @@
 #define SUBTITLE_ROW    14
 #define HINT_ROW        37
 
-/* Tuiles des jeux : grille 2 x 2 de cadres 12 x 9 cases */
-#define TILE_GRID_ROWS 2
-#define TILE_GRID_COLS 2
-#define TILE_W         12
-#define TILE_H         9
-#define TILE_ROW0      17    /* ligne du haut de la première tuile */
-#define TILE_COL0      2     /* colonne de gauche de la première tuile */
-#define TILE_STEP_ROW  10    /* TILE_H + 1 ligne d'écart */
-#define TILE_STEP_COL  14    /* TILE_W + 2 colonnes d'écart */
-#define TILE_ICON_FIRST 2    /* lignes de l'icône, relatives à la tuile */
-#define TILE_ICON_LAST  4
-#define TILE_NAME_ROW   6    /* ligne du nom, relative à la tuile */
+/* Tuiles des jeux : cadres de 12 x 6 cases, positions dans tile_pos[] */
+#define TILE_W          12
+#define TILE_H          6
+#define TILE_ICON_FIRST 1    /* lignes de l'icône, relatives à la tuile */
+#define TILE_ICON_LAST  3
+#define TILE_NAME_ROW   4    /* ligne du nom, relative à la tuile */
+
+/* Une tuile par jeu, dans cet ordre : 2 par rangée, Rocket seule sur la 3e */
+typedef enum
+{
+    GAME_SNAKE,
+    GAME_PONG,
+    GAME_2048,
+    GAME_PUISSANCE4,
+    GAME_ROCKET,
+    TILE_COUNT
+} game_id_t;
+
+typedef struct
+{
+    uint8_t row;   /* case du coin haut-gauche */
+    uint8_t col;
+} tile_pos_t;
+
+extern const tile_pos_t tile_pos[TILE_COUNT];
 
 /* +1 pour le '\0' de fin de chaque ligne */
 extern const char menu[MENU_ROWS][MENU_COLS + 1];

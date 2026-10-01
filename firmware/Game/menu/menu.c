@@ -1,5 +1,6 @@
 #include "menu.h"
 #include "puissance4.h"
+#include "rocket.h"
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -10,10 +11,15 @@ static const uint16_t title_gradient[TITLE_LETTER_H] = {
     RGB565(255, 80, 160), RGB565(235, 80, 190), RGB565(210, 80, 215),
     RGB565(180, 80, 240), RGB565(150, 80, 255)};
 
-/* Couleur de chaque jeu, dans le même ordre que les tuiles de interface.c */
-static const uint16_t tile_accent[TILE_GRID_ROWS][TILE_GRID_COLS] = {
-    {RGB565(80, 220, 100), RGB565(80, 200, 255)},    /* Snake, Pong */
-    {RGB565(255, 160, 60), RGB565(255, 215, 60)}};   /* 2048, Puissance4 */
+/* Couleur de chaque jeu, dans l'ordre de game_id_t */
+static const uint16_t tile_accent[TILE_COUNT] = {
+    RGB565(80, 220, 100), RGB565(80, 200, 255),    /* Snake, Pong */
+    RGB565(255, 160, 60), RGB565(255, 215, 60),    /* 2048, Puissance4 */
+    RGB565(180, 120, 255)};                        /* Rocket */
+
+/* Tuile sélectionnée : rangée 0..2 et colonne 0..1 (la 3e rangée n'a que Rocket) */
+static uint8_t sel_row = 0;
+static uint8_t sel_col = 0;
 
 typedef struct
 {
@@ -32,6 +38,7 @@ static cell_t icon_cell(char c)
         case 'R': return (cell_t){' ', COLOR_BLACK, RGB565(230, 60, 60)};
         case 'Y': return (cell_t){' ', COLOR_BLACK, RGB565(255, 215, 60)};
         case 'B': return (cell_t){' ', COLOR_BLACK, RGB565(40, 90, 220)};
+        case 'D': return (cell_t){' ', COLOR_BLACK, RGB565(110, 110, 130)};
         case '.': return (cell_t){' ', COLOR_BLACK, COLOR_BLACK};   /* trou de la grille */
         case '2': return (cell_t){c, COLOR_BLACK, RGB565(238, 228, 218)};
         case '4': return (cell_t){c, COLOR_BLACK, RGB565(237, 200, 80)};
@@ -45,9 +52,9 @@ static cell_t icon_cell(char c)
 }
 
 /* Case (row, col) dans une tuile : style selon bord / icône / nom et sélection */
-static cell_t tile_cell(char c, uint8_t tile_r, uint8_t tile_c, uint8_t in_r, uint8_t in_c, uint8_t selected)
+static cell_t tile_cell(char c, uint8_t tile, uint8_t in_r, uint8_t in_c, uint8_t selected)
 {
-    uint16_t accent = tile_accent[tile_r][tile_c];
+    uint16_t accent = tile_accent[tile];
     uint8_t border = (in_r == 0 || in_r == TILE_H - 1 || in_c == 0 || in_c == TILE_W - 1);
 
     if (border)
@@ -66,36 +73,44 @@ static cell_t tile_cell(char c, uint8_t tile_r, uint8_t tile_c, uint8_t in_r, ui
     return (cell_t){c, COLOR_WHITE, COLOR_BLACK};
 }
 
-/* Retourne 1 si (row, col) est dans une tuile, et donne la tuile et la position dedans */
-static uint8_t find_tile(uint8_t row, uint8_t col, uint8_t *tile_r, uint8_t *tile_c, uint8_t *in_r, uint8_t *in_c)
+/* Retourne la tuile qui contient (row, col) et la position dedans, ou -1 */
+static int8_t find_tile(uint8_t row, uint8_t col, uint8_t *in_r, uint8_t *in_c)
 {
-    if (row < TILE_ROW0 || col < TILE_COL0)
-        return 0;
-
-    uint8_t r = (row - TILE_ROW0) / TILE_STEP_ROW;
-    uint8_t c = (col - TILE_COL0) / TILE_STEP_COL;
-    *in_r = (row - TILE_ROW0) % TILE_STEP_ROW;
-    *in_c = (col - TILE_COL0) % TILE_STEP_COL;
-
-    if (r >= TILE_GRID_ROWS || c >= TILE_GRID_COLS || *in_r >= TILE_H || *in_c >= TILE_W)
-        return 0;
-
-    *tile_r = r;
-    *tile_c = c;
-    return 1;
+    for (uint8_t t = 0; t < TILE_COUNT; t++)
+    {
+        if (row >= tile_pos[t].row && row < tile_pos[t].row + TILE_H &&
+            col >= tile_pos[t].col && col < tile_pos[t].col + TILE_W)
+        {
+            *in_r = row - tile_pos[t].row;
+            *in_c = col - tile_pos[t].col;
+            return t;
+        }
+    }
+    return -1;
 }
 
-/* Avec l'orientation du joystick, l'axe X choisit la ligne et l'axe Y la colonne */
-static void selected_tile(joy_mv_t select, uint8_t *sel_r, uint8_t *sel_c)
+static uint8_t selected_tile(void)
 {
-    *sel_r = (select.x == -1) ? 1 : 0;
-    *sel_c = (select.y == 1) ? 1 : 0;
+    uint8_t tile = sel_row * 2 + sel_col;
+    return (tile < TILE_COUNT) ? tile : TILE_COUNT - 1;
 }
 
-void print_menu(joy_mv_t select)
+void menu_move(joy_mv_t mv)
 {
-    uint8_t sel_r, sel_c;
-    selected_tile(select, &sel_r, &sel_c);
+    /* Avec l'orientation du joystick, X = -1 descend d'une rangée, Y = 1 va à droite */
+    uint8_t last_row = (TILE_COUNT - 1) / 2;
+
+    if (mv.x == -1 && sel_row < last_row)
+        sel_row++;
+    if (mv.x == 1 && sel_row > 0)
+        sel_row--;
+    if (mv.y != 0)
+        sel_col = (mv.y == 1) ? 1 : 0;
+}
+
+void print_menu(void)
+{
+    uint8_t sel = selected_tile();
 
     for (uint8_t row = 0; row < MENU_ROWS; row++)
     {
@@ -103,7 +118,8 @@ void print_menu(joy_mv_t select)
         {
             char c = menu[row][col];
             cell_t cell = {c, COLOR_WHITE, COLOR_BLACK};
-            uint8_t tile_r, tile_c, in_r, in_c;
+            uint8_t in_r, in_c;
+            int8_t tile;
 
             if (row == 0 || row == MENU_ROWS - 1 || col == 0 || col == MENU_COLS - 1)
             {
@@ -120,9 +136,9 @@ void print_menu(joy_mv_t select)
             {
                 cell.fg = COLOR_TEXT_DIM;
             }
-            else if (find_tile(row, col, &tile_r, &tile_c, &in_r, &in_c))
+            else if ((tile = find_tile(row, col, &in_r, &in_c)) >= 0)
             {
-                cell = tile_cell(c, tile_r, tile_c, in_r, in_c, tile_r == sel_r && tile_c == sel_c);
+                cell = tile_cell(c, tile, in_r, in_c, tile == sel);
             }
 
             display_draw_char(col * FONT_W, row * FONT_H, cell.c, cell.fg, cell.bg);
@@ -131,17 +147,12 @@ void print_menu(joy_mv_t select)
     display_swap();
 }
 
-int select_game(int joy_mv)
+void start_game(void)
 {
-    (void)joy_mv;
-    return 0; /* TODO */
-}
-
-void start_game(joy_mv_t select)
-{
-    uint8_t sel_r, sel_c;
-    selected_tile(select, &sel_r, &sel_c);
-
-    if (sel_r == 1 && sel_c == 1)
-        menu_puissance4();
+    switch (selected_tile())
+    {
+        case GAME_PUISSANCE4: menu_puissance4(); break;
+        case GAME_ROCKET:     menu_rocket();     break;
+        default:              break;   /* pas encore de jeu */
+    }
 }
