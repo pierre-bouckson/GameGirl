@@ -3,6 +3,7 @@
 #include "main.h"
 #include "display.h"
 #include "font8x8.h"
+#include "input.h"
 #include "rocket.h"
 
 /* Port du jeu exam2_stm32 : la version d'origine dessinait dans un terminal
@@ -147,8 +148,9 @@ void menu_rocket(void)
         j++;
         uint32_t score = j * coef;
 
-        /* Comme dans le menu, l'axe Y du joystick donne la gauche / droite de l'écran */
-        uint16_t x_position = (uint32_t)joy_adc[1] * (SCREEN_W - 1) / ADC_MAX;
+        /* Comme dans le menu, l'axe Y du joystick donne la gauche / droite de l'écran.
+         * La courbe expo rend la fusée moins nerveuse autour du centre. */
+        uint16_t x_position = (uint32_t)joy_expo(joy_adc[1]) * (SCREEN_W - 1) / ADC_MAX;
 
         /* Collision, une fois la fusée entrée sur le circuit */
         if (j > CAR_ROW)
