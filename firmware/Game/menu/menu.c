@@ -1,4 +1,5 @@
 #include "menu.h"
+#include "puissance4.h"
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -84,11 +85,17 @@ static uint8_t find_tile(uint8_t row, uint8_t col, uint8_t *tile_r, uint8_t *til
     return 1;
 }
 
+/* Avec l'orientation du joystick, l'axe X choisit la ligne et l'axe Y la colonne */
+static void selected_tile(joy_mv_t select, uint8_t *sel_r, uint8_t *sel_c)
+{
+    *sel_r = (select.x == -1) ? 1 : 0;
+    *sel_c = (select.y == 1) ? 1 : 0;
+}
+
 void print_menu(joy_mv_t select)
 {
-    /* Avec l'orientation du joystick, l'axe X choisit la ligne et l'axe Y la colonne */
-    uint8_t sel_r = (select.x == -1) ? 1 : 0;
-    uint8_t sel_c = (select.y == 1) ? 1 : 0;
+    uint8_t sel_r, sel_c;
+    selected_tile(select, &sel_r, &sel_c);
 
     for (uint8_t row = 0; row < MENU_ROWS; row++)
     {
@@ -128,4 +135,13 @@ int select_game(int joy_mv)
 {
     (void)joy_mv;
     return 0; /* TODO */
+}
+
+void start_game(joy_mv_t select)
+{
+    uint8_t sel_r, sel_c;
+    selected_tile(select, &sel_r, &sel_c);
+
+    if (sel_r == 1 && sel_c == 1)
+        menu_puissance4();
 }

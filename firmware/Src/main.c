@@ -189,7 +189,8 @@ int main(void)
     {
       button_pressed = 0;
       HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-      /* ex : lancer le jeu sélectionné */
+      start_game(game_select);
+      print_menu(game_select);
     }
 
     uint16_t value_x = joy_adc[0];
