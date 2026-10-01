@@ -64,6 +64,8 @@ double tab[30][40] = {0};
 
 volatile uint16_t joy_adc[2];   /* [0] = X (canal 5), [1] = Y (canal 13) */
 
+volatile uint8_t button_pressed = 0;
+
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
@@ -183,11 +185,11 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
+    if (button_pressed)
     {
-
+      button_pressed = 0;
       HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-      while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET);
+      /* ex : lancer le jeu sélectionné */
     }
 
     uint16_t value_x = joy_adc[0];
@@ -596,7 +598,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -606,6 +608,10 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
+
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
 
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
@@ -620,6 +626,14 @@ int __io_putchar(int ch)
   uint8_t c = ch;
   HAL_UART_Transmit(&huart1, &c, 1, HAL_MAX_DELAY);
   return ch;
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == GPIO_PIN_0)
+  {
+    button_pressed = 1;
+  }
 }
 
 /* USER CODE END 4 */
