@@ -26,7 +26,7 @@ const char menu[MENU_ROWS][MENU_COLS + 1] =
     {"##    Snake        Pong     ##"},
     {"##                          ##"},
     {"##                          ##"},
-    {"##                          ##"},
+    {"##    2048      Puissance4  ##"},
     {"##                          ##"},
     {"##                          ##"},
     {"##                          ##"},
