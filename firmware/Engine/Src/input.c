@@ -1,18 +1,18 @@
 #include <stdlib.h>
 #include "input.h"
 
-joy_mv_t get_joy(uint16_t x, uint16_t y)
+static joy_mv_t last_selection = {0};
+
+joy_mv_t get_joy()
 {
-    (void)x;
-    (void)y;
-    joy_mv_t commande = {0};
-    return commande; /* TODO */
+    joy_mv_t joy = {joy_adc[0], joy_adc[1]};
+    return joy;
 }
 
-joy_mv_t selection_joy(uint16_t x, uint16_t y)
+joy_mv_t selection_joy(joy_mv_t joy)
 {
-    int value_x = x - JOY_CENTER;
-    int value_y = y - JOY_CENTER;
+    int value_x = joy.x - JOY_CENTER;
+    int value_y = joy.y - JOY_CENTER;
     joy_mv_t commande = {0};
 
     if(abs(value_x) < 500 && abs(value_y) < 500) return commande;
@@ -28,6 +28,15 @@ joy_mv_t selection_joy(uint16_t x, uint16_t y)
         return commande;
     }
     return commande;
+}
+
+bool new_selection(joy_mv_t joy)
+{
+    bool new_select = false;
+    if (last_selection.y != joy.y && joy.y != 0) new_select = true;
+    if (last_selection.x != joy.x && joy.x != 0) new_select = true;
+    last_selection = joy;
+    return new_select;
 }
 
 uint16_t joy_expo(uint16_t raw)

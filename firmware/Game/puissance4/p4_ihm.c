@@ -22,7 +22,7 @@ static void consume_button(void)
 void p4_ihm_init(void)
 {
     consume_button();
-    last_y = selection_joy(joy_adc[0], joy_adc[1]).y;
+    last_y = selection_joy(get_joy()).y;
 }
 
 int p4_ihm_choose_line(void)
@@ -36,7 +36,7 @@ int p4_ihm_choose_line(void)
         }
 
         /* Comme dans le menu, l'axe Y du joystick donne la gauche / droite de l'écran */
-        int y = selection_joy(joy_adc[0], joy_adc[1]).y;
+        int y = selection_joy(get_joy()).y;
         if (y != last_y)
         {
             last_y = y;

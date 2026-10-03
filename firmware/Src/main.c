@@ -171,10 +171,9 @@ int main(void)
 
   print_menu();
 
-  uint16_t value_x = joy_adc[0];
-  uint16_t value_y = joy_adc[1];
+  joy_mv_t joy = get_joy();
 
-  joy_mv_t selection = selection_joy(value_x, value_y);
+  joy_mv_t selection = selection_joy(joy);
 
 
   /* USER CODE END 2 */
@@ -191,23 +190,15 @@ int main(void)
       print_menu();
     }
 
-    uint16_t value_x = joy_adc[0];
-    uint16_t value_y = joy_adc[1];
+    joy = get_joy();
 
-    joy_mv_t last_selection = selection;
-    selection = selection_joy(value_x, value_y);
+    selection = selection_joy(joy);
 
 
-    if (last_selection.y != selection.y && selection.y != 0)
+    if(new_selection(selection))
     {
       printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
-      menu_move((joy_mv_t){0, selection.y});
-      print_menu();
-    }
-    if ((last_selection.x != selection.x && selection.x != 0))
-    {
-      printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
-      menu_move((joy_mv_t){selection.x, 0});
+      menu_move((joy_mv_t){selection.x, selection.y});
       print_menu();
     }
 
