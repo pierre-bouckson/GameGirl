@@ -12,6 +12,6 @@ void menu_2048(void);
 /* Dessine la grille tab[][] et l'affiche (display_swap) */
 void print_grid(void);
 
-void table_shift(joy_mv_t dir);
+bool table_shift(joy_mv_t dir);
 
 #endif /* __2048_H */
