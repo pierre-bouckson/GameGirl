@@ -190,12 +190,9 @@ int main(void)
       print_menu();
     }
 
-    joy = get_joy();
+    selection = selection_joy();
 
-    selection = selection_joy(joy);
-
-
-    if(new_selection(selection))
+    if(new_selection())
     {
       printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
       menu_move((joy_mv_t){selection.x, selection.y});
@@ -203,7 +200,7 @@ int main(void)
     }
 
     //printf("X = %u  %d  Y = %u  %d\r\n", value_x, selection.x, value_y, selection.y);
-    //HAL_Delay(100);
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */

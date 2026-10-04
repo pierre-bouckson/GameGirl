@@ -9,13 +9,14 @@ joy_mv_t get_joy()
     return joy;
 }
 
-joy_mv_t selection_joy(joy_mv_t joy)
+joy_mv_t selection_joy()
 {
+    joy_mv_t joy = {joy_adc[0], joy_adc[1]};
     int value_x = joy.x - JOY_CENTER;
     int value_y = joy.y - JOY_CENTER;
     joy_mv_t commande = {0};
 
-    if(abs(value_x) < 500 && abs(value_y) < 500) return commande;
+    if(abs(value_x) < JOY_DEADZONE && abs(value_y) < JOY_DEADZONE) return commande;
 
     if(abs(value_x) > abs(value_y) * 2)
     {
@@ -30,9 +31,12 @@ joy_mv_t selection_joy(joy_mv_t joy)
     return commande;
 }
 
-bool new_selection(joy_mv_t joy)
+bool new_selection()
 {
     bool new_select = false;
+    /* Compare la direction (-1/0/1) et non les valeurs brutes : le bruit de
+     * l'ADC reste dans la zone morte et ne change pas la direction */
+    joy_mv_t joy = selection_joy();
     if (last_selection.y != joy.y && joy.y != 0) new_select = true;
     if (last_selection.x != joy.x && joy.x != 0) new_select = true;
     last_selection = joy;
