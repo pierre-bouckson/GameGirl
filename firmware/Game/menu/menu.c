@@ -3,6 +3,7 @@
 #include "rocket.h"
 #include "2048.h"
 #include "snake.h"
+#include "pong.h"
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -156,7 +157,8 @@ void start_game(void)
         case GAME_PUISSANCE4: menu_puissance4(); break;
         case GAME_ROCKET:     menu_rocket();     break;
         case GAME_2048:       menu_2048();       break;
-        case GAME_SNAKE: game(); break;
+        case GAME_SNAKE:      game();            break;
+        case GAME_PONG:       menu_pong();       break;
         default:              break;   /* pas encore de jeu */
     }
 }
