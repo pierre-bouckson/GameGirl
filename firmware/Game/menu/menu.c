@@ -4,6 +4,7 @@
 #include "2048.h"
 #include "snake.h"
 #include "pong.h"
+#include "tetris.h"
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -18,9 +19,9 @@ static const uint16_t title_gradient[TITLE_LETTER_H] = {
 static const uint16_t tile_accent[TILE_COUNT] = {
     RGB565(80, 220, 100), RGB565(80, 200, 255),    /* Snake, Pong */
     RGB565(255, 160, 60), RGB565(255, 215, 60),    /* 2048, Puissance4 */
-    RGB565(180, 120, 255)};                        /* Rocket */
+    RGB565(180, 120, 255), RGB565(60, 220, 230)};  /* Rocket, Tetris */
 
-/* Tuile sélectionnée : rangée 0..2 et colonne 0..1 (la 3e rangée n'a que Rocket) */
+/* Tuile sélectionnée : rangée 0..2 et colonne 0..1 */
 static uint8_t sel_row = 0;
 static uint8_t sel_col = 0;
 
@@ -40,6 +41,7 @@ static cell_t icon_cell(char c)
         case 'W': return (cell_t){' ', COLOR_BLACK, COLOR_WHITE};
         case 'R': return (cell_t){' ', COLOR_BLACK, RGB565(230, 60, 60)};
         case 'Y': return (cell_t){' ', COLOR_BLACK, RGB565(255, 215, 60)};
+        case 'C': return (cell_t){' ', COLOR_BLACK, RGB565(60, 220, 230)};
         case 'B': return (cell_t){' ', COLOR_BLACK, RGB565(40, 90, 220)};
         case 'D': return (cell_t){' ', COLOR_BLACK, RGB565(110, 110, 130)};
         case '.': return (cell_t){' ', COLOR_BLACK, COLOR_BLACK};   /* trou de la grille */
@@ -159,6 +161,7 @@ void start_game(void)
         case GAME_2048:       menu_2048();       break;
         case GAME_SNAKE:      game();            break;
         case GAME_PONG:       menu_pong();       break;
+        case GAME_TETRIS:     menu_tetris();     break;
         default:              break;   /* pas encore de jeu */
     }
 }

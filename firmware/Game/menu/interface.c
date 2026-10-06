@@ -4,7 +4,7 @@
  * menu.c colorie chaque case selon sa zone (voir interface.h) :
  *  - titre : '#' = bloc plein, en dégradé
  *  - icônes des tuiles : G/W/R/Y/B/D = bloc vert/blanc/rouge/jaune/bleu/gris, '.' = trou,
- *    chiffres = cases de 2048 colorées, ':' = filet, 'o' = balle */
+ *    C = bloc cyan, chiffres = cases de 2048 colorées, ':' = filet, 'o' = balle */
 const char menu[MENU_ROWS][MENU_COLS + 1] =
 {
     {"+============================+"},   /*  0 */
@@ -37,12 +37,12 @@ const char menu[MENU_ROWS][MENU_COLS + 1] =
     {"| |   2048   |  |Puissance4| |"},   /* 27 */
     {"| +----------+  +----------+ |"},   /* 28 */
     {"|                            |"},   /* 29 */
-    {"|        +----------+        |"},   /* 30 */
-    {"|        |DD   R  DD|        |"},   /* 31 */
-    {"|        |D   RWR  D|        |"},   /* 32 */
-    {"|        |DD   Y  DD|        |"},   /* 33 */
-    {"|        |  Rocket  |        |"},   /* 34 */
-    {"|        +----------+        |"},   /* 35 */
+    {"| +----------+  +----------+ |"},   /* 30 */
+    {"| |DD   R  DD|  |  R     C | |"},   /* 31 */
+    {"| |D   RWR  D|  | RRR  YY C| |"},   /* 32 */
+    {"| |DD   Y  DD|  |GGBBB YY C| |"},   /* 33 */
+    {"| |  Rocket  |  |  Tetris  | |"},   /* 34 */
+    {"| +----------+  +----------+ |"},   /* 35 */
     {"|                            |"},   /* 36 */
     {"|   < JOYSTICK : CHOISIR >   |"},   /* 37 */
     {"|                            |"},   /* 38 */
@@ -54,5 +54,5 @@ const tile_pos_t tile_pos[TILE_COUNT] =
 {
     {16, 2}, {16, 16},   /* Snake, Pong */
     {23, 2}, {23, 16},   /* 2048, Puissance4 */
-    {30, 9},             /* Rocket, centrée */
+    {30, 2}, {30, 16},   /* Rocket, Tetris */
 };

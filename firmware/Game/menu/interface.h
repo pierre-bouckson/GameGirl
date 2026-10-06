@@ -21,7 +21,7 @@
 #define TILE_ICON_LAST  3
 #define TILE_NAME_ROW   4    /* ligne du nom, relative à la tuile */
 
-/* Une tuile par jeu, dans cet ordre : 2 par rangée, Rocket seule sur la 3e */
+/* Une tuile par jeu, dans cet ordre : 2 par rangée */
 typedef enum
 {
     GAME_SNAKE,
@@ -29,6 +29,7 @@ typedef enum
     GAME_2048,
     GAME_PUISSANCE4,
     GAME_ROCKET,
+    GAME_TETRIS,
     TILE_COUNT
 } game_id_t;
 
