@@ -132,6 +132,7 @@ static void end_screen(bool game_over, bool record)
     display_swap();
 }
 
+
 void game()
 {
     srand(HAL_GetTick());
