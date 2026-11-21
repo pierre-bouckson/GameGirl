@@ -8,20 +8,19 @@
 #define MENU_COLS (LCD_W / FONT_W)   /* 30 colonnes */
 
 /* Zones de la grille menu[][] (en cases) */
-#define TITLE_FIRST_ROW 2    /* "GAME" lignes 2-6, "GIRL" lignes 8-12 */
-#define TITLE_LAST_ROW  12
+#define TITLE_FIRST_ROW 1    /* "GAME" lignes 1-5, "GIRL" lignes 7-11 */
+#define TITLE_LAST_ROW  11
 #define TITLE_LETTER_H  5
-#define SUBTITLE_ROW    14
 #define HINT_ROW        37
 
-/* Tuiles des jeux : cadres de 12 x 6 cases, positions dans tile_pos[] */
+/* Tuiles des jeux : cadres de 12 x 5 cases, positions dans tile_pos[] */
 #define TILE_W          12
-#define TILE_H          6
+#define TILE_H          5
 #define TILE_ICON_FIRST 1    /* lignes de l'icône, relatives à la tuile */
-#define TILE_ICON_LAST  3
-#define TILE_NAME_ROW   4    /* ligne du nom, relative à la tuile */
+#define TILE_ICON_LAST  2
+#define TILE_NAME_ROW   3    /* ligne du nom, relative à la tuile */
 
-/* Une tuile par jeu, dans cet ordre : 2 par rangée */
+/* Une tuile par jeu, dans cet ordre : 2 par rangée, la dernière seule au centre */
 typedef enum
 {
     GAME_SNAKE,
@@ -30,6 +29,7 @@ typedef enum
     GAME_PUISSANCE4,
     GAME_ROCKET,
     GAME_TETRIS,
+    GAME_FLAPPY,
     TILE_COUNT
 } game_id_t;
 

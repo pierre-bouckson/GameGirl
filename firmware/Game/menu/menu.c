@@ -5,6 +5,7 @@
 #include "snake.h"
 #include "pong.h"
 #include "tetris.h"
+#include "flappy.h"
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -19,9 +20,10 @@ static const uint16_t title_gradient[TITLE_LETTER_H] = {
 static const uint16_t tile_accent[TILE_COUNT] = {
     RGB565(80, 220, 100), RGB565(80, 200, 255),    /* Snake, Pong */
     RGB565(255, 160, 60), RGB565(255, 215, 60),    /* 2048, Puissance4 */
-    RGB565(180, 120, 255), RGB565(60, 220, 230)};  /* Rocket, Tetris */
+    RGB565(180, 120, 255), RGB565(60, 220, 230),   /* Rocket, Tetris */
+    RGB565(255, 120, 80)};                         /* Flappy */
 
-/* Tuile sélectionnée : rangée 0..2 et colonne 0..1 */
+/* Tuile sélectionnée : rangée 0..3 et colonne 0..1 (la rangée 3 n'a qu'une tuile) */
 static uint8_t sel_row = 0;
 static uint8_t sel_col = 0;
 
@@ -162,6 +164,7 @@ void start_game(void)
         case GAME_SNAKE:      game();            break;
         case GAME_PONG:       menu_pong();       break;
         case GAME_TETRIS:     menu_tetris();     break;
+        case GAME_FLAPPY:     menu_flappy();     break;
         default:              break;   /* pas encore de jeu */
     }
 }
