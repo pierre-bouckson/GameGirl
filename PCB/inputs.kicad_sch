@@ -10,1432 +10,248 @@
 	)
 	(lib_symbols
 		(symbol "EasyEDA:MLT-8530"
-    (in_bom yes)
-    (on_board yes)
-    (property
-      "Reference"
-      "BUZZER"
-      (at 0 8.89 0)
-      (effects (font (size 1.27 1.27) ) )
-    )
-    (property
-      "Value"
-      "MLT-8530"
-      (at 0 -10.16 0)
-      (effects (font (size 1.27 1.27) ) )
-    )
-    (property
-      "Footprint"
-      "EasyEDA:BUZ-SMD_4P-L8.5-W8.5-P8.50-BR"
-      (at 0 -12.70 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (property
-      "Datasheet"
-      "https://lcsc.com/product-detail/Buzzers_MLT-8530_C94599.html"
-      (at 0 -15.24 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (property
-      "Manufacturer"
-      "华能"
-      (at 0 -17.78 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (property
-      "MPN"
-      "MLT-8530"
-      (at 0 -20.32 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (property
-      "LCSC Part"
-      "C94599"
-      (at 0 -22.86 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (property
-      "ki_keywords"
-      "Buzzers"
-      (at 0 -25.40 0)
-      (effects (font (size 1.27 1.27) ) hide)
-    )
-    (symbol "MLT-8530_0_1"
-      (polyline
-        (pts
-          (xy 3.56 6.35) (xy 1.27 4.32)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy 1.27 0.76) (xy 3.56 -1.27)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy 3.56 6.35) (xy 3.56 -1.27)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy 1.27 4.32) (xy 1.27 0.76)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy -1.27 4.32) (xy -1.27 0.76)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy -1.27 0.76) (xy 1.27 0.76)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (polyline
-        (pts
-          (xy -1.27 4.32) (xy 1.27 4.32)
-        )
-        (stroke (width 0) (type default))
-        (fill (type none))
-      )
-      (pin unspecified line
-        (at -3.81 3.81 0)
-        (length 2.54)
-        (name "+" (effects (font (size 1.27 1.27))))
-        (number "1" (effects (font (size 1.27 1.27))))
-      )
-      (pin unspecified line
-        (at -3.81 1.27 0)
-        (length 2.54)
-        (name "2" (effects (font (size 1.27 1.27))))
-        (number "2" (effects (font (size 1.27 1.27))))
-      )
-      (pin unspecified line
-        (at 0.00 -5.08 90)
-        (length 5.08)
-        (name "3" (effects (font (size 1.27 1.27))))
-        (number "3" (effects (font (size 1.27 1.27))))
-      )
-      (pin unspecified line
-        (at 1.27 -5.08 90)
-        (length 5.08)
-        (name "4" (effects (font (size 1.27 1.27))))
-        (number "4" (effects (font (size 1.27 1.27))))
-      )
-    )
-  )
-		(symbol "JLCPCB-Transistors:NMOS,AO3400A"
-		(pin_names
-			(offset 0)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "Q"
-			(at 4.8514 0.834 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "AO3400A"
-			(at 4.8514 -1.2122 0)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:Q_SOT-23"
-			(at -1.778 0 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1811081213_Alpha---Omega-Semicon-AO3400A_C20917.pdf"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "-55°C~+150°C 1 N-channel 1.45V 1.4W 30V 48mΩ@2.5V 5.7A 50pF 630pF 75pF 7nC@10V N-Channel SOT-23 MOSFETs ROHS"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C20917"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Stock" "1814497"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Price" "0.079USD"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Process" "SMT"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Minimum Qty" "5"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Attrition Qty" "4"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Class" "Basic Component"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Category" "Transistors,MOSFETs"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "Alpha & Omega Semicon"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part" "AO3400A"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Continuous Drain Current (Id)" "5.7A"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Input Capacitance (Ciss@Vds)" "630pF@15V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Operating Temperature" "-55°C~+150°C@(Tj)"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Type" "1 N-channel"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Drain Source Voltage (Vdss)" "30V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Power Dissipation (Pd)" "1.4W"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Gate Threshold Voltage (Vgs(th)@Id)" "1.5V@250uA"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Drain Source On Resistance (RDS(on)@Vgs,Id)" "26.5mΩ@10V,5.7A"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Total Gate Charge (Qg@Vgs)" "7nC@4.5V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "Q_*"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)		(symbol "NMOS,AO3400A_0_1"
-            (polyline
-                (pts
-                    (xy 0.254 0) (xy -2.54 0)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 0.254 1.905) (xy 0.254 -1.905)
-                )
-                (stroke
-                    (width 0.254)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 0.762 -1.27) (xy 0.762 -2.286)
-                )
-                (stroke
-                    (width 0.254)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 0.762 0.508) (xy 0.762 -0.508)
-                )
-                (stroke
-                    (width 0.254)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 0.762 2.286) (xy 0.762 1.27)
-                )
-                (stroke
-                    (width 0.254)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 2.54 2.54) (xy 2.54 1.778)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 0.762 -1.778) (xy 3.302 -1.778) (xy 3.302 1.778) (xy 0.762 1.778)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 1.016 0) (xy 2.032 0.381) (xy 2.032 -0.381) (xy 1.016 0)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type outline)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (polyline
-                (pts
-                    (xy 3.302 0.381) (xy 2.921 -0.254) (xy 3.683 -0.254) (xy 3.302 0.381)
-                )
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (circle
-                (center 1.651 0)
-                (radius 2.794)
-                (stroke
-                    (width 0.254)
-                    (type default)
-                )
-                (fill
-                    (type none)
-                )
-            )
-            (circle
-                (center 2.54 -1.778)
-                (radius 0.254)
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type outline)
-                )
-            )
-            (circle
-                (center 2.54 1.778)
-                (radius 0.254)
-                (stroke
-                    (width 0)
-                    (type default)
-                )
-                (fill
-                    (type outline)
-                )
-            )
-        )
-        (symbol "NMOS,AO3400A_1_1"
-            (pin passive line
-                (at 2.54 5.08 270)
-                (length 2.54)
-                (name "D"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-                (number "3"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-            )
-            (pin input line
-                (at -5.08 0 0)
-                (length 2.54)
-                (name "G"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-                (number "1"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-            )
-            (pin passive line
-                (at 2.54 -5.08 90)
-                (length 2.54)
-                (name "S"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-                (number "2"
-                    (effects
-                        (font
-                            (size 1.27 1.27)
-                        )
-                    )
-                )
-            )
-        )
-	)
-		(symbol "JLCPCB-Diodes:Switching,1N4148W"
-		(pin_numbers hide)
-		(pin_names
-			(offset 0)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "D"
-			(at 2.032 0.834 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "1N4148W"
-			(at 2.032 -1.2122 0)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:D_SOD-123"
-			(at -1.778 0 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1811061725_ST-Semtech-1N4148W_C81598.pdf"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "150mA 1A 1V@50mA 1uA@75V 400mW 4ns 75V Independent SOD-123 Switching Diodes ROHS"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C81598"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Stock" "2778560"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Price" "0.014USD"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Process" "SMT"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Minimum Qty" "15"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Attrition Qty" "10"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Class" "Basic Component"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Category" "Diodes,Switching Diode"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "ST(Semtech)"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part" "1N4148W"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Rectified Current" "150mA"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Forward Voltage (Vf@If)" "1V@50mA"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Reverse Voltage (Vr)" "75V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Reverse Recovery Time (trr)" "4ns"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Diode Configuration" "Independent Type"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Reverse Leakage Current" "1uA@75V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "D_*"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(symbol "Switching,1N4148W_0_1"
-			(polyline
-				(pts
-					(xy -1.27 1.27)
-					(xy 0.00 -1.27)
-					(xy 1.27 1.27)
-					(xy -1.27 1.27)
-				)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "BUZZER"
+				(at 0 8.89 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(symbol "Switching,1N4148W_0_1"
-			(polyline
-				(pts
-					(xy -1.27 -1.27)
-					(xy 1.27 -1.27)
-				)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
+			(property "Value" "MLT-8530"
+				(at 0 -10.16 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
 				)
 			)
-		)
-		(symbol "Switching,1N4148W_1_1"
-			(pin passive line
-				(at 0 3.81 270)
-				(length 3.81)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
+			(property "Footprint" "EasyEDA:BUZ-SMD_4P-L8.5-W8.5-P8.50-BR"
+				(at 0 -12.7 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://lcsc.com/product-detail/Buzzers_MLT-8530_C94599.html"
+				(at 0 -15.24 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" ""
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "华能"
+				(at 0 -17.78 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "MPN" "MLT-8530"
+				(at 0 -20.32 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC Part" "C94599"
+				(at 0 -22.86 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_keywords" "Buzzers"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "MLT-8530_0_1"
+				(polyline
+					(pts
+						(xy -1.27 4.32) (xy -1.27 0.76)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 4.32) (xy 1.27 4.32)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 0.76) (xy 1.27 0.76)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 4.32) (xy 1.27 0.76)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.27 0.76) (xy 3.56 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.56 6.35) (xy 1.27 4.32)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.56 6.35) (xy 3.56 -1.27)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(pin unspecified line
+					(at -3.81 3.81 0)
+					(length 2.54)
+					(name "+"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
 						)
 					)
 				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
+				(pin unspecified line
+					(at -3.81 1.27 0)
+					(length 2.54)
+					(name "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 0 -5.08 90)
+					(length 5.08)
+					(name "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin unspecified line
+					(at 1.27 -5.08 90)
+					(length 5.08)
+					(name "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "4"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
 						)
 					)
 				)
 			)
-			(pin passive line
-				(at 0 -3.81 90)
-				(length 3.81)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
+			(embedded_fonts no)
 		)
-	)
-		(symbol "JLCPCB-Resistors:0402,100Ω"
-		(pin_numbers hide)
-		(pin_names
-			(offset 0)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "R"
-			(at 1.778 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100Ω"
-			(at 0 0 90)(do_not_autoplace)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:R_0402"
-			(at -1.778 0 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2205311900_UNI-ROYAL-Uniroyal-Elec-0402WGF1000TCE_C25076.pdf"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "-55°C~+155°C 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25076"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Stock" "3007169"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Price" "0.004USD"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Process" "SMT"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Minimum Qty" "20"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Attrition Qty" "10"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Class" "Basic Component"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Category" "Resistors,Chip Resistor - Surface Mount"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part" "0402WGF1000TCE"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Resistance" "100Ω"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Power(Watts)" "62.5mW"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Type" "Thick Film Resistors"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Overload Voltage (Max)" "50V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Operating Temperature Range" "-55°C~+155°C"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "±1%"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Temperature Coefficient" "±200ppm/°C"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "R_*"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(symbol "0402,100Ω_0_1"
-			(rectangle
-				(start -1.016 2.54)
-				(end 1.016 -2.54)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(symbol "0402,100Ω_1_1"
-			(pin passive line
-				(at 0 3.81 270)
-				(length 1.27)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin passive line
-				(at 0 -3.81 90)
-				(length 1.27)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-	)
-		(symbol "JLCPCB-Resistors:0402,100kΩ"
-		(pin_numbers hide)
-		(pin_names
-			(offset 0)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "R"
-			(at 1.778 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100kΩ"
-			(at 0 0 90)(do_not_autoplace)
-			(effects
-				(font
-					(size 0.8 0.8)
-				)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:R_0402"
-			(at -1.778 0 90)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2206010100_UNI-ROYAL-Uniroyal-Elec-0402WGF1003TCE_C25741.pdf"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "-55°C~+155°C 100kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "LCSC" "C25741"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Stock" "5244197"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Price" "0.004USD"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Process" "SMT"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Minimum Qty" "20"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Attrition Qty" "10"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Class" "Basic Component"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Category" "Resistors,Chip Resistor - Surface Mount"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Part" "0402WGF1003TCE"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Resistance" "100kΩ"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Power(Watts)" "62.5mW"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Type" "Thick Film Resistors"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Overload Voltage (Max)" "50V"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Operating Temperature Range" "-55°C~+155°C"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Tolerance" "±1%"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Temperature Coefficient" "±100ppm/°C"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" ""
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "R_*"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(symbol "0402,100kΩ_0_1"
-			(rectangle
-				(start -1.016 2.54)
-				(end 1.016 -2.54)
-				(stroke
-					(width 0.254)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(symbol "0402,100kΩ_1_1"
-			(pin passive line
-				(at 0 3.81 270)
-				(length 1.27)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-			(pin passive line
-				(at 0 -3.81 90)
-				(length 1.27)
-				(name "~"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "2"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-	)
 		(symbol "EasyEDA:YHE-YG16-001SH1B166A1"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -2348,6 +1164,820 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "JLCPCB-Diodes:Switching,1N4148W"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "D"
+				(at 2.032 0.834 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "1N4148W"
+				(at 2.032 -1.2122 0)
+				(effects
+					(font
+						(size 0.8 0.8)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "PCM_JLCPCB:D_SOD-123"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1811061725_ST-Semtech-1N4148W_C81598.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "150mA 1A 1V@50mA 1uA@75V 400mW 4ns 75V Independent SOD-123 Switching Diodes ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC" "C81598"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Stock" "2778560"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Price" "0.014USD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Process" "SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Minimum Qty" "15"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Attrition Qty" "10"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Class" "Basic Component"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Category" "Diodes,Switching Diode"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "ST(Semtech)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Part" "1N4148W"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Rectified Current" "150mA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Forward Voltage (Vf@If)" "1V@50mA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Reverse Voltage (Vr)" "75V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Reverse Recovery Time (trr)" "4ns"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Diode Configuration" "Independent Type"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Reverse Leakage Current" "1uA@75V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "D_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "Switching,1N4148W_0_1"
+				(polyline
+					(pts
+						(xy -1.27 1.27) (xy 0 -1.27) (xy 1.27 1.27) (xy -1.27 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy -1.27 -1.27) (xy 1.27 -1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "Switching,1N4148W_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 3.81)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "JLCPCB-Resistors:0402,100kΩ"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 1.778 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100kΩ"
+				(at 0 0 90)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.8 0.8)
+					)
+				)
+			)
+			(property "Footprint" "PCM_JLCPCB:R_0402"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2206010100_UNI-ROYAL-Uniroyal-Elec-0402WGF1003TCE_C25741.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "-55°C~+155°C 100kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC" "C25741"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Stock" "5244197"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Price" "0.004USD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Process" "SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Minimum Qty" "20"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Attrition Qty" "10"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Class" "Basic Component"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Category" "Resistors,Chip Resistor - Surface Mount"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Part" "0402WGF1003TCE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Resistance" "100kΩ"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Power(Watts)" "62.5mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Type" "Thick Film Resistors"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Overload Voltage (Max)" "50V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Operating Temperature Range" "-55°C~+155°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "±1%"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Temperature Coefficient" "±100ppm/°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0402,100kΩ_0_1"
+				(rectangle
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "0402,100kΩ_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
+		(symbol "JLCPCB-Resistors:0402,100Ω"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 1.778 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "100Ω"
+				(at 0 0 90)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.8 0.8)
+					)
+				)
+			)
+			(property "Footprint" "PCM_JLCPCB:R_0402"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2205311900_UNI-ROYAL-Uniroyal-Elec-0402WGF1000TCE_C25076.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "-55°C~+155°C 100Ω 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC" "C25076"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Stock" "3007169"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Price" "0.004USD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Process" "SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Minimum Qty" "20"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Attrition Qty" "10"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Class" "Basic Component"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Category" "Resistors,Chip Resistor - Surface Mount"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Part" "0402WGF1000TCE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Resistance" "100Ω"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Power(Watts)" "62.5mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Type" "Thick Film Resistors"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Overload Voltage (Max)" "50V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Operating Temperature Range" "-55°C~+155°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "±1%"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Temperature Coefficient" "±200ppm/°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0402,100Ω_0_1"
+				(rectangle
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "0402,100Ω_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "JLCPCB-Resistors:0402,10kΩ"
 			(pin_numbers
 				(hide yes)
@@ -2888,6 +2518,463 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "JLCPCB-Transistors:NMOS,AO3400A"
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "Q"
+				(at 4.8514 0.834 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "AO3400A"
+				(at 4.8514 -1.2122 0)
+				(effects
+					(font
+						(size 0.8 0.8)
+					)
+					(justify left)
+				)
+			)
+			(property "Footprint" "PCM_JLCPCB:Q_SOT-23"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_1811081213_Alpha---Omega-Semicon-AO3400A_C20917.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "-55°C~+150°C 1 N-channel 1.45V 1.4W 30V 48mΩ@2.5V 5.7A 50pF 630pF 75pF 7nC@10V N-Channel SOT-23 MOSFETs ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC" "C20917"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Stock" "1814497"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Price" "0.079USD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Process" "SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Minimum Qty" "5"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Attrition Qty" "4"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Class" "Basic Component"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Category" "Transistors,MOSFETs"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "Alpha & Omega Semicon"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Part" "AO3400A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Continuous Drain Current (Id)" "5.7A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Input Capacitance (Ciss@Vds)" "630pF@15V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Operating Temperature" "-55°C~+150°C@(Tj)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Type" "1 N-channel"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Drain Source Voltage (Vdss)" "30V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Power Dissipation (Pd)" "1.4W"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Gate Threshold Voltage (Vgs(th)@Id)" "1.5V@250uA"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Drain Source On Resistance (RDS(on)@Vgs,Id)" "26.5mΩ@10V,5.7A"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Total Gate Charge (Qg@Vgs)" "7nC@4.5V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "Q_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "NMOS,AO3400A_0_1"
+				(polyline
+					(pts
+						(xy 0.254 1.905) (xy 0.254 -1.905)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.254 0) (xy -2.54 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 2.286) (xy 0.762 1.27)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 0.508) (xy 0.762 -0.508)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.27) (xy 0.762 -2.286)
+					)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 0.762 -1.778) (xy 3.302 -1.778) (xy 3.302 1.778) (xy 0.762 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 1.016 0) (xy 2.032 0.381) (xy 2.032 -0.381) (xy 1.016 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 1.651 0)
+					(radius 2.794)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 2.54) (xy 2.54 1.778)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(circle
+					(center 2.54 1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(circle
+					(center 2.54 -1.778)
+					(radius 0.254)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type outline)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.54 -2.54) (xy 2.54 0) (xy 0.762 0)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 2.794 0.508) (xy 2.921 0.381) (xy 3.683 0.381) (xy 3.81 0.254)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+				(polyline
+					(pts
+						(xy 3.302 0.381) (xy 2.921 -0.254) (xy 3.683 -0.254) (xy 3.302 0.381)
+					)
+					(stroke
+						(width 0)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "NMOS,AO3400A_1_1"
+				(pin input line
+					(at -5.08 0 0)
+					(length 2.54)
+					(name "G"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 5.08 270)
+					(length 2.54)
+					(name "D"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "3"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 2.54 -5.08 90)
+					(length 2.54)
+					(name "S"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "power:+3V3"
 			(power)
 			(pin_numbers
@@ -3115,6 +3202,17 @@
 			(embedded_fonts no)
 		)
 	)
+	(text "4. Buzzer (MLT-8530, magnetique passif 3,6 V, ~2,7 kHz) : PB14 = TIM12_CH1 (AF9) en PWM"
+		(exclude_from_sim no)
+		(at 220 30 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+			(justify left bottom)
+		)
+		(uuid "1075f3bf-aee4-412b-95a9-4e9023416258")
+	)
 	(text "2. Boutons : actifs haut (vers 3,3 V), pull-down 10k + 100 nF anti-rebond, comme B1 de la DISC1"
 		(exclude_from_sim no)
 		(at 25 115 0)
@@ -3125,6 +3223,17 @@
 			(justify left bottom)
 		)
 		(uuid "121cfdb7-d4b5-4138-8732-942d824bf150")
+	)
+	(text "Volume reglable par le rapport cyclique ; brochage 1(+) / 2(-) du MLT-8530 a confirmer (3/4 = fixation)"
+		(exclude_from_sim no)
+		(at 220 41 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "20e7dc7a-68a0-4484-9261-ebc66e070bbb")
 	)
 	(text "1. Joystick à effet Hall YTL YHE-YG16-001 (C42411044), soudé sur la carte"
 		(exclude_from_sim no)
@@ -3192,13 +3301,44 @@
 		)
 		(uuid "f1fca768-74fb-4bcc-b07b-19d7ea9c2af4")
 	)
+	(text "N-MOS AO3400A en bas de charge, 1N4148W en roue libre, 100k : buzzer muet au reset"
+		(exclude_from_sim no)
+		(at 220 36 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fc6fdbd2-02bd-4aff-99f9-7c74028e700f")
+	)
+	(junction
+		(at 250.19 80.01)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "be9d4978-0218-4fbf-9236-ba9f9187e3d5")
+	)
+	(junction
+		(at 262.89 71.12)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "bf1f777b-7125-4024-aac3-fbd708bd6edc")
+	)
 	(no_connect
 		(at 105.41 142.24)
 		(uuid "2aebf2a1-3f0b-4e6a-944f-1876d2ef0b4b")
 	)
 	(no_connect
+		(at 274.32 67.31)
+		(uuid "4ffab819-0820-4e89-8c9b-77e695bd5a2a")
+	)
+	(no_connect
 		(at 44.45 142.24)
 		(uuid "7e374553-1391-4a2b-9d04-358a8f4ecb49")
+	)
+	(no_connect
+		(at 273.05 67.31)
+		(uuid "8e982f91-7227-4003-8b7d-16cdf9891802")
 	)
 	(no_connect
 		(at 165.1 142.24)
@@ -3293,6 +3433,16 @@
 			(type default)
 		)
 		(uuid "1c3cb302-c295-49f0-b838-48516cb37ca8")
+	)
+	(wire
+		(pts
+			(xy 262.89 71.12) (xy 262.89 74.93)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "1cfba211-8ce4-4b03-aab8-5b5768ade3c6")
 	)
 	(wire
 		(pts
@@ -3456,6 +3606,56 @@
 	)
 	(wire
 		(pts
+			(xy 234.95 80.01) (xy 240.03 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6687fb8c-e55e-400c-adcd-402ab0e32aa0")
+	)
+	(wire
+		(pts
+			(xy 262.89 60.96) (xy 262.89 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "68136305-7c66-46dd-a0c3-f86144485caf")
+	)
+	(wire
+		(pts
+			(xy 250.19 62.23) (xy 250.19 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "6d0e848c-090b-495b-bc3e-2749d0c61d92")
+	)
+	(wire
+		(pts
+			(xy 250.19 69.85) (xy 250.19 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "704561a2-5f2f-4226-8220-161b7365599c")
+	)
+	(wire
+		(pts
+			(xy 250.19 71.12) (xy 262.89 71.12)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "796956a4-666d-4440-b95f-28ccfd61cb6a")
+	)
+	(wire
+		(pts
 			(xy 59.69 146.05) (xy 59.69 143.51)
 		)
 		(stroke
@@ -3503,6 +3703,16 @@
 			(type default)
 		)
 		(uuid "8a8df01d-ec52-4d7b-a98e-737f59acab4d")
+	)
+	(wire
+		(pts
+			(xy 250.19 80.01) (xy 255.27 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "8d05058c-5da0-48e9-a0a3-7ff6c1759051")
 	)
 	(wire
 		(pts
@@ -3556,6 +3766,16 @@
 	)
 	(wire
 		(pts
+			(xy 247.65 80.01) (xy 250.19 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "bdb67892-3b37-44f6-b574-5d180303459a")
+	)
+	(wire
+		(pts
 			(xy 72.39 72.39) (xy 72.39 77.47)
 		)
 		(stroke
@@ -3563,6 +3783,16 @@
 			(type default)
 		)
 		(uuid "c191ebf3-82b7-4225-9544-c0236fe5f6b8")
+	)
+	(wire
+		(pts
+			(xy 269.24 60.96) (xy 262.89 60.96)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "cb814516-e54e-4071-82be-a3cf6103d078")
 	)
 	(wire
 		(pts
@@ -3626,6 +3856,26 @@
 	)
 	(wire
 		(pts
+			(xy 250.19 81.28) (xy 250.19 80.01)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e3c2385e-039a-4dd8-9163-662d9409e8a2")
+	)
+	(wire
+		(pts
+			(xy 262.89 85.09) (xy 262.89 88.9)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "e6c7a858-1f3e-4b88-b84b-0c4cf6a286e2")
+	)
+	(wire
+		(pts
 			(xy 160.02 66.04) (xy 160.02 63.5)
 		)
 		(stroke
@@ -3633,6 +3883,16 @@
 			(type default)
 		)
 		(uuid "eb77310b-aba1-403b-9599-5ea854c9e5b3")
+	)
+	(wire
+		(pts
+			(xy 269.24 58.42) (xy 250.19 58.42)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ec3ea16f-752e-46d9-8ef9-98ac5281f653")
 	)
 	(wire
 		(pts
@@ -4050,6 +4310,27 @@
 			)
 		)
 	)
+	(global_label "BUZZER"
+		(shape input)
+		(at 234.95 80.01 180)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "f0157527-c69a-4398-8126-02c78954e659")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 234.95 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+	)
 	(global_label "BTN_START"
 		(shape output)
 		(at 251.46 143.51 90)
@@ -4159,6 +4440,152 @@
 		)
 	)
 	(symbol
+		(lib_id "power:GND")
+		(at 262.89 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "15d1f2a2-5093-401e-95eb-acea96e5ccec")
+		(property "Reference" "#PWR0221"
+			(at 262.89 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 262.89 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 262.89 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 262.89 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 262.89 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e8b50c8b-d406-452a-a610-174eaa13d5fc")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "#PWR0221")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "JLCPCB-Transistors:NMOS,AO3400A")
+		(at 260.35 80.01 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "173d7f42-7bd7-40b6-9138-19f1aee8e874")
+		(property "Reference" "Q2"
+			(at 265.43 78.74 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "AO3400A"
+			(at 265.43 81.28 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:Q_SOT-23"
+			(at 260.35 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C20917.html"
+			(at 260.35 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 260.35 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C20917"
+			(at 260.35 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "f0e22e79-7d31-4e7f-9d9f-4be3f6bb3728")
+		)
+		(pin "2"
+			(uuid "a6061712-a6b9-4ec9-8709-11c1c0020925")
+		)
+		(pin "3"
+			(uuid "c9c5aed6-37c9-4e13-8453-aa33c0dc54ba")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "Q2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "JLCPCB-Resistors:0402,10kΩ")
 		(at 119.38 149.86 0)
 		(unit 1)
@@ -4230,6 +4657,83 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
 					(reference "R24")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "JLCPCB-Resistors:0402,100kΩ")
+		(at 250.19 85.09 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "1b39aa32-0bf5-4c5f-9dc2-6232813239c1")
+		(property "Reference" "R38"
+			(at 252.73 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100kΩ"
+			(at 252.73 87.63 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:R_0402"
+			(at 250.19 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 250.19 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 250.19 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25741"
+			(at 250.19 85.09 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "d8c2eaa5-7f85-4df8-86f1-0f73cfa45ca0")
+		)
+		(pin "2"
+			(uuid "2a06c4d6-bd6d-4cfb-85e5-9bdc8c00c14b")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "R38")
 					(unit 1)
 				)
 			)
@@ -5281,6 +5785,89 @@
 		)
 	)
 	(symbol
+		(lib_id "EasyEDA:MLT-8530")
+		(at 273.05 62.23 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "54bbb069-6cee-4158-969b-499af436c8f4")
+		(property "Reference" "BZ1"
+			(at 276.86 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "MLT-8530"
+			(at 276.86 72.39 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "EasyEDA:BUZ-SMD_4P-L8.5-W8.5-P8.50-BR"
+			(at 273.05 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://lcsc.com/product-detail/Buzzers_MLT-8530_C94599.html"
+			(at 273.05 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 273.05 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C94599"
+			(at 273.05 62.23 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "aac75f33-0604-4a8a-9359-b5105ff06a5f")
+		)
+		(pin "2"
+			(uuid "927d8bc9-c7ee-4c22-988e-13b39f712997")
+		)
+		(pin "3"
+			(uuid "d33e6a57-37a3-4572-a759-8dc254f76cfd")
+		)
+		(pin "4"
+			(uuid "f41cb122-46cc-4a28-897d-aff40943a9ed")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "BZ1")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 119.38 156.21 0)
 		(unit 1)
@@ -5769,6 +6356,83 @@
 		)
 	)
 	(symbol
+		(lib_id "JLCPCB-Resistors:0402,100Ω")
+		(at 243.84 80.01 90)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "8c02cdd1-163c-4d3e-b27e-70778bf492d5")
+		(property "Reference" "R37"
+			(at 241.3 76.2 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100Ω"
+			(at 241.3 84.455 90)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:R_0402"
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25076"
+			(at 243.84 80.01 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "3d853ee2-1077-469c-bbf4-9abf66739a19")
+		)
+		(pin "2"
+			(uuid "79ea38bb-b3e9-4595-9ee1-51a2e8f99b97")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "R37")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "JLCPCB-Resistors:0402,10kΩ")
 		(at 185.42 69.85 0)
 		(unit 1)
@@ -5917,6 +6581,72 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
 					(reference "C31")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 250.19 88.9 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "a57a3126-0a7a-492f-8344-d402c6084bd9")
+		(property "Reference" "#PWR0223"
+			(at 250.19 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 250.19 93.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 250.19 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 250.19 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 250.19 88.9 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f8b75526-88ce-487d-bb5a-6dcd9e191407")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "#PWR0223")
 					(unit 1)
 				)
 			)
@@ -6228,6 +6958,149 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
 					(reference "SW2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 250.19 58.42 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "be94459b-10c4-4260-b13d-f62bb0a082f8")
+		(property "Reference" "#PWR0222"
+			(at 250.19 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 250.19 53.34 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 250.19 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 250.19 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 250.19 58.42 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f50a0bd9-594f-4c01-a1c7-839040215e01")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "#PWR0222")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "JLCPCB-Diodes:Switching,1N4148W")
+		(at 250.19 66.04 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "bfa37dd0-309f-4ad5-a7b5-d3cac3eadf43")
+		(property "Reference" "D5"
+			(at 241.3 64.77 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "1N4148W"
+			(at 237.49 67.31 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:D_SOD-123"
+			(at 250.19 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/product-detail/C81598.html"
+			(at 250.19 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 250.19 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C81598"
+			(at 250.19 66.04 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "fea6dff2-bb20-4fb3-b43a-52bad6f2e3d0")
+		)
+		(pin "2"
+			(uuid "adf2052a-7bfb-462a-a5d5-0a6d4207b777")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32"
+					(reference "D5")
 					(unit 1)
 				)
 			)
@@ -6901,32 +7774,4 @@
 			)
 		)
 	)
-	(text "4. Buzzer (MLT-8530, magnetique passif 3,6 V, ~2,7 kHz) : PB14 = TIM12_CH1 (AF9) en PWM" (exclude_from_sim no) (at 220 30 0) (effects (font (size 1.5 1.5)) (justify left bottom)) (uuid "1075f3bf-aee4-412b-95a9-4e9023416258"))
-	(text "N-MOS AO3400A en bas de charge, 1N4148W en roue libre, 100k : buzzer muet au reset" (exclude_from_sim no) (at 220 36 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "fc6fdbd2-02bd-4aff-99f9-7c74028e700f"))
-	(text "Volume reglable par le rapport cyclique ; brochage 1(+) / 2(-) du MLT-8530 a confirmer (3/4 = fixation)" (exclude_from_sim no) (at 220 41 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "20e7dc7a-68a0-4484-9261-ebc66e070bbb"))
-	(symbol (lib_id "JLCPCB-Transistors:NMOS,AO3400A") (at 260.35 80.01 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "173d7f42-7bd7-40b6-9138-19f1aee8e874") (property "Reference" "Q2" (at 265.43 78.74 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "AO3400A" (at 265.43 81.28 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "PCM_JLCPCB:Q_SOT-23" (at 260.35 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "https://www.lcsc.com/product-detail/C20917.html" (at 260.35 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C20917" (at 260.35 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f0e22e79-7d31-4e7f-9d9f-4be3f6bb3728")) (pin "2" (uuid "a6061712-a6b9-4ec9-8709-11c1c0020925")) (pin "3" (uuid "c9c5aed6-37c9-4e13-8453-aa33c0dc54ba")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "Q2") (unit 1)))))
-	(wire (pts (xy 262.89 85.09) (xy 262.89 88.9)) (stroke (width 0) (type default)) (uuid "e6c7a858-1f3e-4b88-b84b-0c4cf6a286e2"))
-	(symbol (lib_id "power:GND") (at 262.89 88.9 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "15d1f2a2-5093-401e-95eb-acea96e5ccec") (property "Reference" "#PWR0221" (at 262.89 88.9 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))) (property "Value" "GND" (at 262.89 93.98 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "" (at 262.89 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 262.89 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e8b50c8b-d406-452a-a610-174eaa13d5fc")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "#PWR0221") (unit 1)))))
-	(symbol (lib_id "EasyEDA:MLT-8530") (at 273.05 62.23 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "54bbb069-6cee-4158-969b-499af436c8f4") (property "Reference" "BZ1" (at 276.86 58.42 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "MLT-8530" (at 276.86 72.39 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "EasyEDA:BUZ-SMD_4P-L8.5-W8.5-P8.50-BR" (at 273.05 62.23 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "https://lcsc.com/product-detail/Buzzers_MLT-8530_C94599.html" (at 273.05 62.23 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C94599" (at 273.05 62.23 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "aac75f33-0604-4a8a-9359-b5105ff06a5f")) (pin "2" (uuid "927d8bc9-c7ee-4c22-988e-13b39f712997")) (pin "3" (uuid "d33e6a57-37a3-4572-a759-8dc254f76cfd")) (pin "4" (uuid "f41cb122-46cc-4a28-897d-aff40943a9ed")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "BZ1") (unit 1)))))
-	(no_connect (at 273.05 67.31) (uuid "8e982f91-7227-4003-8b7d-16cdf9891802"))
-	(no_connect (at 274.32 67.31) (uuid "4ffab819-0820-4e89-8c9b-77e695bd5a2a"))
-	(wire (pts (xy 269.24 60.96) (xy 262.89 60.96)) (stroke (width 0) (type default)) (uuid "cb814516-e54e-4071-82be-a3cf6103d078"))
-	(wire (pts (xy 262.89 60.96) (xy 262.89 71.12)) (stroke (width 0) (type default)) (uuid "68136305-7c66-46dd-a0c3-f86144485caf"))
-	(wire (pts (xy 262.89 71.12) (xy 262.89 74.93)) (stroke (width 0) (type default)) (uuid "1cfba211-8ce4-4b03-aab8-5b5768ade3c6"))
-	(wire (pts (xy 269.24 58.42) (xy 250.19 58.42)) (stroke (width 0) (type default)) (uuid "ec3ea16f-752e-46d9-8ef9-98ac5281f653"))
-	(symbol (lib_id "power:+3V3") (at 250.19 58.42 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "be94459b-10c4-4260-b13d-f62bb0a082f8") (property "Reference" "#PWR0222" (at 250.19 58.42 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))) (property "Value" "+3V3" (at 250.19 53.34 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "" (at 250.19 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 250.19 58.42 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f50a0bd9-594f-4c01-a1c7-839040215e01")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "#PWR0222") (unit 1)))))
-	(symbol (lib_id "JLCPCB-Diodes:Switching,1N4148W") (at 250.19 66.04 180) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "bfa37dd0-309f-4ad5-a7b5-d3cac3eadf43") (property "Reference" "D5" (at 241.3 64.77 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "1N4148W" (at 237.49 67.31 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "PCM_JLCPCB:D_SOD-123" (at 250.19 66.04 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "https://www.lcsc.com/product-detail/C81598.html" (at 250.19 66.04 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C81598" (at 250.19 66.04 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "fea6dff2-bb20-4fb3-b43a-52bad6f2e3d0")) (pin "2" (uuid "adf2052a-7bfb-462a-a5d5-0a6d4207b777")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "D5") (unit 1)))))
-	(wire (pts (xy 250.19 62.23) (xy 250.19 58.42)) (stroke (width 0) (type default)) (uuid "6d0e848c-090b-495b-bc3e-2749d0c61d92"))
-	(wire (pts (xy 250.19 69.85) (xy 250.19 71.12)) (stroke (width 0) (type default)) (uuid "704561a2-5f2f-4226-8220-161b7365599c"))
-	(wire (pts (xy 250.19 71.12) (xy 262.89 71.12)) (stroke (width 0) (type default)) (uuid "796956a4-666d-4440-b95f-28ccfd61cb6a"))
-	(junction (at 262.89 71.12) (diameter 0) (color 0 0 0 0) (uuid "bf1f777b-7125-4024-aac3-fbd708bd6edc"))
-	(symbol (lib_id "JLCPCB-Resistors:0402,100Ω") (at 243.84 80.01 90) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "8c02cdd1-163c-4d3e-b27e-70778bf492d5") (property "Reference" "R37" (at 241.3 76.2 90) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100Ω" (at 241.3 84.455 90) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "PCM_JLCPCB:R_0402" (at 243.84 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 243.84 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C25076" (at 243.84 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "3d853ee2-1077-469c-bbf4-9abf66739a19")) (pin "2" (uuid "79ea38bb-b3e9-4595-9ee1-51a2e8f99b97")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "R37") (unit 1)))))
-	(wire (pts (xy 247.65 80.01) (xy 250.19 80.01)) (stroke (width 0) (type default)) (uuid "bdb67892-3b37-44f6-b574-5d180303459a"))
-	(wire (pts (xy 250.19 80.01) (xy 255.27 80.01)) (stroke (width 0) (type default)) (uuid "8d05058c-5da0-48e9-a0a3-7ff6c1759051"))
-	(junction (at 250.19 80.01) (diameter 0) (color 0 0 0 0) (uuid "be9d4978-0218-4fbf-9236-ba9f9187e3d5"))
-	(symbol (lib_id "JLCPCB-Resistors:0402,100kΩ") (at 250.19 85.09 0) (unit 1) (exclude_from_sim no) (in_bom yes) (on_board yes) (dnp no) (uuid "1b39aa32-0bf5-4c5f-9dc2-6232813239c1") (property "Reference" "R38" (at 252.73 85.09 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "100kΩ" (at 252.73 87.63 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "PCM_JLCPCB:R_0402" (at 250.19 85.09 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 250.19 85.09 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "LCSC" "C25741" (at 250.19 85.09 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "d8c2eaa5-7f85-4df8-86f1-0f73cfa45ca0")) (pin "2" (uuid "2a06c4d6-bd6d-4cfb-85e5-9bdc8c00c14b")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "R38") (unit 1)))))
-	(wire (pts (xy 250.19 81.28) (xy 250.19 80.01)) (stroke (width 0) (type default)) (uuid "e3c2385e-039a-4dd8-9163-662d9409e8a2"))
-	(symbol (lib_id "power:GND") (at 250.19 88.9 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "a57a3126-0a7a-492f-8344-d402c6084bd9") (property "Reference" "#PWR0223" (at 250.19 88.9 0) (effects (font (size 1.27 1.27)) (justify left) (hide yes))) (property "Value" "GND" (at 250.19 93.98 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "" (at 250.19 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 250.19 88.9 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f8b75526-88ce-487d-bb5a-6dcd9e191407")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/9c4e2a71-5b3d-4f8e-a6c7-2d1b0e9f8a32" (reference "#PWR0223") (unit 1)))))
-	(wire (pts (xy 234.95 80.01) (xy 240.03 80.01)) (stroke (width 0) (type default)) (uuid "6687fb8c-e55e-400c-adcd-402ab0e32aa0"))
-	(global_label "BUZZER" (shape input) (at 234.95 80.01 180) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "f0157527-c69a-4398-8126-02c78954e659") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 234.95 80.01 0) (effects (font (size 1.27 1.27)) (hide yes))))
 )

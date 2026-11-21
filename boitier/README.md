@@ -16,6 +16,8 @@ Les cotes viennent de `../PCB/MECANIQUE_BOITIER.md` (même repère : origine au 
 | `capuchon_start_select.stl` | 2 | Boutons SELECT et START (9 × 4,5) | tête sur le plateau |
 | `capuchon_joystick.stl` | 1 | Champignon emmanché sur la tige du joystick | cuvette vers le haut |
 
+`prenoms/coque_avant_<Prénom>.stl` : la même coque avant avec un prénom gravé sous START / SELECT (Gaïa, Elsa, Claire, Agnès, Faustine), à imprimer à la place de `coque_avant.stl`. Toutes les coques avant portent « GameGirl » et la signature « by πR » sous l'écran. Les lettres sont en creux de 0,5 mm ; la liste `PRENOMS` et les positions sont dans `boitier.py`.
+
 Chaque pièce existe aussi en `.step`. `assemblage.step` contient tout, en position, avec le contour du PCB.
 
 Réglages conseillés : PLA ou PETG, couches de 0,2 mm (0,12 pour les capuchons), 3 périmètres, pas de supports nécessaires pour les coques. Les jeux sont prévus pour une imprimante correctement réglée : 0,4 mm autour du PCB, 0,2 mm autour des capuchons.
@@ -52,7 +54,7 @@ Ces cotes viennent des modèles 3D et non de mesures. Les paramètres correspond
 ## Régénérer
 
 ```sh
-python3 -m venv venv && ./venv/bin/pip install cadquery
+python3.12 -m venv venv && ./venv/bin/pip install --only-binary=:all: "cadquery==2.5.2"   # pas de roues OCP/nlopt utilisables en 3.14 sur ce Mac
 ./venv/bin/python boitier.py
 ```
 

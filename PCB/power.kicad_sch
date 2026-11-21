@@ -9,36 +9,35 @@
 		(company "GameGirl")
 	)
 	(lib_symbols
-		(symbol "JLCPCB-Resistors:0402,10kΩ"
+		(symbol "Connector:TestPoint"
 			(pin_numbers
 				(hide yes)
 			)
 			(pin_names
-				(offset 0)
+				(offset 0.762)
+				(hide yes)
 			)
 			(exclude_from_sim no)
 			(in_bom yes)
 			(on_board yes)
-			(property "Reference" "R"
-				(at 1.778 0 0)
+			(property "Reference" "TP"
+				(at 0 6.858 0)
 				(effects
 					(font
 						(size 1.27 1.27)
 					)
-					(justify left)
 				)
 			)
-			(property "Value" "10kΩ"
-				(at 0 0 90)
-				(do_not_autoplace)
+			(property "Value" "TestPoint"
+				(at 0 5.08 0)
 				(effects
 					(font
-						(size 0.8 0.8)
+						(size 1.27 1.27)
 					)
 				)
 			)
-			(property "Footprint" "PCM_JLCPCB:R_0402"
-				(at -1.778 0 90)
+			(property "Footprint" ""
+				(at 5.08 0 0)
 				(effects
 					(font
 						(size 1.27 1.27)
@@ -46,7 +45,16 @@
 					(hide yes)
 				)
 			)
-			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2411221126_UNI-ROYAL-Uniroyal-Elec-0402WGF1002TCE_C25744.pdf"
+			(property "Datasheet" "~"
+				(at 5.08 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "test point"
 				(at 0 0 0)
 				(effects
 					(font
@@ -55,7 +63,7 @@
 					(hide yes)
 				)
 			)
-			(property "Description" "-55°C~+155°C 10kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
+			(property "ki_keywords" "test point tp"
 				(at 0 0 0)
 				(effects
 					(font
@@ -64,7 +72,7 @@
 					(hide yes)
 				)
 			)
-			(property "LCSC" "C25744"
+			(property "ki_fp_filters" "Pin* Test*"
 				(at 0 0 0)
 				(effects
 					(font
@@ -73,165 +81,12 @@
 					(hide yes)
 				)
 			)
-			(property "Stock" "4191623"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Price" "0.005USD"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Process" "SMT"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Minimum Qty" "20"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Attrition Qty" "10"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Class" "Basic Component"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Category" "Resistors,Chip Resistor - Surface Mount"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Part" "0402WGF1002TCE"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Resistance" "10kΩ"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Power(Watts)" "62.5mW"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Type" "Thick Film Resistors"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Overload Voltage (Max)" "50V"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Operating Temperature Range" "-55°C~+155°C"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Tolerance" "±1%"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "Temperature Coefficient" "±100ppm/°C"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(property "ki_fp_filters" "R_*"
-				(at 0 0 0)
-				(effects
-					(font
-						(size 1.27 1.27)
-					)
-					(hide yes)
-				)
-			)
-			(symbol "0402,10kΩ_0_1"
-				(rectangle
-					(start -1.016 2.54)
-					(end 1.016 -2.54)
+			(symbol "TestPoint_0_1"
+				(circle
+					(center 0 3.302)
+					(radius 0.762)
 					(stroke
-						(width 0.254)
+						(width 0)
 						(type default)
 					)
 					(fill
@@ -239,11 +94,11 @@
 					)
 				)
 			)
-			(symbol "0402,10kΩ_1_1"
+			(symbol "TestPoint_1_1"
 				(pin passive line
-					(at 0 3.81 270)
-					(length 1.27)
-					(name "~"
+					(at 0 0 90)
+					(length 2.54)
+					(name "1"
 						(effects
 							(font
 								(size 1.27 1.27)
@@ -258,134 +113,9 @@
 						)
 					)
 				)
-				(pin passive line
-					(at 0 -3.81 90)
-					(length 1.27)
-					(name "~"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-					(number "2"
-						(effects
-							(font
-								(size 1.27 1.27)
-							)
-						)
-					)
-				)
 			)
 			(embedded_fonts no)
 		)
-		(symbol "Connector:TestPoint"
-		(pin_numbers
-			(hide yes)
-		)
-		(pin_names
-			(offset 0.762)
-			(hide yes)
-		)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(property "Reference" "TP"
-			(at 0 6.858 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Value" "TestPoint"
-			(at 0 5.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "Footprint" ""
-			(at 5.08 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "~"
-			(at 5.08 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" "test point"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_keywords" "test point tp"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "ki_fp_filters" "Pin* Test*"
-			(at 0 0 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(symbol "TestPoint_0_1"
-			(circle
-				(center 0 3.302)
-				(radius 0.762)
-				(stroke
-					(width 0)
-					(type default)
-				)
-				(fill
-					(type none)
-				)
-			)
-		)
-		(symbol "TestPoint_1_1"
-			(pin passive line
-				(at 0 0 90)
-				(length 2.54)
-				(name "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-				(number "1"
-					(effects
-						(font
-							(size 1.27 1.27)
-						)
-					)
-				)
-			)
-		)
-		(embedded_fonts no)
-	)
 		(symbol "EasyEDA:AP2112K-3.3TRG1"
 			(exclude_from_sim no)
 			(in_bom yes)
@@ -3903,6 +3633,276 @@
 			)
 			(embedded_fonts no)
 		)
+		(symbol "JLCPCB-Resistors:0402,10kΩ"
+			(pin_numbers
+				(hide yes)
+			)
+			(pin_names
+				(offset 0)
+			)
+			(exclude_from_sim no)
+			(in_bom yes)
+			(on_board yes)
+			(property "Reference" "R"
+				(at 1.778 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(justify left)
+				)
+			)
+			(property "Value" "10kΩ"
+				(at 0 0 90)
+				(do_not_autoplace)
+				(effects
+					(font
+						(size 0.8 0.8)
+					)
+				)
+			)
+			(property "Footprint" "PCM_JLCPCB:R_0402"
+				(at -1.778 0 90)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2411221126_UNI-ROYAL-Uniroyal-Elec-0402WGF1002TCE_C25744.pdf"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Description" "-55°C~+155°C 10kΩ 50V 62.5mW Thick Film Resistor ±1% ±100ppm/°C 0402 Chip Resistor - Surface Mount ROHS"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "LCSC" "C25744"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Stock" "4191623"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Price" "0.005USD"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Process" "SMT"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Minimum Qty" "20"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Attrition Qty" "10"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Class" "Basic Component"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Category" "Resistors,Chip Resistor - Surface Mount"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Manufacturer" "UNI-ROYAL(Uniroyal Elec)"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Part" "0402WGF1002TCE"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Resistance" "10kΩ"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Power(Watts)" "62.5mW"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Type" "Thick Film Resistors"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Overload Voltage (Max)" "50V"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Operating Temperature Range" "-55°C~+155°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Tolerance" "±1%"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "Temperature Coefficient" "±100ppm/°C"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(property "ki_fp_filters" "R_*"
+				(at 0 0 0)
+				(effects
+					(font
+						(size 1.27 1.27)
+					)
+					(hide yes)
+				)
+			)
+			(symbol "0402,10kΩ_0_1"
+				(rectangle
+					(start -1.016 2.54)
+					(end 1.016 -2.54)
+					(stroke
+						(width 0.254)
+						(type default)
+					)
+					(fill
+						(type none)
+					)
+				)
+			)
+			(symbol "0402,10kΩ_1_1"
+				(pin passive line
+					(at 0 3.81 270)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "1"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+				(pin passive line
+					(at 0 -3.81 90)
+					(length 1.27)
+					(name "~"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+					(number "2"
+						(effects
+							(font
+								(size 1.27 1.27)
+							)
+						)
+					)
+				)
+			)
+			(embedded_fonts no)
+		)
 		(symbol "JLCPCB-Resistors:0402,1kΩ"
 			(pin_numbers
 				(hide yes)
@@ -5245,6 +5245,17 @@
 		)
 		(uuid "126c76a0-c834-4a06-85fe-73a72655903d")
 	)
+	(text "Q3 : interrupteur de puissance (P-MOS). SW1 (MSK12C02, 50 mA max) ne commute que la grille"
+		(exclude_from_sim no)
+		(at 70 274 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "2773aff6-81e9-45a0-aaff-7390124eb235")
+	)
 	(text "TEMP à GND : pas de thermistance (LiPo 2 fils)"
 		(exclude_from_sim no)
 		(at 200 50 0)
@@ -5256,6 +5267,17 @@
 		)
 		(uuid "332c12f1-b80c-436c-b8f1-157e38abcb3d")
 	)
+	(text "Routage : grande zone de cuivre"
+		(exclude_from_sim no)
+		(at 236.22 239.39 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3331990d-780b-417d-917c-d8d0b6609c71")
+	)
 	(text "ATTENTION polarité : vérifier le câble de la LiPo (pin 1 = +)"
 		(exclude_from_sim no)
 		(at 275 95 0)
@@ -5266,6 +5288,28 @@
 			(justify left bottom)
 		)
 		(uuid "3cbafbd3-5f5f-47a6-aab0-1fb18dea4d6e")
+	)
+	(text "5b. Interrupteur de puissance Q3, commande par SW1"
+		(exclude_from_sim no)
+		(at 70 236.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "49d61369-7ae6-49f1-9c67-89c6158ce92c")
+	)
+	(text "GND/VIN/VOUT + vias thermiques"
+		(exclude_from_sim no)
+		(at 236.22 242.57 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "5ba66f34-6a43-4707-b78b-879b08990ae2")
 	)
 	(text "4. Partage de charge : USB branché -> VSYS par D1, Q1 bloqué ; sinon batterie -> VSYS par Q1"
 		(exclude_from_sim no)
@@ -5289,6 +5333,28 @@
 		)
 		(uuid "9906f1e9-037f-4407-b10d-c55788fcc8aa")
 	)
+	(text "autour de U2 vers le plan de masse"
+		(exclude_from_sim no)
+		(at 236.22 245.75 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "9cf2b6eb-6e2b-4114-9307-22428260dc1a")
+	)
+	(text "SW1 sur ON : grille a GND -> Q3 passant. Sur OFF : R10 ramene la grille a VSYS -> Q3 bloque"
+		(exclude_from_sim no)
+		(at 70 277.5 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "a4d4942f-a63a-4140-8e7a-a9fd55215ab0")
+	)
 	(text "1. USB-C : alimentation 5 V uniquement (firmware flashé en SWD)"
 		(exclude_from_sim no)
 		(at 25 30 0)
@@ -5311,6 +5377,17 @@
 		)
 		(uuid "aafc459e-76c9-4a9f-b26a-f49ae1703e26")
 	)
+	(text "Points de test tensions (pastilles CMS 1,5 mm, hors BOM/CPL)"
+		(exclude_from_sim no)
+		(at 35.56 149.86 0)
+		(effects
+			(font
+				(size 1.5 1.5)
+			)
+			(justify left bottom)
+		)
+		(uuid "ab898f6f-5424-4c61-9bb1-80bb2354a993")
+	)
 	(text "batterie, ou ~4,7 V si USB branché"
 		(exclude_from_sim no)
 		(at 310 200 0)
@@ -5321,6 +5398,28 @@
 			(justify left bottom)
 		)
 		(uuid "b6957bf4-4c82-48e7-85ce-2ae998bd7e52")
+	)
+	(text "R6 = 10k : decharge vite VBUS au debranchement et absorbe la fuite inverse de D1"
+		(exclude_from_sim no)
+		(at 38 231 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c647dfc6-ec76-4285-ba2b-01166859ccd9")
+	)
+	(text "U2 : ~0,3 W dissipes sur USB."
+		(exclude_from_sim no)
+		(at 236.22 236.22 0)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "c862d679-d386-4172-af95-f34d7818a513")
 	)
 	(text "6. Mesure VSW vers ADC (diviseur /2)"
 		(exclude_from_sim no)
@@ -5343,6 +5442,12 @@
 			(justify left bottom)
 		)
 		(uuid "e798a5e2-4a49-4ef8-bf40-336824e541e9")
+	)
+	(junction
+		(at 93.98 257.81)
+		(diameter 0)
+		(color 0 0 0 0)
+		(uuid "63d69508-8932-4ac7-999c-94c7e856194c")
 	)
 	(no_connect
 		(at 59.69 72.39)
@@ -5390,6 +5495,16 @@
 	)
 	(wire
 		(pts
+			(xy 93.98 254) (xy 93.98 257.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "01ecd169-8f83-484a-9e18-56634791ab23")
+	)
+	(wire
+		(pts
 			(xy 87.63 209.55) (xy 87.63 207.01)
 		)
 		(stroke
@@ -5410,6 +5525,26 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 252.73) (xy 106.68 250.19)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "0b4f3da3-1982-4d1f-a9a6-d211f1d97a4c")
+	)
+	(wire
+		(pts
+			(xy 292.1 76.2) (xy 295.91 76.2)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "104bc38f-bdf1-42ed-8b1e-8f6a6d81e589")
+	)
+	(wire
+		(pts
 			(xy 198.12 67.31) (xy 200.66 67.31)
 		)
 		(stroke
@@ -5427,6 +5562,16 @@
 			(type default)
 		)
 		(uuid "1259cfa5-edb3-4611-bcc2-0b22cf0b36e9")
+	)
+	(wire
+		(pts
+			(xy 71.12 160.02) (xy 71.12 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "14348d1e-9dfc-4ae8-8d78-95a6cc9c6ded")
 	)
 	(wire
 		(pts
@@ -5550,6 +5695,36 @@
 	)
 	(wire
 		(pts
+			(xy 106.68 262.89) (xy 106.68 265.43)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b0ece43-5d61-4386-8c1f-928d7f4ea54e")
+	)
+	(wire
+		(pts
+			(xy 40.64 160.02) (xy 40.64 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "4b7cff2e-c625-4177-8bbb-3a17c5d53d7a")
+	)
+	(wire
+		(pts
+			(xy 55.88 160.02) (xy 55.88 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "51297f5a-defa-41c9-ad2c-7ae9094d1d97")
+	)
+	(wire
+		(pts
 			(xy 237.49 224.79) (xy 234.95 224.79)
 		)
 		(stroke
@@ -5587,6 +5762,16 @@
 			(type default)
 		)
 		(uuid "73faa329-1f9d-42be-9b98-7d1480650309")
+	)
+	(wire
+		(pts
+			(xy 93.98 246.38) (xy 93.98 243.84)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "75781948-711b-4037-8741-fdf4df15e314")
 	)
 	(wire
 		(pts
@@ -5640,16 +5825,6 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 76.2) (xy 293.37 76.2)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "876651bf-885d-47f7-bc06-556c15759cdb")
-	)
-	(wire
-		(pts
 			(xy 364.49 228.6) (xy 364.49 231.14)
 		)
 		(stroke
@@ -5657,6 +5832,16 @@
 			(type default)
 		)
 		(uuid "888033eb-bb50-4d9c-a39e-a3232dc24479")
+	)
+	(wire
+		(pts
+			(xy 99.06 257.81) (xy 93.98 257.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "89d8ab04-f71d-43d5-8d32-10606e0b324a")
 	)
 	(wire
 		(pts
@@ -5700,6 +5885,16 @@
 	)
 	(wire
 		(pts
+			(xy 86.36 160.02) (xy 86.36 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "92cede54-aa6e-4364-a9fe-e4be650bb2d8")
+	)
+	(wire
+		(pts
 			(xy 147.32 68.58) (xy 147.32 66.04)
 		)
 		(stroke
@@ -5720,6 +5915,16 @@
 	)
 	(wire
 		(pts
+			(xy 101.6 160.02) (xy 101.6 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "a780766e-75ee-430b-9c67-7d700d7c29fe")
+	)
+	(wire
+		(pts
 			(xy 110.49 78.74) (xy 110.49 81.28)
 		)
 		(stroke
@@ -5727,6 +5932,16 @@
 			(type default)
 		)
 		(uuid "acc8f1b5-8d23-4e6b-b5b1-4caed32a6632")
+	)
+	(wire
+		(pts
+			(xy 116.84 160.02) (xy 116.84 165.1)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "ae53a9d7-f9c4-43b9-89b1-343a0883683d")
 	)
 	(wire
 		(pts
@@ -5750,16 +5965,6 @@
 	)
 	(wire
 		(pts
-			(xy 295.91 73.66) (xy 293.37 73.66)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "bd92b16e-567d-47b9-b2af-c73a935c6ec6")
-	)
-	(wire
-		(pts
 			(xy 147.32 76.2) (xy 147.32 78.74)
 		)
 		(stroke
@@ -5767,6 +5972,16 @@
 			(type default)
 		)
 		(uuid "c3b9f34c-e1e6-43fd-b7e6-df633f40879f")
+	)
+	(wire
+		(pts
+			(xy 93.98 257.81) (xy 88.9 257.81)
+		)
+		(stroke
+			(width 0)
+			(type default)
+		)
+		(uuid "c9c7460f-be30-4a5b-9e2a-603114edf454")
 	)
 	(wire
 		(pts
@@ -5978,6 +6193,16 @@
 		)
 		(uuid "25417e5d-3e25-4461-acac-9b6371867b51")
 	)
+	(label "VBAT"
+		(at 55.88 165.1 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "281c6989-919b-4ce0-adee-b5e1ebfab4fc")
+	)
 	(label "VBUS"
 		(at 77.47 214.63 180)
 		(effects
@@ -5987,6 +6212,16 @@
 			(justify right bottom)
 		)
 		(uuid "348b2013-8001-4ce0-88d6-420a092eca6d")
+	)
+	(label "VSYS"
+		(at 71.12 165.1 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "352e4281-2408-4250-bcd9-3707c41769f7")
 	)
 	(label "CC1"
 		(at 95.25 68.58 90)
@@ -6007,6 +6242,16 @@
 			(justify left bottom)
 		)
 		(uuid "39274111-f16c-4f4a-b7f3-6382b5ceb133")
+	)
+	(label "VSYS"
+		(at 93.98 243.84 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "3d4cbea2-b650-4566-aff5-89b34b4c9871")
 	)
 	(label "VBUS"
 		(at 147.32 66.04 90)
@@ -6077,6 +6322,16 @@
 			(justify left bottom)
 		)
 		(uuid "74478b55-3cbc-4ced-b33b-c8533d4be5c1")
+	)
+	(label "VBUS"
+		(at 40.64 165.1 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "747ef515-45d9-4fe3-bbdb-91453860c339")
 	)
 	(label "VSYS"
 		(at 44.45 220.98 270)
@@ -6158,6 +6413,16 @@
 		)
 		(uuid "a1831e0e-c638-49fc-bfe8-cf152e7b5393")
 	)
+	(label "PWR_EN"
+		(at 88.9 257.81 180)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "a3eba7cf-5231-4629-9eda-be53654c1e4d")
+	)
 	(label "VSW"
 		(at 320.04 218.44 90)
 		(effects
@@ -6169,7 +6434,7 @@
 		(uuid "bbc6219a-81fa-4d66-8827-b8bb25d12c04")
 	)
 	(label "VBAT"
-		(at 293.37 73.66 180)
+		(at 292.1 76.2 180)
 		(effects
 			(font
 				(size 1.27 1.27)
@@ -6208,6 +6473,26 @@
 		)
 		(uuid "ef4cbec8-07ce-483c-9e53-f1aea4802ea6")
 	)
+	(label "VSYS"
+		(at 106.68 265.43 270)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right bottom)
+		)
+		(uuid "ef57da61-5eb4-4a9e-bade-2612d80f9d4f")
+	)
+	(label "VSW"
+		(at 106.68 250.19 90)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify left bottom)
+		)
+		(uuid "fa2e987e-83ea-4a3c-9ee4-ed795219dcee")
+	)
 	(label "PROG"
 		(at 207.01 82.55 90)
 		(effects
@@ -6227,6 +6512,27 @@
 			(justify left bottom)
 		)
 		(uuid "fce16eff-706c-41f3-81fa-768d4afac640")
+	)
+	(global_label "VSW"
+		(shape output)
+		(at 86.36 165.1 270)
+		(fields_autoplaced yes)
+		(effects
+			(font
+				(size 1.27 1.27)
+			)
+			(justify right)
+		)
+		(uuid "1acabfac-b056-4187-aa04-15d3ac2157b2")
+		(property "Intersheetrefs" "${INTERSHEET_REFS}"
+			(at 86.36 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
 	)
 	(global_label "VBAT_SENSE"
 		(shape output)
@@ -6288,6 +6594,83 @@
 					(size 1.27 1.27)
 				)
 				(hide yes)
+			)
+		)
+	)
+	(symbol
+		(lib_id "JLCPCB-Resistors:0402,100kΩ")
+		(at 93.98 250.19 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "0149d9cd-0a8c-4c44-a036-687b97333ba0")
+		(property "Reference" "R10"
+			(at 97.79 248.92 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "100kΩ"
+			(at 97.79 251.46 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:R_0402"
+			(at 93.98 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2206010100_UNI-ROYAL-Uniroyal-Elec-0402WGF1003TCE_C25741.pdf"
+			(at 93.98 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 93.98 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C25741"
+			(at 93.98 250.19 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "1"
+			(uuid "80a9a6b1-f47a-4563-b176-9a896c7ca493")
+		)
+		(pin "2"
+			(uuid "85e30313-7445-4a51-9fd1-cd82320ae738")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "R10")
+					(unit 1)
+				)
 			)
 		)
 	)
@@ -6634,6 +7017,70 @@
 	)
 	(symbol
 		(lib_id "power:GND")
+		(at 116.84 165.1 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "20ce7a3f-0903-4f4c-affc-dd27f4d8b0b8")
+		(property "Reference" "#PWR0302"
+			(at 116.84 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 116.84 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 116.84 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 116.84 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "134d33ca-9ef2-468b-bf3c-521a2b0e3c87")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "#PWR0302")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
 		(at 36.83 100.33 0)
 		(unit 1)
 		(exclude_from_sim no)
@@ -6913,6 +7360,71 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
 					(reference "#PWR018")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 40.64 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "2e5319b1-89fe-49bd-8a6f-6f635e6c2e12")
+		(property "Reference" "TP1"
+			(at 41.91 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "VBUS"
+			(at 41.91 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 40.64 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 40.64 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 40.64 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "ef02d48f-29da-4212-98db-6f18442d0276")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP1")
 					(unit 1)
 				)
 			)
@@ -7323,6 +7835,137 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 71.12 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "5724308e-082c-4c47-a83a-ea8af1939566")
+		(property "Reference" "TP3"
+			(at 72.39 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "VSYS"
+			(at 72.39 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 71.12 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 71.12 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 71.12 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "21cff407-2076-4cf1-9bd3-b383de8fc35d")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:GND")
+		(at 175.26 220.98 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "586742c7-c714-43f0-a6b0-58c76f7bce39")
+		(property "Reference" "#PWR0303"
+			(at 175.26 220.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+				(hide yes)
+			)
+		)
+		(property "Value" "GND"
+			(at 172.2 218.4 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" ""
+			(at 175.26 220.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 175.26 220.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 175.26 220.98 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "5aac0723-fde5-4fce-8670-db759a6e5306")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "#PWR0303")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "power:GND")
 		(at 207.01 95.25 0)
 		(unit 1)
@@ -7383,6 +8026,135 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
 					(reference "#PWR010")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 101.6 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "609bf492-00a3-408d-a450-b7172f35aebd")
+		(property "Reference" "TP5"
+			(at 102.87 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 102.87 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 101.6 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 101.6 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "3f1899fd-a831-4c55-8e76-45bbc6119fe9")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP5")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "power:+3V3")
+		(at 101.6 165.1 180)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board no)
+		(dnp no)
+		(uuid "66776671-a1f9-4bcc-8451-3cdf8626b699")
+		(property "Reference" "#PWR0301"
+			(at 101.6 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Value" "+3V3"
+			(at 101.6 170.18 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "Footprint" ""
+			(at 101.6 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" ""
+			(at 101.6 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 101.6 165.1 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "e8fb5479-575f-4994-bcbc-d17782eed2e5")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "#PWR0301")
 					(unit 1)
 				)
 			)
@@ -7676,7 +8448,7 @@
 	)
 	(symbol
 		(lib_id "power:GND")
-		(at 293.37 76.2 270)
+		(at 295.91 73.66 270)
 		(unit 1)
 		(exclude_from_sim no)
 		(in_bom no)
@@ -7684,7 +8456,7 @@
 		(dnp no)
 		(uuid "85e4a403-78b1-4ec3-8ede-9792ae3e0632")
 		(property "Reference" "#PWR012"
-			(at 293.37 76.2 0)
+			(at 295.91 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7694,7 +8466,7 @@
 			)
 		)
 		(property "Value" "GND"
-			(at 288.29 77.2 0)
+			(at 291.846 70.866 90)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7703,7 +8475,7 @@
 			)
 		)
 		(property "Footprint" ""
-			(at 293.37 76.2 0)
+			(at 295.91 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7712,7 +8484,7 @@
 			)
 		)
 		(property "Datasheet" ""
-			(at 293.37 76.2 0)
+			(at 295.91 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7721,7 +8493,7 @@
 			)
 		)
 		(property "Description" ""
-			(at 293.37 76.2 0)
+			(at 295.91 73.66 0)
 			(effects
 				(font
 					(size 1.27 1.27)
@@ -7974,6 +8746,71 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
 					(reference "R6")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 86.36 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "9b801ad0-0c31-4206-bfb6-2894fa781249")
+		(property "Reference" "TP4"
+			(at 87.63 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "VSW"
+			(at 87.63 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 86.36 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 86.36 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 86.36 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "f27bc544-00a6-4323-8b5f-d6d1c312214e")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP4")
 					(unit 1)
 				)
 			)
@@ -8857,6 +9694,86 @@
 		)
 	)
 	(symbol
+		(lib_id "JLCPCB-Transistors:PMOS,AO3401A")
+		(at 104.14 257.81 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom yes)
+		(on_board yes)
+		(dnp no)
+		(uuid "c5c43bfd-e13b-4407-b4cc-120e6e524ab2")
+		(property "Reference" "Q3"
+			(at 110.14 256.54 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "AO3401A"
+			(at 110.14 259.08 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "PCM_JLCPCB:Q_SOT-23"
+			(at 104.14 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2412061733_Alpha---Omega-Semicon-AO3401A_C15127.pdf"
+			(at 104.14 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 104.14 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(property "LCSC" "C15127"
+			(at 104.14 257.81 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(pin "3"
+			(uuid "9ac5cd86-4515-4b44-8c76-e32d342ca29c")
+		)
+		(pin "1"
+			(uuid "19b83d1f-347d-4341-85d6-c9b2e29952e3")
+		)
+		(pin "2"
+			(uuid "f09349ec-0262-499c-82f1-acad82adb392")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "Q3")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "JLCPCB-Resistors:0402,1kΩ")
 		(at 190.5 107.95 0)
 		(unit 1)
@@ -9077,6 +9994,71 @@
 		)
 	)
 	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 55.88 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "e4e652e5-4b93-4d4c-973f-c28fdb3ef524")
+		(property "Reference" "TP2"
+			(at 57.15 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "VBAT"
+			(at 57.15 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 55.88 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 55.88 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 55.88 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "618f8bd3-3674-416e-8fde-e3846d3d70a2")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP2")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
 		(lib_id "JLCPCB-Resistors:0402,100kΩ")
 		(at 320.04 224.79 0)
 		(unit 1)
@@ -9148,6 +10130,71 @@
 			(project "PCB"
 				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
 					(reference "R7")
+					(unit 1)
+				)
+			)
+		)
+	)
+	(symbol
+		(lib_id "Connector:TestPoint")
+		(at 116.84 160.02 0)
+		(unit 1)
+		(exclude_from_sim no)
+		(in_bom no)
+		(on_board yes)
+		(dnp no)
+		(uuid "e924a5c1-0bab-40ae-babc-07f95589023e")
+		(property "Reference" "TP6"
+			(at 118.11 155.45 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Value" "GND"
+			(at 118.11 157.48 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(justify left)
+			)
+		)
+		(property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm"
+			(at 116.84 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Datasheet" "~"
+			(at 116.84 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+				(hide yes)
+			)
+		)
+		(property "Description" ""
+			(at 116.84 160.02 0)
+			(effects
+				(font
+					(size 1.27 1.27)
+				)
+			)
+		)
+		(pin "1"
+			(uuid "cd468a9b-a8ff-494a-afc6-9a84306fff74")
+		)
+		(instances
+			(project "PCB"
+				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
+					(reference "TP6")
 					(unit 1)
 				)
 			)
@@ -9373,360 +10420,4 @@
 			)
 		)
 	)
-	(text "Points de test tensions (pastilles CMS 1,5 mm, hors BOM/CPL)" (exclude_from_sim no) (at 35.56 149.86 0) (effects (font (size 1.5 1.5)) (justify left bottom)) (uuid "ab898f6f-5424-4c61-9bb1-80bb2354a993"))
-	(symbol (lib_id "Connector:TestPoint") (at 40.64 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "2e5319b1-89fe-49bd-8a6f-6f635e6c2e12") (property "Reference" "TP1" (at 41.91 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VBUS" (at 41.91 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 40.64 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 40.64 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "ef02d48f-29da-4212-98db-6f18442d0276")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP1") (unit 1)))))
-	(wire (pts (xy 40.64 160.02) (xy 40.64 165.1)) (stroke (width 0) (type default)) (uuid "4b7cff2e-c625-4177-8bbb-3a17c5d53d7a"))
-	(label "VBUS" (at 40.64 165.1 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "747ef515-45d9-4fe3-bbdb-91453860c339"))
-	(symbol (lib_id "Connector:TestPoint") (at 55.88 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "e4e652e5-4b93-4d4c-973f-c28fdb3ef524") (property "Reference" "TP2" (at 57.15 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VBAT" (at 57.15 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 55.88 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 55.88 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "618f8bd3-3674-416e-8fde-e3846d3d70a2")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP2") (unit 1)))))
-	(wire (pts (xy 55.88 160.02) (xy 55.88 165.1)) (stroke (width 0) (type default)) (uuid "51297f5a-defa-41c9-ad2c-7ae9094d1d97"))
-	(label "VBAT" (at 55.88 165.1 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "281c6989-919b-4ce0-adee-b5e1ebfab4fc"))
-	(symbol (lib_id "Connector:TestPoint") (at 71.12 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "5724308e-082c-4c47-a83a-ea8af1939566") (property "Reference" "TP3" (at 72.39 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VSYS" (at 72.39 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 71.12 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 71.12 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "21cff407-2076-4cf1-9bd3-b383de8fc35d")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP3") (unit 1)))))
-	(wire (pts (xy 71.12 160.02) (xy 71.12 165.1)) (stroke (width 0) (type default)) (uuid "14348d1e-9dfc-4ae8-8d78-95a6cc9c6ded"))
-	(label "VSYS" (at 71.12 165.1 270) (effects (font (size 1.27 1.27)) (justify right bottom)) (uuid "352e4281-2408-4250-bcd9-3707c41769f7"))
-	(symbol (lib_id "Connector:TestPoint") (at 86.36 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "9b801ad0-0c31-4206-bfb6-2894fa781249") (property "Reference" "TP4" (at 87.63 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "VSW" (at 87.63 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 86.36 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 86.36 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "f27bc544-00a6-4323-8b5f-d6d1c312214e")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP4") (unit 1)))))
-	(wire (pts (xy 86.36 160.02) (xy 86.36 165.1)) (stroke (width 0) (type default)) (uuid "92cede54-aa6e-4364-a9fe-e4be650bb2d8"))
-	(global_label "VSW" (shape output) (at 86.36 165.1 270) (fields_autoplaced yes) (effects (font (size 1.27 1.27)) (justify right)) (uuid "1acabfac-b056-4187-aa04-15d3ac2157b2") (property "Intersheetrefs" "${INTERSHEET_REFS}" (at 86.36 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))))
-	(symbol (lib_id "Connector:TestPoint") (at 101.6 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "609bf492-00a3-408d-a450-b7172f35aebd") (property "Reference" "TP5" (at 102.87 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "+3V3" (at 102.87 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 101.6 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 101.6 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "3f1899fd-a831-4c55-8e76-45bbc6119fe9")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP5") (unit 1)))))
-	(wire (pts (xy 101.6 160.02) (xy 101.6 165.1)) (stroke (width 0) (type default)) (uuid "a780766e-75ee-430b-9c67-7d700d7c29fe"))
-	(symbol (lib_id "power:+3V3") (at 101.6 165.1 180) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "66776671-a1f9-4bcc-8451-3cdf8626b699") (property "Reference" "#PWR0301" (at 101.6 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "+3V3" (at 101.6 170.18 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 101.6 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 101.6 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "e8fb5479-575f-4994-bcbc-d17782eed2e5")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "#PWR0301") (unit 1)))))
-	(symbol (lib_id "Connector:TestPoint") (at 116.84 160.02 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board yes) (dnp no) (uuid "e924a5c1-0bab-40ae-babc-07f95589023e") (property "Reference" "TP6" (at 118.11 155.45 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Value" "GND" (at 118.11 157.48 0) (effects (font (size 1.27 1.27)) (justify left))) (property "Footprint" "TestPoint:TestPoint_Pad_D1.5mm" (at 116.84 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "~" (at 116.84 160.02 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "cd468a9b-a8ff-494a-afc6-9a84306fff74")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "TP6") (unit 1)))))
-	(wire (pts (xy 116.84 160.02) (xy 116.84 165.1)) (stroke (width 0) (type default)) (uuid "ae53a9d7-f9c4-43b9-89b1-343a0883683d"))
-	(symbol (lib_id "power:GND") (at 116.84 165.1 0) (unit 1) (exclude_from_sim no) (in_bom no) (on_board no) (dnp no) (uuid "20ce7a3f-0903-4f4c-affc-dd27f4d8b0b8") (property "Reference" "#PWR0302" (at 116.84 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Value" "GND" (at 116.84 170.18 0) (effects (font (size 1.27 1.27)))) (property "Footprint" "" (at 116.84 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (property "Datasheet" "" (at 116.84 165.1 0) (effects (font (size 1.27 1.27)) (hide yes))) (pin "1" (uuid "134d33ca-9ef2-468b-bf3c-521a2b0e3c87")) (instances (project "PCB" (path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01" (reference "#PWR0302") (unit 1)))))
-	(text "U2 : ~0,3 W dissipes sur USB." (exclude_from_sim no) (at 236.22 236.22 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c862d679-d386-4172-af95-f34d7818a513"))
-	(text "Routage : grande zone de cuivre" (exclude_from_sim no) (at 236.22 239.39 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "3331990d-780b-417d-917c-d8d0b6609c71"))
-	(text "GND/VIN/VOUT + vias thermiques" (exclude_from_sim no) (at 236.22 242.57 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "5ba66f34-6a43-4707-b78b-879b08990ae2"))
-	(text "autour de U2 vers le plan de masse" (exclude_from_sim no) (at 236.22 245.75 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "9cf2b6eb-6e2b-4114-9307-22428260dc1a"))
-	(symbol
-		(lib_id "JLCPCB-Transistors:PMOS,AO3401A")
-		(at 104.14 257.81 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "c5c43bfd-e13b-4407-b4cc-120e6e524ab2")
-		(property "Reference" "Q3"
-			(at 110.14 256.54 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "AO3401A"
-			(at 110.14 259.08 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:Q_SOT-23"
-			(at 104.14 257.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2412061733_Alpha---Omega-Semicon-AO3401A_C15127.pdf"
-			(at 104.14 257.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 104.14 257.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C15127"
-			(at 104.14 257.81 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "3"
-			(uuid "9ac5cd86-4515-4b44-8c76-e32d342ca29c")
-		)
-		(pin "1"
-			(uuid "19b83d1f-347d-4341-85d6-c9b2e29952e3")
-		)
-		(pin "2"
-			(uuid "f09349ec-0262-499c-82f1-acad82adb392")
-		)
-		(instances
-			(project "PCB"
-				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
-					(reference "Q3")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "JLCPCB-Resistors:0402,100kΩ")
-		(at 93.98 250.19 0)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom yes)
-		(on_board yes)
-		(dnp no)
-		(uuid "0149d9cd-0a8c-4c44-a036-687b97333ba0")
-		(property "Reference" "R10"
-			(at 97.79 248.92 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Value" "100kΩ"
-			(at 97.79 251.46 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" "PCM_JLCPCB:R_0402"
-			(at 93.98 250.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" "https://www.lcsc.com/datasheet/lcsc_datasheet_2206010100_UNI-ROYAL-Uniroyal-Elec-0402WGF1003TCE_C25741.pdf"
-			(at 93.98 250.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 93.98 250.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(property "LCSC" "C25741"
-			(at 93.98 250.19 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(pin "1"
-			(uuid "80a9a6b1-f47a-4563-b176-9a896c7ca493")
-		)
-		(pin "2"
-			(uuid "85e30313-7445-4a51-9fd1-cd82320ae738")
-		)
-		(instances
-			(project "PCB"
-				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
-					(reference "R10")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(symbol
-		(lib_id "power:GND")
-		(at 175.26 220.98 180)
-		(unit 1)
-		(exclude_from_sim no)
-		(in_bom no)
-		(on_board no)
-		(dnp no)
-		(uuid "586742c7-c714-43f0-a6b0-58c76f7bce39")
-		(property "Reference" "#PWR0303"
-			(at 175.26 220.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-				(hide yes)
-			)
-		)
-		(property "Value" "GND"
-			(at 172.2 218.4 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(justify left)
-			)
-		)
-		(property "Footprint" ""
-			(at 175.26 220.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Datasheet" ""
-			(at 175.26 220.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-				(hide yes)
-			)
-		)
-		(property "Description" ""
-			(at 175.26 220.98 0)
-			(effects
-				(font
-					(size 1.27 1.27)
-				)
-			)
-		)
-		(pin "1"
-			(uuid "5aac0723-fde5-4fce-8670-db759a6e5306")
-		)
-		(instances
-			(project "PCB"
-				(path "/ea5f5464-e763-4dd0-a186-3324e8bf6ae7/6a1d3c52-2b8e-4f3a-9c1e-5d0b7a4e9f01"
-					(reference "#PWR0303")
-					(unit 1)
-				)
-			)
-		)
-	)
-	(wire
-		(pts
-			(xy 106.68 252.73) (xy 106.68 250.19)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "0b4f3da3-1982-4d1f-a9a6-d211f1d97a4c")
-	)
-	(label "VSW"
-		(at 106.68 250.19 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "fa2e987e-83ea-4a3c-9ee4-ed795219dcee")
-	)
-	(wire
-		(pts
-			(xy 106.68 262.89) (xy 106.68 265.43)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "4b0ece43-5d61-4386-8c1f-928d7f4ea54e")
-	)
-	(label "VSYS"
-		(at 106.68 265.43 270)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "ef57da61-5eb4-4a9e-bade-2612d80f9d4f")
-	)
-	(wire
-		(pts
-			(xy 99.06 257.81) (xy 93.98 257.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "89d8ab04-f71d-43d5-8d32-10606e0b324a")
-	)
-	(wire
-		(pts
-			(xy 93.98 257.81) (xy 88.9 257.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "c9c7460f-be30-4a5b-9e2a-603114edf454")
-	)
-	(label "PWR_EN"
-		(at 88.9 257.81 180)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify right bottom)
-		)
-		(uuid "a3eba7cf-5231-4629-9eda-be53654c1e4d")
-	)
-	(wire
-		(pts
-			(xy 93.98 254) (xy 93.98 257.81)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "01ecd169-8f83-484a-9e18-56634791ab23")
-	)
-	(junction
-		(at 93.98 257.81)
-		(diameter 0)
-		(color 0 0 0 0)
-		(uuid "63d69508-8932-4ac7-999c-94c7e856194c")
-	)
-	(wire
-		(pts
-			(xy 93.98 246.38) (xy 93.98 243.84)
-		)
-		(stroke
-			(width 0)
-			(type default)
-		)
-		(uuid "75781948-711b-4037-8741-fdf4df15e314")
-	)
-	(label "VSYS"
-		(at 93.98 243.84 90)
-		(effects
-			(font
-				(size 1.27 1.27)
-			)
-			(justify left bottom)
-		)
-		(uuid "3d4cbea2-b650-4566-aff5-89b34b4c9871")
-	)
-	(text "5b. Interrupteur de puissance Q3, commande par SW1" (exclude_from_sim no) (at 70 236.5 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "49d61369-7ae6-49f1-9c67-89c6158ce92c"))
-	(text "Q3 : interrupteur de puissance (P-MOS). SW1 (MSK12C02, 50 mA max) ne commute que la grille" (exclude_from_sim no) (at 70 274 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "2773aff6-81e9-45a0-aaff-7390124eb235"))
-	(text "SW1 sur ON : grille a GND -> Q3 passant. Sur OFF : R10 ramene la grille a VSYS -> Q3 bloque" (exclude_from_sim no) (at 70 277.5 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "a4d4942f-a63a-4140-8e7a-a9fd55215ab0"))
-	(text "R6 = 10k : decharge vite VBUS au debranchement et absorbe la fuite inverse de D1" (exclude_from_sim no) (at 38 231 0) (effects (font (size 1.27 1.27)) (justify left bottom)) (uuid "c647dfc6-ec76-4285-ba2b-01166859ccd9"))
 )

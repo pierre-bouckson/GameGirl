@@ -5,6 +5,19 @@ I create this gamegirl for my nieces & for my personnal pleasure
 
 ## What
 
+## Game
+
+- pong
+- snake
+- 2048
+- tetris
+- rocket
+- puissance 4
+- casse briques
+- demineur
+- morpion
+- space invaders
+
 ## Features
 
 - STM32F429ZIT6
