@@ -13,6 +13,10 @@
 #define TITLE_LETTER_H  5
 #define HINT_ROW        37
 
+/* Pourcentage de batterie, écrit par-dessus le cadre du haut (" 100% " = 6 cases) */
+#define BATTERY_ROW     0
+#define BATTERY_COL     22
+
 /* Tuiles des jeux : cadres de 12 x 5 cases, positions dans tile_pos[] */
 #define TILE_W          12
 #define TILE_H          5
@@ -20,7 +24,7 @@
 #define TILE_ICON_LAST  2
 #define TILE_NAME_ROW   3    /* ligne du nom, relative à la tuile */
 
-/* Une tuile par jeu, dans cet ordre : 2 par rangée, la dernière seule au centre */
+/* Une tuile par jeu (+ les réglages), dans cet ordre : 2 par rangée */
 typedef enum
 {
     GAME_SNAKE,
@@ -30,6 +34,7 @@ typedef enum
     GAME_ROCKET,
     GAME_TETRIS,
     GAME_FLAPPY,
+    GAME_REGLAGES,   /* pas un jeu : luminosité et batterie */
     TILE_COUNT
 } game_id_t;
 

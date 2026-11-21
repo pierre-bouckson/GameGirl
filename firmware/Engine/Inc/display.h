@@ -6,6 +6,10 @@
 #define LCD_W 240
 #define LCD_H 320
 
+/* 1 = image tournée de 180° : l'écran est monté à l'envers sur le PCB de la GameGirl.
+ * 0 = orientation de la carte STM32F429I-DISC1. */
+#define DISPLAY_ROTATE_180 1
+
 /* Couleurs RGB565 (5 bits R, 6 bits G, 5 bits B) */
 #define RGB565(r, g, b)  ((uint16_t)((((r) & 0xF8) << 8) | (((g) & 0xFC) << 3) | ((b) >> 3)))
 

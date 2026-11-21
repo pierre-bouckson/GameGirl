@@ -35,7 +35,12 @@ void display_draw_pixel(uint16_t x, uint16_t y, uint16_t color)
   if (x >= LCD_W || y >= LCD_H)
     return;
 
+#if DISPLAY_ROTATE_180
+  /* Rotation de 180° = parcours du buffer à l'envers : (x, y) -> (W-1-x, H-1-y) */
+  back_buffer[(LCD_W * LCD_H - 1) - (y * LCD_W + x)] = color;
+#else
   back_buffer[y * LCD_W + x] = color;
+#endif
 }
 
 void display_draw_char(uint16_t x, uint16_t y, char c, uint16_t fg, uint16_t bg)

@@ -136,7 +136,7 @@ static float clampf(float v, float lo, float hi)
 /* Vitesse de la raquette du joueur : axe Y proportionnel (courbe expo), 1 = droite */
 static float joy_speed(void)
 {
-    int v = (int)joy_expo(joy_adc[1]) - JOY_CENTER;
+    int v = (int)joy_expo(adc_values[ADC_IDX_JOY_Y]) - JOY_CENTER;
     if (abs(v) < JOY_DEADZONE / 2)
         return 0.0f;
     return PONG_PLAYER_SPD * v / (float)JOY_CENTER;

@@ -3,6 +3,7 @@
 
 #include <stdint.h>
 #include <stdbool.h>
+#include "main.h"   /* adc_values[], ADC_IDX_JOY_X / ADC_IDX_JOY_Y */
 
 #define JOY_CENTER 2048   /* valeur ADC 12 bits au repos */
 #define JOY_MAX    4095   /* pleine échelle de l'ADC */
@@ -15,8 +16,6 @@
  * Plus elle est forte, moins le stick est sensible autour du centre. */
 #define JOY_EXPO   0.6f
 
-/* Valeurs ADC brutes du joystick, remplies par DMA (défini dans main.c) */
-extern volatile uint16_t joy_adc[2];   /* [0] = X, [1] = Y */
 
 typedef struct joy_mv
 {

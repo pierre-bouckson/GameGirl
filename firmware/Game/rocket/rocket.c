@@ -31,7 +31,6 @@
 #define OVER_COLOR  RGB565(255, 60, 60)          /* ANSI 1;31 */
 
 /* Définis dans main.c : DMA de l'ADC joystick et flag levé par l'EXTI0 (PA0) */
-extern volatile uint16_t joy_adc[2];
 extern volatile uint8_t button_pressed;
 
 typedef struct
@@ -150,7 +149,7 @@ void menu_rocket(void)
 
         /* Comme dans le menu, l'axe Y du joystick donne la gauche / droite de l'écran.
          * La courbe expo rend la fusée moins nerveuse autour du centre. */
-        uint16_t x_position = (uint32_t)joy_expo(joy_adc[1]) * (SCREEN_W - 1) / ADC_MAX;
+        uint16_t x_position = (uint32_t)joy_expo(adc_values[ADC_IDX_JOY_Y]) * (SCREEN_W - 1) / ADC_MAX;
 
         /* Collision, une fois la fusée entrée sur le circuit */
         if (j > CAR_ROW)

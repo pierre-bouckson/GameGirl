@@ -3,7 +3,6 @@
 #include "p4_ihm.h"
 
 /* Définis dans main.c : DMA de l'ADC joystick et flag levé par l'EXTI0 (PA0) */
-extern volatile uint16_t joy_adc[2];
 extern volatile uint8_t button_pressed;
 
 #define P4_DEBOUNCE_MS 50

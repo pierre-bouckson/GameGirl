@@ -5,13 +5,13 @@ static joy_mv_t last_selection = {0};
 
 joy_mv_t get_joy()
 {
-    joy_mv_t joy = {joy_adc[0], joy_adc[1]};
+    joy_mv_t joy = {adc_values[ADC_IDX_JOY_X], adc_values[ADC_IDX_JOY_Y]};
     return joy;
 }
 
 joy_mv_t selection_joy()
 {
-    joy_mv_t joy = {joy_adc[0], joy_adc[1]};
+    joy_mv_t joy = {adc_values[ADC_IDX_JOY_X], adc_values[ADC_IDX_JOY_Y]};
     int value_x = joy.x - JOY_CENTER;
     int value_y = joy.y - JOY_CENTER;
     joy_mv_t commande = {0};

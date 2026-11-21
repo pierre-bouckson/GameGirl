@@ -11,6 +11,10 @@ void menu_move(joy_mv_t mv);
 /* Dessine le menu avec la tuile sélectionnée, puis l'affiche */
 void print_menu(void);
 
+/* À appeler à chaque tour de la boucle du menu : mesure la batterie et
+ * redessine le menu si le pourcentage affiché a changé */
+void menu_tick(void);
+
 /* Lance le jeu de la tuile sélectionnée (bloquant jusqu'à la fin du jeu) */
 void start_game(void);
 

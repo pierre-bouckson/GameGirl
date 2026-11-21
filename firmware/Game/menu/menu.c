@@ -6,6 +6,10 @@
 #include "pong.h"
 #include "tetris.h"
 #include "flappy.h"
+#include "reglages.h"
+#include "battery.h"
+#include <stdio.h>
+#include <string.h>
 
 #define COLOR_FRAME     RGB565(60, 70, 120)
 #define COLOR_TEXT_DIM  RGB565(150, 150, 170)
@@ -21,7 +25,13 @@ static const uint16_t tile_accent[TILE_COUNT] = {
     RGB565(80, 220, 100), RGB565(80, 200, 255),    /* Snake, Pong */
     RGB565(255, 160, 60), RGB565(255, 215, 60),    /* 2048, Puissance4 */
     RGB565(180, 120, 255), RGB565(60, 220, 230),   /* Rocket, Tetris */
-    RGB565(255, 120, 80)};                         /* Flappy */
+    RGB565(255, 120, 80), RGB565(200, 200, 215)};  /* Flappy, Réglages */
+
+/* Texte de batterie affiché au dernier print_menu(), pour ne redessiner que s'il change */
+static char battery_text[8] = "";
+
+/* Appels de menu_tick() entre deux mesures de batterie (boucle du menu = 100 ms) */
+#define BATTERY_TICKS 20
 
 /* Tuile sélectionnée : rangée 0..3 et colonne 0..1 (la rangée 3 n'a qu'une tuile) */
 static uint8_t sel_row = 0;
@@ -102,6 +112,39 @@ static uint8_t selected_tile(void)
     return (tile < TILE_COUNT) ? tile : TILE_COUNT - 1;
 }
 
+/* Texte (" 87% " ou " USB ") et couleur du pourcentage de batterie */
+static uint16_t battery_label(char *text, size_t size)
+{
+    if (battery_on_usb())
+    {
+        snprintf(text, size, " USB ");
+        return COLOR_CYAN;
+    }
+
+    uint8_t pct = battery_percent();
+    snprintf(text, size, " %u%% ", pct);
+
+    if (pct >= 50) return RGB565(80, 220, 100);
+    if (pct >= 20) return COLOR_ORANGE;
+    return COLOR_RED;
+}
+
+void menu_tick(void)
+{
+    static uint8_t ticks = 0;
+
+    battery_mv();   /* nourrit la moyenne glissante à chaque tour */
+
+    if (++ticks < BATTERY_TICKS)
+        return;
+    ticks = 0;
+
+    char text[sizeof battery_text];
+    battery_label(text, sizeof text);
+    if (strcmp(text, battery_text) != 0)
+        print_menu();
+}
+
 void menu_move(joy_mv_t mv)
 {
     /* Avec l'orientation du joystick, X = -1 descend d'une rangée, Y = 1 va à droite */
@@ -151,6 +194,12 @@ void print_menu(void)
             display_draw_char(col * FONT_W, row * FONT_H, cell.c, cell.fg, cell.bg);
         }
     }
+
+    /* Pourcentage de batterie en haut à droite, aligné sur le bord droit du cadre */
+    uint16_t color = battery_label(battery_text, sizeof battery_text);
+    uint16_t col = BATTERY_COL + 6 - strlen(battery_text);
+    display_draw_string(col * FONT_W, BATTERY_ROW * FONT_H, battery_text, color, COLOR_BLACK);
+
     display_swap();
 }
 
@@ -165,6 +214,7 @@ void start_game(void)
         case GAME_PONG:       menu_pong();       break;
         case GAME_TETRIS:     menu_tetris();     break;
         case GAME_FLAPPY:     menu_flappy();     break;
+        case GAME_REGLAGES:   menu_reglages();   break;
         default:              break;   /* pas encore de jeu */
     }
 }
