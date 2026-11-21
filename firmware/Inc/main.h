@@ -45,6 +45,13 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 
+/* Séquence de l'ADC1 (scan continu + DMA circulaire), dans l'ordre des rangs */
+#define ADC_IDX_JOY_X    0   /* canal 5, PA5 */
+#define ADC_IDX_JOY_Y    1   /* canal 13, PC3 */
+#define ADC_IDX_VBAT     2   /* canal 1, PA1 = VBAT_SENSE (VSW / 2) */
+#define ADC_IDX_VREFINT  3   /* référence interne 1,21 V, pour connaître VDDA */
+#define ADC_NB_CHANNELS  4
+
 /* USER CODE END EC */
 
 /* Exported macro ------------------------------------------------------------*/
@@ -53,9 +60,13 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
+void HAL_TIM_MspPostInit(TIM_HandleTypeDef *htim);
 void Error_Handler(void);
 
 /* USER CODE BEGIN EFP */
+
+/* Valeurs ADC brutes (12 bits), remplies en continu par DMA ; index ADC_IDX_* */
+extern volatile uint16_t adc_values[ADC_NB_CHANNELS];
 
 /* USER CODE END EFP */
 

@@ -1,0 +1,6 @@
+(fp_lib_table
+  (version 7)
+  (lib (name "PCM_JLCPCB")(type "KiCad")(uri "${KIPRJMOD}/libs/JLCPCB/footprints/JLCPCB.pretty")(options "")(descr "JLCPCB basic/preferred footprints (CDFER 2026.08.08)"))
+  (lib (name "EasyEDA")(type "KiCad")(uri "${KIPRJMOD}/libs/EasyEDA/EasyEDA.pretty")(options "")(descr "Footprints JLCPCB/LCSC importes avec easyeda2kicad"))
+  (lib (name "GameGirl")(type "KiCad")(uri "${KIPRJMOD}/libs/GameGirl/GameGirl.pretty")(options "")(descr "Empreintes propres au projet GameGirl"))
+)

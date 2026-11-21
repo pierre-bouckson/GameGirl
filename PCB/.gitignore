@@ -1,0 +1,11 @@
+# état local KiCad
+PCB-backups/
+*.lck
+*.kicad_prl
+fp-info-cache
+*.kicad_sch_old
+.DS_Store
+# fichiers générés ou volumineux (régénérables)
+analysis/
+PCB.step
+libs/JLCPCB/3dmodels/

@@ -21,6 +21,12 @@
 
 /* Private includes ----------------------------------------------------------*/
 /* USER CODE BEGIN Includes */
+#include <stdio.h>
+#include <stdbool.h>
+#include "display.h"
+#include "menu.h"
+#include "input.h"
+#include "backlight.h"
 
 /* USER CODE END Includes */
 
@@ -32,30 +38,6 @@
 /* Private define ------------------------------------------------------------*/
 /* USER CODE BEGIN PD */
 
-/* Couleurs RGB565 (5 bits R, 6 bits G, 5 bits B) */
-#define RGB565(r, g, b)  ((uint16_t)((((r) & 0xF8) << 8) | (((g) & 0xFC) << 3) | ((b) >> 3)))
-
-#define COLOR_BLACK      0x0000
-#define COLOR_WHITE      0xFFFF
-#define COLOR_RED        0xF800
-#define COLOR_GREEN      0x07E0
-#define COLOR_BLUE       0x001F
-#define COLOR_YELLOW     0xFFE0
-#define COLOR_CYAN       0x07FF
-#define COLOR_MAGENTA    0xF81F
-#define COLOR_ORANGE     0xFD20
-#define COLOR_PURPLE     0x8010
-#define COLOR_PINK       0xFE19
-#define COLOR_BROWN      0xA145
-#define COLOR_GRAY       0x8410
-#define COLOR_LIGHTGRAY  0xC618
-#define COLOR_DARKGRAY   0x4208
-#define COLOR_NAVY       0x0010
-#define COLOR_DARKGREEN  0x03E0
-#define COLOR_MAROON     0x8000
-#define COLOR_OLIVE      0x8400
-#define COLOR_TEAL       0x0410
-
 /* USER CODE END PD */
 
 /* Private macro -------------------------------------------------------------*/
@@ -64,35 +46,42 @@
 /* USER CODE END PM */
 
 /* Private variables ---------------------------------------------------------*/
+ADC_HandleTypeDef hadc1;
+DMA_HandleTypeDef hdma_adc1;
+
 I2C_HandleTypeDef hi2c3;
 
 LTDC_HandleTypeDef hltdc;
 
 SPI_HandleTypeDef hspi5;
 
+UART_HandleTypeDef huart1;
+
+TIM_HandleTypeDef htim3;
+
 SDRAM_HandleTypeDef hsdram2;
 
 /* USER CODE BEGIN PV */
 
-#define LCD_W 240
-#define LCD_H 320
+double tab[30][40] = {0};
 
-#define SDRAM_ADDR_1 0xD0000000UL
-#define SDRAM_ADDR_2 (SDRAM_ADDR_1 + LCD_W * LCD_H * 2)
+volatile uint16_t adc_values[ADC_NB_CHANNELS];   /* index ADC_IDX_* (main.h) */
 
-uint16_t *framebuffer_1 = (uint16_t *)SDRAM_ADDR_1;   // 153 600 octets, en SDRAM externe
-uint16_t *framebuffer_2 = (uint16_t *)SDRAM_ADDR_2;   // 153 600 octets, en SDRAM externe
-
+volatile uint8_t button_pressed = 0;
 
 /* USER CODE END PV */
 
 /* Private function prototypes -----------------------------------------------*/
 void SystemClock_Config(void);
 static void MX_GPIO_Init(void);
+static void MX_DMA_Init(void);
 static void MX_LTDC_Init(void);
 static void MX_SPI5_Init(void);
 static void MX_FMC_Init(void);
 static void MX_I2C3_Init(void);
+static void MX_ADC1_Init(void);
+static void MX_USART1_UART_Init(void);
+static void MX_TIM3_Init(void);
 /* USER CODE BEGIN PFP */
 
 /* USER CODE END PFP */
@@ -166,26 +155,33 @@ int main(void)
 
   /* Initialize all configured peripherals */
   MX_GPIO_Init();
+  MX_DMA_Init();
   MX_LTDC_Init();
   MX_SPI5_Init();
   MX_FMC_Init();
   MX_I2C3_Init();
+  MX_ADC1_Init();
+  MX_USART1_UART_Init();
+  MX_TIM3_Init();
   /* USER CODE BEGIN 2 */
 
-  ili9341_Init();
+  /* printf non bufferisé : chaque caractère part tout de suite, même sans \n */
+  setvbuf(stdout, NULL, _IONBF, 0);
 
   SDRAM_InitSequence(&hsdram2);
 
-  uint32_t i = 0;
+  HAL_ADC_Start_DMA(&hadc1, (uint32_t *)adc_values, ADC_NB_CHANNELS);
 
-  while(i < LCD_W * LCD_H)
-  {
-    framebuffer_1[i] = COLOR_GREEN;
-    i++;
-  }
-  HAL_LTDC_SetAddress(&hltdc, (uint32_t)framebuffer_1, 0);
+  backlight_init();   /* PWM du rétroéclairage, luminosité relue en flash */
 
-  int count = 0;
+  display_init();
+
+  print_menu();
+
+  joy_mv_t joy = get_joy();
+
+  joy_mv_t selection = selection_joy(joy);
+
 
   /* USER CODE END 2 */
 
@@ -193,70 +189,27 @@ int main(void)
   /* USER CODE BEGIN WHILE */
   while (1)
   {
-    if(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET)
+    if (button_pressed)
     {
-      switch (count)
-      {
-      case 0 :
-        i = 0;
-
-        count++;
-
-        while(i < 76800)
-        {
-          framebuffer_2[i] = COLOR_BLUE;
-          i++;
-        }
-        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_2, 0);
-        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
-        break;
-      case 1 :
-        i = 0;
-
-        count++;
-
-        while(i < 76800)
-        {
-          framebuffer_1[i] = COLOR_PINK;
-          i++;
-        } 
-        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_1, 0);
-        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
-        break;
-      case 2 :
-        i = 0;
-
-        count++;
-
-        while(i < 76800)
-        {
-          framebuffer_2[i] = COLOR_GREEN;
-          i++;
-        }
-        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_2, 0);
-        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
-        break;
-      case 3 :
-        i = 0;
-
-        count = 0;
-
-        while(i < 76800)
-        {
-          framebuffer_1[i] = COLOR_GRAY;
-          i++;
-        }
-        HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)framebuffer_1, 0);
-        HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);  
-        break;
-        
-      default:
-        break;
-      }
-    
+      button_pressed = 0;
       HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
-      while(HAL_GPIO_ReadPin(GPIOA, GPIO_PIN_0) == GPIO_PIN_SET);
+      start_game();
+      print_menu();
     }
+
+    selection = selection_joy();
+
+    if(new_selection())
+    {
+      printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
+      menu_move((joy_mv_t){selection.x, selection.y});
+      print_menu();
+    }
+
+    menu_tick();   /* rafraîchit le pourcentage de batterie s'il a changé */
+
+    //printf("X = %u  %d  Y = %u  %d\r\n", value_x, selection.x, value_y, selection.y);
+    HAL_Delay(100);
     /* USER CODE END WHILE */
 
     /* USER CODE BEGIN 3 */
@@ -308,6 +261,85 @@ void SystemClock_Config(void)
   {
     Error_Handler();
   }
+}
+
+/**
+  * @brief ADC1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_ADC1_Init(void)
+{
+
+  /* USER CODE BEGIN ADC1_Init 0 */
+
+  /* USER CODE END ADC1_Init 0 */
+
+  ADC_ChannelConfTypeDef sConfig = {0};
+
+  /* USER CODE BEGIN ADC1_Init 1 */
+
+  /* USER CODE END ADC1_Init 1 */
+
+  /** Configure the global features of the ADC (Clock, Resolution, Data Alignment and number of conversion)
+  */
+  hadc1.Instance = ADC1;
+  hadc1.Init.ClockPrescaler = ADC_CLOCK_SYNC_PCLK_DIV2;
+  hadc1.Init.Resolution = ADC_RESOLUTION_12B;
+  hadc1.Init.ScanConvMode = ENABLE;
+  hadc1.Init.ContinuousConvMode = ENABLE;
+  hadc1.Init.DiscontinuousConvMode = DISABLE;
+  hadc1.Init.ExternalTrigConvEdge = ADC_EXTERNALTRIGCONVEDGE_NONE;
+  hadc1.Init.ExternalTrigConv = ADC_SOFTWARE_START;
+  hadc1.Init.DataAlign = ADC_DATAALIGN_RIGHT;
+  hadc1.Init.NbrOfConversion = 4;
+  hadc1.Init.DMAContinuousRequests = ENABLE;
+  hadc1.Init.EOCSelection = ADC_EOC_SEQ_CONV;
+  if (HAL_ADC_Init(&hadc1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_5;
+  sConfig.Rank = 1;
+  sConfig.SamplingTime = ADC_SAMPLETIME_480CYCLES;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_13;
+  sConfig.Rank = 2;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_1;
+  sConfig.Rank = 3;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+
+  /** Configure for the selected ADC regular channel its corresponding rank in the sequencer and its sample time.
+  */
+  sConfig.Channel = ADC_CHANNEL_VREFINT;
+  sConfig.Rank = 4;
+  if (HAL_ADC_ConfigChannel(&hadc1, &sConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN ADC1_Init 2 */
+
+  /* USER CODE END ADC1_Init 2 */
+
 }
 
 /**
@@ -458,6 +490,114 @@ static void MX_SPI5_Init(void)
 
 }
 
+/**
+  * @brief TIM3 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_TIM3_Init(void)
+{
+
+  /* USER CODE BEGIN TIM3_Init 0 */
+
+  /* USER CODE END TIM3_Init 0 */
+
+  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_OC_InitTypeDef sConfigOC = {0};
+
+  /* USER CODE BEGIN TIM3_Init 1 */
+
+  /* USER CODE END TIM3_Init 1 */
+  htim3.Instance = TIM3;
+  htim3.Init.Prescaler = 0;
+  htim3.Init.CounterMode = TIM_COUNTERMODE_UP;
+  htim3.Init.Period = 3199;
+  htim3.Init.ClockDivision = TIM_CLOCKDIVISION_DIV1;
+  htim3.Init.AutoReloadPreload = TIM_AUTORELOAD_PRELOAD_ENABLE;
+  if (HAL_TIM_Base_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sClockSourceConfig.ClockSource = TIM_CLOCKSOURCE_INTERNAL;
+  if (HAL_TIM_ConfigClockSource(&htim3, &sClockSourceConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  if (HAL_TIM_PWM_Init(&htim3) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sMasterConfig.MasterOutputTrigger = TIM_TRGO_RESET;
+  sMasterConfig.MasterSlaveMode = TIM_MASTERSLAVEMODE_DISABLE;
+  if (HAL_TIMEx_MasterConfigSynchronization(&htim3, &sMasterConfig) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  sConfigOC.OCMode = TIM_OCMODE_PWM1;
+  sConfigOC.Pulse = 3200;
+  sConfigOC.OCPolarity = TIM_OCPOLARITY_HIGH;
+  sConfigOC.OCFastMode = TIM_OCFAST_DISABLE;
+  if (HAL_TIM_PWM_ConfigChannel(&htim3, &sConfigOC, TIM_CHANNEL_1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN TIM3_Init 2 */
+
+  /* USER CODE END TIM3_Init 2 */
+  HAL_TIM_MspPostInit(&htim3);
+
+}
+
+/**
+  * @brief USART1 Initialization Function
+  * @param None
+  * @retval None
+  */
+static void MX_USART1_UART_Init(void)
+{
+
+  /* USER CODE BEGIN USART1_Init 0 */
+
+  /* USER CODE END USART1_Init 0 */
+
+  /* USER CODE BEGIN USART1_Init 1 */
+
+  /* USER CODE END USART1_Init 1 */
+  huart1.Instance = USART1;
+  huart1.Init.BaudRate = 115200;
+  huart1.Init.WordLength = UART_WORDLENGTH_8B;
+  huart1.Init.StopBits = UART_STOPBITS_1;
+  huart1.Init.Parity = UART_PARITY_NONE;
+  huart1.Init.Mode = UART_MODE_TX_RX;
+  huart1.Init.HwFlowCtl = UART_HWCONTROL_NONE;
+  huart1.Init.OverSampling = UART_OVERSAMPLING_16;
+  if (HAL_UART_Init(&huart1) != HAL_OK)
+  {
+    Error_Handler();
+  }
+  /* USER CODE BEGIN USART1_Init 2 */
+
+  /* USER CODE END USART1_Init 2 */
+
+}
+
+/**
+  * Enable DMA controller clock
+  */
+static void MX_DMA_Init(void)
+{
+
+  /* DMA controller clock enable */
+  __HAL_RCC_DMA2_CLK_ENABLE();
+
+  /* DMA interrupt init */
+  /* DMA2_Stream0_IRQn interrupt configuration */
+  HAL_NVIC_SetPriority(DMA2_Stream0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(DMA2_Stream0_IRQn);
+
+}
+
 /* FMC initialization function */
 static void MX_FMC_Init(void)
 {
@@ -531,7 +671,7 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pin : PA0 */
   GPIO_InitStruct.Pin = GPIO_PIN_0;
-  GPIO_InitStruct.Mode = GPIO_MODE_INPUT;
+  GPIO_InitStruct.Mode = GPIO_MODE_IT_RISING;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
 
@@ -542,12 +682,32 @@ static void MX_GPIO_Init(void)
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
   HAL_GPIO_Init(GPIOG, &GPIO_InitStruct);
 
+  /* EXTI interrupt init*/
+  HAL_NVIC_SetPriority(EXTI0_IRQn, 0, 0);
+  HAL_NVIC_EnableIRQ(EXTI0_IRQn);
+
   /* USER CODE BEGIN MX_GPIO_Init_2 */
 
   /* USER CODE END MX_GPIO_Init_2 */
 }
 
 /* USER CODE BEGIN 4 */
+
+/* Redirige printf vers l'UART1 (appelé par _write dans syscalls.c) */
+int __io_putchar(int ch)
+{
+  uint8_t c = ch;
+  HAL_UART_Transmit(&huart1, &c, 1, HAL_MAX_DELAY);
+  return ch;
+}
+
+void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
+{
+  if (GPIO_Pin == GPIO_PIN_0)
+  {
+    button_pressed = 1;
+  }
+}
 
 /* USER CODE END 4 */
 
