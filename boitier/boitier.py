@@ -134,13 +134,21 @@ for bx, by in (BTN_SEL, BTN_STA):
 for bx, by in (BTN_SEL, BTN_STA):
     front = front.cut(stadium(bx, by, 9.4, 4.9, COL_Z - 1, Z_FACE + 1))
 
-# --- marquage gravé
-try:
-    txt = (cq.Workplane('XY').workplane(offset=Z_FACE - 0.5).center(37.0, -75.3)
-           .text('GameGirl', 5.6, 1.0, kind='bold', halign='center', valign='center'))
-    front = front.cut(txt)
-except Exception as e:                                       # police indisponible : on s'en passe
-    print('texte ignoré :', e)
+# --- marquages en creux : logo + signature sous l'écran, prénom sous START / SELECT (ajouté plus bas)
+ENGRAVE = 0.5                            # profondeur des lettres
+PRENOMS = ['Gaïa', 'Elsa', 'Claire', 'Agnès', 'Faustine']
+LOGO = ('GameGirl', 5.6, 37.0, 73.8)     # texte, taille, X, Y du centre
+SIGN = ('by πR', 4.2, 43.2, 79.3)        # calé à droite sous le logo
+NAME_SIZE, NAME_XY = 6.0, (37.0, 117.0)
+ASM_PRENOM = 'Gaïa'                      # prénom montré sur assemblage.step
+
+
+def gravure(s, size, x, y):
+    return (cq.Workplane('XY').workplane(offset=Z_FACE - ENGRAVE).center(x, -y)
+            .text(s, size, ENGRAVE + 0.5, kind='bold', halign='center', valign='center'))
+
+
+front = front.cut(gravure(*LOGO)).cut(gravure(*SIGN))
 
 # ================================================================== COQUE ARRIÈRE
 back = prism(0, Z_BACK, Z_PART - LAP)
@@ -266,7 +274,7 @@ for n, s in parts.items():
     cq.exporters.export(s, '%s/%s.stl' % (OUT, n), tolerance=0.02, angularTolerance=0.15)
     cq.exporters.export(s, '%s/%s.step' % (OUT, n))
 asm = cq.Assembly()
-asm.add(front, name='coque_avant', color=cq.Color(0.80, 0.80, 0.78))
+asm.add(front.cut(gravure(ASM_PRENOM, NAME_SIZE, *NAME_XY)), name='coque_avant', color=cq.Color(0.80, 0.80, 0.78))
 asm.add(back, name='coque_arriere', color=cq.Color(0.80, 0.80, 0.78))
 asm.add(spacer, name='cale_ecran', color=cq.Color(0.2, 0.2, 0.2))
 asm.add(pcb_exact, name='pcb', color=cq.Color(0.1, 0.4, 0.2))
@@ -280,6 +288,16 @@ for n, s, d in (('avant_face', front, (0, 0, 1)), ('avant_interieur', front, (0,
                 ('iso', front.union(back), (1, -1.2, 1.4))):
     cq.exporters.export(s, '%s/vue_%s.svg' % (OUT, n), opt=dict(width=700, height=1000, projectionDir=d, showAxes=False,
                                                                  showHidden=False, strokeWidth=0.3))
+# coques avant personnalisées : une par prénom, dans prenoms/
+import unicodedata
+os.makedirs(OUT + '/prenoms', exist_ok=True)
+for p in PRENOMS:
+    f = front.cut(gravure(p, NAME_SIZE, *NAME_XY))
+    n = unicodedata.normalize('NFD', p).encode('ascii', 'ignore').decode()
+    print('coque avant %s : %.2f cm3, %d solide(s)' % (p, vol(f) / 1000, len(f.solids().vals())))
+    cq.exporters.export(f, '%s/prenoms/coque_avant_%s.stl' % (OUT, n), tolerance=0.02, angularTolerance=0.15)
+    cq.exporters.export(f, '%s/prenoms/coque_avant_%s.svg' % (OUT, n), opt=dict(
+        width=700, height=1000, projectionDir=(0, 0, 1), showAxes=False, showHidden=False, strokeWidth=0.3))
 print('export terminé')
 
 # contrôle des ouvertures latérales
