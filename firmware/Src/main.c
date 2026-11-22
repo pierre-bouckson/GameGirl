@@ -29,6 +29,7 @@
 #include "backlight.h"
 #include "buzzer.h"
 #include "game_exit.h"
+#include "easy.h"
 
 /* USER CODE END Includes */
 
@@ -178,6 +179,7 @@ int main(void)
 
   buzzer_init();      /* PB14 = TIM12_CH1 */
   game_exit_init();   /* START (PE4) : retour au menu depuis un jeu */
+  easy_init();        /* mode facile, relu en flash */
   buzzer_play(SND_BOOT);
 
   display_init();

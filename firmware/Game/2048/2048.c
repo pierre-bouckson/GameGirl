@@ -7,6 +7,7 @@
 #include "main.h"
 #include <string.h>
 #include <stdbool.h>
+#include "easy.h"
 
 static int tab[4][4] = {0};   /* static : main.c a déjà un tab global */
 
@@ -17,6 +18,9 @@ static uint32_t best  = 0;    /* meilleur score, gardé en flash */
 static bool merged[4][4];
 
 #define POP_MS  100   /* durée de l'effet "pop" sur les tuiles fusionnées */
+#define HELP_MS 1200  /* mode facile : durée du message "coup de pouce" */
+
+static bool easy = false;   /* mode facile, lu au lancement */
 
 static void draw_grid(bool pop);
 
@@ -158,7 +162,8 @@ static bool can_move(void)
 
 void new_number()
 {
-    int rand_number = (rand() % 10 == 0) ? 4 : 2;   /* 4 dans 10 % des cas, comme le jeu original */
+    /* 4 dans 10 % des cas, comme le jeu original ; toujours 2 en mode facile */
+    int rand_number = (!easy && rand() % 10 == 0) ? 4 : 2;
     //printf("%d", rand_number);
     add_grid(rand_number);
 }
@@ -181,9 +186,33 @@ static void end_screen(bool game_over, bool record)
     display_swap();
 }
 
+/* Mode facile, grille bloquée : retire toutes les tuiles de la plus petite
+ * valeur au lieu de perdre, avec un message au-dessus de la grille */
+static void coup_de_pouce(void)
+{
+    int min = 0;
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            if(min == 0 || tab[i][j] < min)
+                min = tab[i][j];
+
+    draw_grid(false);
+    display_draw_string((LCD_W - 15 * FONT_W) / 2, 4 * FONT_H, "COUP DE POUCE !", EASY_COLOR, COLOR_BLACK);
+    display_swap();
+    buzzer_play(SND_SELECT);
+    HAL_Delay(HELP_MS);
+
+    for(int i = 0; i < 4; i++)
+        for(int j = 0; j < 4; j++)
+            if(tab[i][j] == min)
+                tab[i][j] = 0;
+    print_grid();
+}
+
 void menu_2048()
 {
     srand(HAL_GetTick());
+    easy = easy_mode();
     score = 0;
     best = best_read();
     init_grid();
@@ -206,7 +235,14 @@ void menu_2048()
 
             new_number();
             print_grid();
-            game_over = !can_move();
+            if(!can_move())
+            {
+                /* Mode facile : on ne perd jamais, seul le bouton arrête la partie */
+                if(easy)
+                    coup_de_pouce();
+                else
+                    game_over = true;
+            }
         }
     }
 
@@ -216,7 +252,7 @@ void menu_2048()
         HAL_Delay(1500);   /* laisse voir la grille bloquée */
     }
 
-    bool record = score > best;
+    bool record = !easy && score > best;   /* pas de record en mode facile */
     if (record)
         buzzer_play(SND_WIN);
     if (game_over || record)
@@ -350,6 +386,11 @@ static void draw_grid(bool pop)
     display_draw_string(G_X0, 33 * FONT_H, "SCORE", COLOR_GRAY, COLOR_BLACK);
     display_draw_string(G_X0 + 7 * FONT_W, 33 * FONT_H, line, COLOR_WHITE, COLOR_BLACK);
 
+    if (easy)
+    {
+        display_draw_string(G_X0, 35 * FONT_H, "MODE FACILE", EASY_COLOR, COLOR_BLACK);
+        return;
+    }
     snprintf(line, sizeof line, "%lu", (unsigned long)((score > best) ? score : best));
     display_draw_string(G_X0, 35 * FONT_H, "BEST", COLOR_GRAY, COLOR_BLACK);
     display_draw_string(G_X0 + 7 * FONT_W, 35 * FONT_H, line, COLOR_YELLOW, COLOR_BLACK);

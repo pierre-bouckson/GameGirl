@@ -11,6 +11,16 @@
 #define PONG_MAX_ANGLE   60.0f   /* angle max par rapport à la verticale, au bord de la raquette */
 #define PONG_PLAYER_SPD  5.0f    /* vitesse max de la raquette du joueur (px par image) */
 
+/* Mode facile : pas de choix du bot (bot lent qui rate souvent), balle plus
+ * grosse et plus lente, raquette du joueur élargie, partie plus courte */
+#define PONG_EASY_WIN_SCORE   3
+#define PONG_EASY_SPEED       2.0f
+#define PONG_EASY_SPEED_MAX   4.0f
+#define PONG_EASY_ACCEL       1.02f
+#define PONG_EASY_MAX_ANGLE   45.0f
+#define PONG_EASY_BALL        12      /* côté de la balle (px) */
+#define PONG_EASY_PAD_W       72      /* largeur de la raquette du joueur (px) */
+
 /* Choix du niveau du bot puis partie ; bloque jusqu'au retour au menu */
 void menu_pong(void);
 

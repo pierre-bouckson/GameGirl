@@ -6,6 +6,7 @@
 #include "font8x8.h"
 #include "input.h"
 #include "rocket.h"
+#include "easy.h"
 
 /* Port du jeu exam2_stm32 : la version d'origine dessinait dans un terminal
  * (1 ligne de route en haut, puis scroll vers le bas). On garde le même
@@ -19,6 +20,10 @@
 /* Période d'une image : TIM6 à 45 ms, 10 ms quand le bouton est maintenu */
 #define PERIOD_MS        45
 #define PERIOD_BOOST_MS  10
+
+/* Mode facile : défilement plus lent et route élargie de chaque côté */
+#define EASY_PERIOD_MS   70
+#define EASY_WIDEN       5      /* colonnes ajoutées de chaque côté de la route */
 
 /* Rendu LCD : 64 colonnes de 3 px = 192 px, le score à droite */
 #define CELL_W     3
@@ -42,6 +47,21 @@ typedef struct
 
 /* Écran du terminal : [0] = ligne du haut */
 static term_cell_t term[TERM_ROWS][SCREEN_W];
+
+static int widen;   /* élargissement de la route : 0, ou EASY_WIDEN en mode facile */
+
+/* Bords de la route à la ligne idx du circuit, élargis en mode facile */
+static int edge_left(uint32_t idx)
+{
+    int e = rocket_edges[idx][0] - widen;
+    return (e < 1) ? 1 : e;
+}
+
+static int edge_right(uint32_t idx)
+{
+    int e = rocket_edges[idx][1] + widen;
+    return (e > SCREEN_W - 1) ? SCREEN_W - 1 : e;
+}
 
 static void term_clear(void)
 {
@@ -122,8 +142,11 @@ void menu_rocket(void)
 {
     uint32_t j = 0;
     uint8_t coef = 1;
-    uint32_t period = PERIOD_MS;
+    uint32_t base_period = easy_mode() ? EASY_PERIOD_MS : PERIOD_MS;
+    uint32_t period = base_period;
     uint32_t last_tick;
+
+    widen = easy_mode() ? EASY_WIDEN : 0;
 
     consume_button();
     term_clear();
@@ -138,7 +161,7 @@ void menu_rocket(void)
         uint32_t idx = (j < ROCKET_TRACK_LEN) ? j : (ROCKET_TRACK_LEN - 1);
         for (int i = 0; i < SCREEN_W; i++)
         {
-            char c = (i < rocket_edges[idx][0] || i >= rocket_edges[idx][1]) ? '#' : ' ';
+            char c = (i < edge_left(idx) || i >= edge_right(idx)) ? '#' : ' ';
             if (j >= ROCKET_TRACK_LEN)
                 c = '-';
             term[0][i] = (term_cell_t){c, ROAD_COLOR};
@@ -159,7 +182,7 @@ void menu_rocket(void)
             if (coll >= ROCKET_TRACK_LEN)
                 coll = ROCKET_TRACK_LEN - 1;
 
-            if (!(x_position > rocket_edges[coll][0] && x_position < rocket_edges[coll][1]))
+            if (!(x_position > edge_left(coll) && x_position < edge_right(coll)))
             {
                 buzzer_play(SND_LOSE);
                 game_over(score);
@@ -181,7 +204,7 @@ void menu_rocket(void)
         }
         else
         {
-            period = PERIOD_MS;
+            period = base_period;
             coef = 1;
         }
     }

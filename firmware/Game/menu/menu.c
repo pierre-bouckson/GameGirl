@@ -11,6 +11,7 @@
 #include "backlight.h"
 #include "buzzer.h"
 #include "game_exit.h"
+#include "easy.h"
 
 extern volatile uint8_t button_pressed;   /* main.c */
 #include <stdio.h>
@@ -205,6 +206,11 @@ void print_menu(void)
     uint16_t col = BATTERY_COL + 6 - strlen(battery_text);
     display_draw_string(col * FONT_W, BATTERY_ROW * FONT_H, battery_text, color, COLOR_BLACK);
 
+    /* Mode facile : badge en haut à gauche, en face de la batterie */
+    if (easy_mode())
+        display_draw_string(EASY_COL * FONT_W, EASY_ROW * FONT_H, " FACILE ",
+                            COLOR_BLACK, EASY_COLOR);
+
     display_swap();
 }
 
@@ -231,5 +237,6 @@ void start_game(void)
     buzzer_play(SND_BACK);
     backlight_save();     /* START depuis les réglages : sans effet si rien n'a changé */
     buzzer_save();
+    easy_save();
     button_pressed = 0;   /* un appui fait pendant le jeu ne relance pas le jeu */
 }
