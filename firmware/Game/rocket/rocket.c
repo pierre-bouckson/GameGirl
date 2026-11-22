@@ -150,7 +150,7 @@ void menu_rocket(void)
 
         /* Comme dans le menu, l'axe Y du joystick donne la gauche / droite de l'écran.
          * La courbe expo rend la fusée moins nerveuse autour du centre. */
-        uint16_t x_position = (uint32_t)joy_expo(adc_values[ADC_IDX_JOY_Y]) * (SCREEN_W - 1) / ADC_MAX;
+        uint16_t x_position = (uint32_t)joy_expo(joy_raw_y()) * (SCREEN_W - 1) / ADC_MAX;
 
         /* Collision, une fois la fusée entrée sur le circuit */
         if (j > CAR_ROW)
