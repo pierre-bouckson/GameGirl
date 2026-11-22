@@ -229,6 +229,7 @@ void start_game(void)
     game_run(entry);
 
     buzzer_play(SND_BACK);
-    backlight_save();     /* START depuis les réglages : sans effet si le niveau n'a pas changé */
+    backlight_save();     /* START depuis les réglages : sans effet si rien n'a changé */
+    buzzer_save();
     button_pressed = 0;   /* un appui fait pendant le jeu ne relance pas le jeu */
 }

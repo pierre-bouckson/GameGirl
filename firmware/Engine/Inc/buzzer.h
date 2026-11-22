@@ -2,6 +2,7 @@
 #define __BUZZER_H
 
 #include <stdint.h>
+#include <stdbool.h>
 
 /* Buzzer magnétique passif BZ1 (MLT-8530, résonance ~2,7 kHz) piloté par le
  * N-MOS Q2 sur PB14 = TIM12_CH1 (AF9). Le PWM à 50 % donne la note ; un
@@ -26,6 +27,13 @@ void buzzer_play(const note_t *melody);
 void buzzer_tone(uint16_t freq, uint16_t ms);
 
 void buzzer_stop(void);
+
+/* Mode muet : les mélodies avancent toujours, mais sans son. buzzer_init()
+ * relit l'état sauvegardé en flash (secteur 18), buzzer_save() l'y écrit
+ * seulement s'il a changé (bloque ~1 à 2 s). */
+void buzzer_set_mute(bool mute);
+bool buzzer_muted(void);
+void buzzer_save(void);
 
 /* Appelée chaque milliseconde par HAL_IncTick */
 void buzzer_tick(void);

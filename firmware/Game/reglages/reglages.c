@@ -22,6 +22,7 @@ extern volatile uint8_t button_pressed;
 #define COLOR_LABEL     RGB565(150, 150, 170)
 #define COLOR_BAR_OFF   RGB565(50, 50, 65)
 #define COLOR_SUN       RGB565(255, 215, 60)
+#define COLOR_SOUND_ON  RGB565(80, 220, 100)
 
 /* ---- Outils ----------------------------------------------------------------- */
 
@@ -63,12 +64,19 @@ static void draw_screen(void)
 
     /* Luminosité */
     uint8_t level = backlight_get();
-    draw_centered(9, "LUMINOSITE", COLOR_LABEL);
-    draw_bar(12, level * BAR_LEN / BACKLIGHT_MAX, COLOR_SUN);
+    draw_centered(7, "LUMINOSITE", COLOR_LABEL);
+    draw_bar(9, level * BAR_LEN / BACKLIGHT_MAX, COLOR_SUN);
     snprintf(line, sizeof line, "%c  %2u / %u  %c",
              (level > BACKLIGHT_MIN) ? '<' : ' ', level, BACKLIGHT_MAX,
              (level < BACKLIGHT_MAX) ? '>' : ' ');
-    draw_centered(15, line, COLOR_WHITE);
+    draw_centered(11, line, COLOR_WHITE);
+
+    /* Son */
+    draw_centered(15, "SON", COLOR_LABEL);
+    if (buzzer_muted())
+        draw_centered(17, "COUPE", COLOR_RED);
+    else
+        draw_centered(17, "ACTIVE", COLOR_SOUND_ON);
 
     /* Batterie */
     uint16_t mv = battery_mv();
@@ -90,8 +98,9 @@ static void draw_screen(void)
     snprintf(line, sizeof line, "%u.%02u V", mv / 1000, (mv % 1000) / 10);
     draw_centered(29, line, COLOR_LABEL);
 
-    draw_centered(35, "JOYSTICK < > : REGLER", COLOR_LABEL);
-    draw_centered(37, "BOUTON : RETOUR", COLOR_LABEL);
+    draw_centered(34, "JOYSTICK < > : LUMINOSITE", COLOR_LABEL);
+    draw_centered(36, "JOYSTICK HAUT/BAS : SON", COLOR_LABEL);
+    draw_centered(38, "BOUTON : RETOUR", COLOR_LABEL);
 
     display_swap();
 }
@@ -99,6 +108,7 @@ static void draw_screen(void)
 void menu_reglages(void)
 {
     uint8_t level_at_start = backlight_get();
+    bool muted_at_start = buzzer_muted();
     uint32_t last_battery = HAL_GetTick();
 
     consume_button();   /* le bouton qui a ouvert l'écran */
@@ -122,6 +132,12 @@ void menu_reglages(void)
                 buzzer_play(SND_MOVE);
                 draw_screen();
             }
+            else if (mv.x != 0)   /* haut ou bas : coupe / remet le son */
+            {
+                buzzer_set_mute(!buzzer_muted());
+                buzzer_play(SND_SELECT);   /* inaudible si on vient de couper */
+                draw_screen();
+            }
         }
 
         if (HAL_GetTick() - last_battery >= BATTERY_MS)
@@ -133,11 +149,12 @@ void menu_reglages(void)
         HAL_Delay(FRAME_MS);
     }
 
-    if (backlight_get() != level_at_start)
+    if (backlight_get() != level_at_start || buzzer_muted() != muted_at_start)
     {
         display_clear(COLOR_BLACK);
         draw_centered(20, "SAUVEGARDE...", COLOR_LABEL);
         display_swap();
-        backlight_save();   /* efface un secteur flash : ~1 à 2 s */
+        backlight_save();   /* chacun efface son secteur flash, s'il a changé : ~1 à 2 s */
+        buzzer_save();
     }
 }
