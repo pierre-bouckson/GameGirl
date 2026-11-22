@@ -1,5 +1,6 @@
 #include "main.h"
 #include "buzzer.h"
+#include "power.h"
 
 /* TIM12 compte à 1 MHz : ARR = 1e6 / f - 1 tient sur 16 bits dès 16 Hz */
 #define TICK_HZ 1000000UL
@@ -148,6 +149,11 @@ void buzzer_stop(void)
     __enable_irq();
 }
 
+bool buzzer_playing(void)
+{
+    return melody != 0;
+}
+
 void buzzer_tick(void)
 {
     const note_t *m = melody;
@@ -167,9 +173,10 @@ void buzzer_tick(void)
 }
 
 /* Remplace la version weak de la HAL (stm32f4xx_hal.c) : le SysTick fait aussi
- * avancer les mélodies, sans toucher aux fichiers générés par CubeMX */
+ * avancer les mélodies et surveille l'inactivité (power.c), sans toucher aux fichiers générés par CubeMX */
 void HAL_IncTick(void)
 {
     uwTick += uwTickFreq;
     buzzer_tick();
+    power_tick();   /* repère les actions du joueur pour la mise en veille */
 }

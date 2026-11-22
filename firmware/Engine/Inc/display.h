@@ -43,7 +43,20 @@ void display_draw_pixel(uint16_t x, uint16_t y, uint16_t color);
 void display_draw_char(uint16_t x, uint16_t y, char c, uint16_t fg, uint16_t bg);
 void display_draw_string(uint16_t x, uint16_t y, const char *str, uint16_t fg, uint16_t bg);
 
-/* Affiche le back buffer au prochain vertical blanking, puis échange les buffers */
+/* Affiche le back buffer au prochain vertical blanking, puis échange les buffers.
+ * Point de passage des jeux : surveille aussi la batterie / l'inactivité
+ * (power_poll) et le retour au menu par START (game_exit_poll). */
 void display_swap(void);
+
+/* Pour l'engine seulement : display_swap() sans power_poll() ni game_exit_poll() */
+void display_swap_nopoll(void);
+
+/* Message par-dessus un jeu : _begin sauvegarde les deux buffers en SDRAM,
+ * _end les restaure, et le jeu retrouve l'écran exactement comme avant */
+void display_overlay_begin(void);
+void display_overlay_end(void);
+
+/* Écran éteint et ILI9341 en Sleep In, avant la mise en veille du MCU */
+void display_sleep(void);
 
 #endif /* __DISPLAY_H */

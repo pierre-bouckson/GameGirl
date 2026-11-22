@@ -28,6 +28,9 @@ void buzzer_tone(uint16_t freq, uint16_t ms);
 
 void buzzer_stop(void);
 
+/* Vrai tant qu'une mélodie est en cours */
+bool buzzer_playing(void);
+
 /* Mode muet : les mélodies avancent toujours, mais sans son. buzzer_init()
  * relit l'état sauvegardé en flash (secteur 18), buzzer_save() l'y écrit
  * seulement s'il a changé (bloque ~1 à 2 s). */

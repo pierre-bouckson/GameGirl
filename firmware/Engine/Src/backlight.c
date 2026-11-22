@@ -65,3 +65,11 @@ void backlight_save(void)
     HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, LEVEL_ADDR, level);
   HAL_FLASH_Lock();
 }
+
+void backlight_off(void)
+{
+  /* CTRL bas plus de 2,5 ms : le TPS61165 s'arrête. En Standby, PB4 passe en
+   * haute impédance et c'est le pull-down interne du TPS61165 qui le garde bas. */
+  __HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 0);
+  HAL_TIM_PWM_Stop(&htim3, TIM_CHANNEL_1);
+}

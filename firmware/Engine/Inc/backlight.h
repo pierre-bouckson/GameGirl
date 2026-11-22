@@ -17,6 +17,9 @@ void backlight_set(uint8_t level);
 
 uint8_t backlight_get(void);
 
+/* Éteint complètement le rétroéclairage (avant la mise en veille) */
+void backlight_off(void);
+
 /* Écrit le niveau courant en flash (secteur 19) s'il a changé : bloque ~1 à 2 s */
 void backlight_save(void);
 

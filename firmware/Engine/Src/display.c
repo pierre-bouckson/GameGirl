@@ -1,10 +1,20 @@
+#include <string.h>
 #include "main.h"
 #include "display.h"
 #include "font8x8.h"
 #include "game_exit.h"
+#include "power.h"
 
 #define SDRAM_ADDR_1 0xD0000000UL
 #define SDRAM_ADDR_2 (SDRAM_ADDR_1 + LCD_W * LCD_H * 2)
+#define FB_PIXELS    (LCD_W * LCD_H)
+
+#define LCD_SLEEP_IN 0x10   /* commande ILI9341 absente de ili9341.h (seul Sleep Out y est) */
+
+/* Copies des deux buffers pendant un message par-dessus le jeu (power.c),
+ * juste après les framebuffers : la SDRAM fait 8 Mo, on en utilise 600 Ko */
+#define SDRAM_SAVE_1 (SDRAM_ADDR_2 + FB_PIXELS * 2)
+#define SDRAM_SAVE_2 (SDRAM_SAVE_1 + FB_PIXELS * 2)
 
 extern LTDC_HandleTypeDef hltdc;
 
@@ -13,6 +23,9 @@ static uint16_t *const framebuffer_2 = (uint16_t *)SDRAM_ADDR_2;   // 153 600 oc
 
 static uint16_t *front_buffer = framebuffer_1;   // lu par le LTDC
 static uint16_t *back_buffer  = framebuffer_2;   // celui dans lequel on dessine
+
+static uint16_t *const save_front = (uint16_t *)SDRAM_SAVE_1;
+static uint16_t *const save_back  = (uint16_t *)SDRAM_SAVE_2;
 
 void display_init(void)
 {
@@ -72,7 +85,7 @@ void display_draw_string(uint16_t x, uint16_t y, const char *str, uint16_t fg, u
   }
 }
 
-void display_swap(void)
+void display_swap_nopoll(void)
 {
   HAL_LTDC_SetAddress_NoReload(&hltdc, (uint32_t)back_buffer, 0);
   HAL_LTDC_Reload(&hltdc, LTDC_RELOAD_VERTICAL_BLANKING);
@@ -83,6 +96,36 @@ void display_swap(void)
   uint16_t *tmp = front_buffer;
   front_buffer = back_buffer;
   back_buffer = tmp;
+}
 
+void display_swap(void)
+{
+  display_swap_nopoll();
+  power_poll();       /* batterie et inactivité (power.h) */
   game_exit_poll();   /* START pressé : retour au menu (game_exit.h) */
+}
+
+void display_overlay_begin(void)
+{
+  memcpy(save_front, front_buffer, FB_PIXELS * 2);
+  memcpy(save_back, back_buffer, FB_PIXELS * 2);
+}
+
+void display_overlay_end(void)
+{
+  /* Ce qui était affiché revient à l'écran, et le buffer de dessin retrouve
+   * le contenu que le jeu y avait peut-être commencé */
+  memcpy(back_buffer, save_front, FB_PIXELS * 2);
+  display_swap_nopoll();
+  memcpy(back_buffer, save_back, FB_PIXELS * 2);
+}
+
+void display_sleep(void)
+{
+  ili9341_DisplayOff();
+  ili9341_WriteReg(LCD_SLEEP_IN);
+  /* Le contrôleur a besoin de 5 ms après Sleep In. Pas de HAL_Delay() : il
+   * pourrait faire un retour au menu (START) au milieu de la mise en veille */
+  uint32_t start = HAL_GetTick();
+  while (HAL_GetTick() - start < 6);
 }

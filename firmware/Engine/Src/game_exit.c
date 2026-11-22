@@ -2,6 +2,7 @@
 #include <stdbool.h>
 #include "main.h"
 #include "game_exit.h"
+#include "power.h"
 
 static jmp_buf menu_return;
 static volatile bool in_game = false;
@@ -55,7 +56,8 @@ void game_run(void (*entry)(void))
 }
 
 /* Remplace la version weak de la HAL (stm32f4xx_hal.c), identique à part le
- * test de START : toute attente d'un jeu devient un point de sortie */
+ * test de START et la surveillance de l'énergie (power.h) : toute attente
+ * d'un jeu devient un point de sortie */
 void HAL_Delay(uint32_t Delay)
 {
     uint32_t tickstart = HAL_GetTick();
@@ -65,6 +67,9 @@ void HAL_Delay(uint32_t Delay)
         wait += (uint32_t)uwTickFreq;
 
     while ((HAL_GetTick() - tickstart) < wait)
+    {
+        power_poll();
         game_exit_poll();
+    }
     game_exit_poll();
 }

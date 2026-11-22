@@ -30,6 +30,7 @@
 #include "buzzer.h"
 #include "game_exit.h"
 #include "easy.h"
+#include "power.h"
 
 /* USER CODE END Includes */
 
@@ -183,6 +184,7 @@ int main(void)
   buzzer_play(SND_BOOT);
 
   display_init();
+  power_init();       /* veille si la batterie est déjà vide ; doit suivre display_init() */
 
   print_menu();
 
