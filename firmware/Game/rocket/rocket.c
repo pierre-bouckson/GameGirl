@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "buzzer.h"
 #include <string.h>
 #include "main.h"
 #include "display.h"
@@ -113,7 +114,7 @@ static void game_over(uint32_t score)
 
     /* Le bouton a pu servir au boost pendant la partie : on attend un nouvel appui */
     consume_button();
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     consume_button();
 }
 
@@ -160,6 +161,7 @@ void menu_rocket(void)
 
             if (!(x_position > rocket_edges[coll][0] && x_position < rocket_edges[coll][1]))
             {
+                buzzer_play(SND_LOSE);
                 game_over(score);
                 return;
             }

@@ -7,7 +7,7 @@
 #define PERIOD_MIN_MS   150   /* plancher : reste jouable au joystick */
 #define PERIOD_ACCEL    97    /* chaque bonus mangé : period *= 97 % */
 
-void game();
+void game(void);
 
 /* Dessine la grille tab[][] et l'affiche (display_swap) */
 void print_game(void);

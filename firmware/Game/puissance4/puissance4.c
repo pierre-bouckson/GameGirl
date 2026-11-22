@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include "main.h"
 #include "display.h"
 #include "puissance4.h"
@@ -39,6 +40,7 @@ static int print_game(void)
         if (touche == P4_SELECT)
             return select;
         select = (touche < 0) ? 0 : 1;
+        buzzer_play(SND_MOVE);
     }
 }
 
@@ -57,16 +59,19 @@ static void tour_joueur(p4_jeux_t *jeu, uint8_t id)
         {
             if (!p4_jeux_check_full(jeu, choix))
                 break;
+            buzzer_tone(220, 120);   /* colonne pleine */
             continue;
         }
 
         choix += touche;
+        buzzer_play(SND_MOVE);
         if (choix < 0)
             choix = 0;
         if (choix > P4_COLS - 1)
             choix = P4_COLS - 1;
     }
     p4_jeux_update_buffer(jeu, choix, id);
+    buzzer_play(SND_HIT);
 }
 
 /* Affiche le résultat si la partie est finie, attend le bouton et retourne 1 */
@@ -79,10 +84,12 @@ static int fin_partie(const p4_jeux_t *jeu, uint8_t id, const char *gagnant)
     {
         message = gagnant;
         color = (id == P4_J1) ? P4_COLOR_O : P4_COLOR_X;
+        buzzer_play(id == P4_J2 && gagnant[0] == 'B' ? SND_LOSE : SND_WIN);   /* "Bot WIN" */
     }
     else if (p4_jeux_grille_pleine(jeu))
     {
         message = "Egalite";
+        buzzer_play(SND_BACK);
         color = COLOR_WHITE;
     }
     else
@@ -110,6 +117,7 @@ static void ia_easy_play(void)
         HAL_Delay(P4_BOT_DELAY);
 
         p4_jeux_update_buffer(&jeu, p4_ia_check_V_in_1(&jeu), P4_J2);
+        buzzer_play(SND_HIT);
         if (fin_partie(&jeu, P4_J2, "Bot WIN"))
             return;
     }

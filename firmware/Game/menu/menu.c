@@ -8,6 +8,11 @@
 #include "flappy.h"
 #include "reglages.h"
 #include "battery.h"
+#include "backlight.h"
+#include "buzzer.h"
+#include "game_exit.h"
+
+extern volatile uint8_t button_pressed;   /* main.c */
 #include <stdio.h>
 #include <string.h>
 
@@ -205,16 +210,25 @@ void print_menu(void)
 
 void start_game(void)
 {
+    void (*entry)(void) = NULL;
+
     switch (selected_tile())
     {
-        case GAME_PUISSANCE4: menu_puissance4(); break;
-        case GAME_ROCKET:     menu_rocket();     break;
-        case GAME_2048:       menu_2048();       break;
-        case GAME_SNAKE:      game();            break;
-        case GAME_PONG:       menu_pong();       break;
-        case GAME_TETRIS:     menu_tetris();     break;
-        case GAME_FLAPPY:     menu_flappy();     break;
-        case GAME_REGLAGES:   menu_reglages();   break;
-        default:              break;   /* pas encore de jeu */
+        case GAME_PUISSANCE4: entry = menu_puissance4; break;
+        case GAME_ROCKET:     entry = menu_rocket;     break;
+        case GAME_2048:       entry = menu_2048;       break;
+        case GAME_SNAKE:      entry = game;            break;
+        case GAME_PONG:       entry = menu_pong;       break;
+        case GAME_TETRIS:     entry = menu_tetris;     break;
+        case GAME_FLAPPY:     entry = menu_flappy;     break;
+        case GAME_REGLAGES:   entry = menu_reglages;   break;
+        default:              return;   /* pas encore de jeu */
     }
+
+    /* Revient à la fin du jeu, ou tout de suite sur appui de START */
+    game_run(entry);
+
+    buzzer_play(SND_BACK);
+    backlight_save();     /* START depuis les réglages : sans effet si le niveau n'a pas changé */
+    button_pressed = 0;   /* un appui fait pendant le jeu ne relance pas le jeu */
 }

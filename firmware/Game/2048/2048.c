@@ -1,4 +1,5 @@
 #include "2048.h"
+#include "buzzer.h"
 #include <stdlib.h>
 #include "display.h"
 #include "font8x8.h"
@@ -194,8 +195,10 @@ void menu_2048()
     {
         HAL_Delay(100);
         joy_mv_t mov = selection_joy();
+        uint32_t score_before = score;
         if(new_selection() && table_shift(mov))   /* nouvelle tuile seulement si la grille a changé */
         {
+            buzzer_play(score > score_before ? SND_POINT : SND_MOVE);   /* fusion ou simple glissement */
             /* Animation : les tuiles fusionnées grossissent un instant */
             draw_grid(true);
             display_swap();
@@ -208,9 +211,14 @@ void menu_2048()
     }
 
     if (game_over)
+    {
+        buzzer_play(SND_LOSE);
         HAL_Delay(1500);   /* laisse voir la grille bloquée */
+    }
 
     bool record = score > best;
+    if (record)
+        buzzer_play(SND_WIN);
     if (game_over || record)
         end_screen(game_over, record);
     if (record)
@@ -219,7 +227,7 @@ void menu_2048()
     if (game_over)
     {
         button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-        while(!button_pressed);
+        while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     }
     button_pressed = 0;
 }

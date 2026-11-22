@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -199,6 +200,7 @@ void game()
         if(eaten)
         {
             len_snake++;   /* mange le bonus : le serpent grandit */
+            buzzer_play(SND_POINT);
 
             /* Accélère de 3 % par bonus : ~22 bonus pour atteindre le plancher */
             period = period * PERIOD_ACCEL / 100;
@@ -212,9 +214,14 @@ void game()
     }
 
     if (game_over)
+    {
+        buzzer_play(SND_LOSE);
         HAL_Delay(1000);   /* laisse voir la position finale */
+    }
 
     bool record = len_snake > best;
+    if (record)
+        buzzer_play(SND_WIN);
     if (game_over || record)
         end_screen(game_over, record);
     if (record)
@@ -223,7 +230,7 @@ void game()
     if (game_over)
     {
         button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-        while(!button_pressed);
+        while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     }
     button_pressed = 0;
 }

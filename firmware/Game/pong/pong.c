@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -109,6 +110,7 @@ static uint8_t choose_level(void)
 
     while (!button_pressed)
     {
+        HAL_Delay(10);   /* HAL_Delay : START reste actif */
         if (!new_selection())
             continue;
 
@@ -118,6 +120,7 @@ static uint8_t choose_level(void)
             sel++;
         if (mv.x == 1 && sel > 0)
             sel--;
+        buzzer_play(SND_MOVE);
         print_levels(sel);
     }
     consume_button();
@@ -268,12 +271,14 @@ static int ball_step(void)
         ball_y = PLAYER_Y - BALL;
         bounce(player_x, -1);
         bot_new_aim();
+        buzzer_play(SND_HIT);
         return 0;
     }
     if (ball_vy < 0 && ball_y >= PAD_H && ny < PAD_H && on_pad(bot_x))
     {
         ball_y = PAD_H;
         bounce(bot_x, 1);
+        buzzer_play(SND_HIT);
         return 0;
     }
 
@@ -289,6 +294,7 @@ static void end_screen(void)
     char line[16];
     bool win = score_player > score_bot;
 
+    buzzer_play(win ? SND_WIN : SND_LOSE);
     display_clear(COLOR_BLACK);
     draw_centered(13, win ? "GAGNE !" : "PERDU", win ? COLOR_YELLOW : COLOR_RED, COLOR_BLACK);
     draw_centered(16, level->name, level->color, COLOR_BLACK);
@@ -299,7 +305,7 @@ static void end_screen(void)
     display_swap();
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
 }
 
 void menu_pong(void)
@@ -332,6 +338,7 @@ void menu_pong(void)
         {
             if (point > 0) score_player++;
             else           score_bot++;
+            buzzer_play(point > 0 ? SND_POINT : SND_BACK);
             HAL_Delay(POINT_MS);
 
             if (score_player >= PONG_WIN_SCORE || score_bot >= PONG_WIN_SCORE)

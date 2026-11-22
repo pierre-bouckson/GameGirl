@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <stdio.h>
 #include <string.h>
 #include "tetris.h"
@@ -322,6 +323,11 @@ static void clear_lines(void)
         y--;   /* la ligne du dessus est descendue ici : la revérifier */
     }
 
+    if (cleared == SHAPE_SIZE)
+        buzzer_play(SND_WIN);     /* 4 lignes d'un coup */
+    else if (cleared > 0)
+        buzzer_play(SND_POINT);
+
     score += line_points[cleared] * (level + 1);
     lines += cleared;
     level = lines / LINES_PER_LEVEL;
@@ -533,11 +539,14 @@ void menu_tetris(void)
                     turn_piece();
                 }
                 mouv_piece(mv);
+                if(mv.x >= 0)   /* pas de bip à chaque descente rapide */
+                    buzzer_play(SND_MOVE);
                 print_tab();
             }
             if(button_pressed)
             {
                 turn_piece();
+                buzzer_play(SND_MOVE);
                 button_pressed = 0;
                 print_tab();
             }
@@ -552,6 +561,7 @@ void menu_tetris(void)
         else
         {
             land();
+            buzzer_play(SND_HIT);   /* remplacé par SND_POINT si des lignes tombent */
             clear_lines();
 
             /* Pièce posée : la suivante repart à l'allure normale du niveau */
@@ -563,14 +573,17 @@ void menu_tetris(void)
         print_tab();
     }
 
+    buzzer_play(SND_LOSE);
     HAL_Delay(1000);   /* laisse voir la position finale */
 
     bool record = score > best;
+    if (record)
+        buzzer_play(SND_WIN);
     end_screen(record);
     if (record)
         best_write(score);   /* l'écran reste figé pendant l'effacement */
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while(!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     button_pressed = 0;
 }

@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include "buzzer.h"
 #include <string.h>
 #include "main.h"
 #include "display.h"
@@ -118,6 +119,7 @@ void menu_reglages(void)
             if (mv.y != 0)
             {
                 backlight_set(backlight_get() + mv.y);
+                buzzer_play(SND_MOVE);
                 draw_screen();
             }
         }

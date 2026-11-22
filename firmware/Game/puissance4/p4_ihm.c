@@ -1,4 +1,5 @@
 #include "main.h"
+#include "buzzer.h"
 #include "input.h"
 #include "p4_ihm.h"
 
@@ -28,9 +29,11 @@ int p4_ihm_choose_line(void)
 {
     while (1)
     {
+        HAL_Delay(5);   /* HAL_Delay : START reste actif */
         if (button_pressed)
         {
             consume_button();
+            buzzer_play(SND_SELECT);
             return P4_SELECT;
         }
 
@@ -47,6 +50,6 @@ int p4_ihm_choose_line(void)
 
 void p4_ihm_wait_button(void)
 {
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     consume_button();
 }

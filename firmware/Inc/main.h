@@ -45,9 +45,11 @@ extern "C" {
 /* Exported constants --------------------------------------------------------*/
 /* USER CODE BEGIN EC */
 
-/* Séquence de l'ADC1 (scan continu + DMA circulaire), dans l'ordre des rangs */
-#define ADC_IDX_JOY_X    0   /* canal 5, PA5 */
-#define ADC_IDX_JOY_Y    1   /* canal 13, PC3 */
+/* Séquence de l'ADC1 (scan continu + DMA circulaire), dans l'ordre des rangs.
+ * Sur la GameGirl, le joystick est monté tourné : PA5 (rang 0) donne l'axe Y
+ * du jeu et PC3 (rang 1) l'axe X, d'où les deux index croisés. */
+#define ADC_IDX_JOY_Y    0   /* canal 5, PA5 */
+#define ADC_IDX_JOY_X    1   /* canal 13, PC3 */
 #define ADC_IDX_VBAT     2   /* canal 1, PA1 = VBAT_SENSE (VSW / 2) */
 #define ADC_IDX_VREFINT  3   /* référence interne 1,21 V, pour connaître VDDA */
 #define ADC_NB_CHANNELS  4

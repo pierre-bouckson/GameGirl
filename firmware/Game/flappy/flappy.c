@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -243,6 +244,7 @@ static void pipes_step(void)
         {
             p->passed = true;
             score++;
+            buzzer_play(SND_POINT);
             speed = fminf(speed + FLAPPY_SPEED_UP, FLAPPY_SPEED_MAX);
         }
 
@@ -367,7 +369,10 @@ void menu_flappy(void)
         last_tick = HAL_GetTick();
 
         if (flap_requested())
+        {
             bird_vy = FLAPPY_FLAP;
+            buzzer_play(SND_HIT);
+        }
         bird_step();
         pipes_step();
 
@@ -375,14 +380,17 @@ void menu_flappy(void)
         display_swap();
     }
 
+    buzzer_play(SND_LOSE);
     HAL_Delay(DEATH_MS);   /* laisse voir la collision */
 
     bool record = score > best;
+    if (record)
+        buzzer_play(SND_WIN);
     end_screen(record);
     if (record)
         best_write(score);   /* l'écran reste figé pendant l'effacement */
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     consume_button();
 }

@@ -1,6 +1,7 @@
 #include "main.h"
 #include "display.h"
 #include "font8x8.h"
+#include "game_exit.h"
 
 #define SDRAM_ADDR_1 0xD0000000UL
 #define SDRAM_ADDR_2 (SDRAM_ADDR_1 + LCD_W * LCD_H * 2)
@@ -82,4 +83,6 @@ void display_swap(void)
   uint16_t *tmp = front_buffer;
   front_buffer = back_buffer;
   back_buffer = tmp;
+
+  game_exit_poll();   /* START pressé : retour au menu (game_exit.h) */
 }
