@@ -32,8 +32,8 @@ void buzzer_stop(void);
 bool buzzer_playing(void);
 
 /* Mode muet : les mélodies avancent toujours, mais sans son. buzzer_init()
- * relit l'état sauvegardé en flash (secteur 18), buzzer_save() l'y écrit
- * seulement s'il a changé (bloque ~1 à 2 s). */
+ * relit l'état sauvegardé en flash (storage.c), buzzer_save() l'y écrit
+ * seulement s'il a changé. */
 void buzzer_set_mute(bool mute);
 bool buzzer_muted(void);
 void buzzer_save(void);

@@ -8,6 +8,7 @@
 #include <string.h>
 #include <stdbool.h>
 #include "easy.h"
+#include "storage.h"
 
 static int tab[4][4] = {0};   /* static : main.c a déjà un tab global */
 
@@ -26,31 +27,15 @@ static void draw_grid(bool pop);
 
 /* ---- Meilleur score en flash -------------------------------------------- */
 
-/* Dernier secteur de la flash (128 Ko), loin du programme */
-#define BEST_ADDR    0x081E0000UL
-#define BEST_SECTOR  FLASH_SECTOR_23
-
 static uint32_t best_read(void)
 {
-    uint32_t v = *(volatile uint32_t *)BEST_ADDR;
-    return (v == 0xFFFFFFFF) ? 0 : v;   /* flash effacée = jamais écrit */
+    uint32_t v = storage_get(STORAGE_BEST_2048);
+    return (v == STORAGE_EMPTY) ? 0 : v;   /* jamais écrit */
 }
 
-/* Efface le secteur puis écrit la valeur : bloque ~1 à 2 s */
 static void best_write(uint32_t value)
 {
-    FLASH_EraseInitTypeDef erase = {
-        .TypeErase    = FLASH_TYPEERASE_SECTORS,
-        .Sector       = BEST_SECTOR,
-        .NbSectors    = 1,
-        .VoltageRange = FLASH_VOLTAGE_RANGE_3,   /* alim 2.7-3.6 V : écriture par mots de 32 bits */
-    };
-    uint32_t err;
-
-    HAL_FLASH_Unlock();
-    if (HAL_FLASHEx_Erase(&erase, &err) == HAL_OK)
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, BEST_ADDR, value);
-    HAL_FLASH_Lock();
+    storage_set(STORAGE_BEST_2048, value);
 }
 
 
@@ -258,7 +243,7 @@ void menu_2048()
     if (game_over || record)
         end_screen(game_over, record);
     if (record)
-        best_write(score);   /* l'écran reste figé pendant l'effacement */
+        best_write(score);
 
     if (game_over)
     {

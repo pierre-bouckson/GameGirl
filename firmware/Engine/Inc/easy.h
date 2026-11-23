@@ -12,8 +12,8 @@
  * Les records ne sont ni comparés ni sauvegardés en mode facile, pour ne pas
  * mélanger les scores des deux modes.
  *
- * easy_init() relit l'état sauvegardé en flash (secteur 17), easy_save() l'y
- * écrit seulement s'il a changé (bloque ~1 à 2 s). */
+ * easy_init() relit l'état sauvegardé en flash (storage.c), easy_save() l'y
+ * écrit seulement s'il a changé. */
 void easy_init(void);
 void easy_set(bool on);
 bool easy_mode(void);

@@ -20,7 +20,7 @@ uint8_t backlight_get(void);
 /* Éteint complètement le rétroéclairage (avant la mise en veille) */
 void backlight_off(void);
 
-/* Écrit le niveau courant en flash (secteur 19) s'il a changé : bloque ~1 à 2 s */
+/* Écrit le niveau courant en flash (storage.c) s'il a changé */
 void backlight_save(void);
 
 #endif /* __BACKLIGHT_H */

@@ -9,6 +9,7 @@
 #include "font8x8.h"
 #include "main.h"
 #include "easy.h"
+#include "storage.h"
 
 
 static int tab[30][30] = {[15][15] = -1};   /* static : main.c a déjà un tab global */
@@ -30,31 +31,15 @@ static int      grid      = 30;  /* côté de la grille en cases */
 
 /* ---- Meilleur score en flash -------------------------------------------- */
 
-/* Avant-dernier secteur (128 Ko) : le 23 est déjà pris par 2048 */
-#define BEST_ADDR    0x081C0000UL
-#define BEST_SECTOR  FLASH_SECTOR_22
-
 static uint32_t best_read(void)
 {
-    uint32_t v = *(volatile uint32_t *)BEST_ADDR;
-    return (v == 0xFFFFFFFF) ? 0 : v;   /* flash effacée = jamais écrit */
+    uint32_t v = storage_get(STORAGE_BEST_SNAKE);
+    return (v == STORAGE_EMPTY) ? 0 : v;   /* jamais écrit */
 }
 
-/* Efface le secteur puis écrit la valeur : bloque ~1 à 2 s */
 static void best_write(uint32_t value)
 {
-    FLASH_EraseInitTypeDef erase = {
-        .TypeErase    = FLASH_TYPEERASE_SECTORS,
-        .Sector       = BEST_SECTOR,
-        .NbSectors    = 1,
-        .VoltageRange = FLASH_VOLTAGE_RANGE_3,   /* alim 2.7-3.6 V : écriture par mots de 32 bits */
-    };
-    uint32_t err;
-
-    HAL_FLASH_Unlock();
-    if (HAL_FLASHEx_Erase(&erase, &err) == HAL_OK)
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, BEST_ADDR, value);
-    HAL_FLASH_Lock();
+    storage_set(STORAGE_BEST_SNAKE, value);
 }
 
 /* Dessine tab[][] (ligne i, colonne j) et l'affiche (display_swap) */
@@ -256,7 +241,7 @@ void game()
     if (game_over || record)
         end_screen(game_over, record);
     if (record)
-        best_write(len_snake);   /* l'écran reste figé pendant l'effacement */
+        best_write(len_snake);
 
     if (game_over)
     {

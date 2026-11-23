@@ -1,13 +1,10 @@
 #include "main.h"
 #include "buzzer.h"
 #include "power.h"
+#include "storage.h"
 
 /* TIM12 compte à 1 MHz : ARR = 1e6 / f - 1 tient sur 16 bits dès 16 Hz */
 #define TICK_HZ 1000000UL
-
-/* Secteur 18 (128 Ko) : 19 à 23 sont pris par le rétroéclairage et les records */
-#define MUTE_ADDR    0x08140000UL
-#define MUTE_SECTOR  FLASH_SECTOR_18
 
 static TIM_HandleTypeDef htim12;
 static volatile bool muted = false;
@@ -79,7 +76,7 @@ void buzzer_init(void)
     HAL_TIM_PWM_ConfigChannel(&htim12, &oc, TIM_CHANNEL_1);
     HAL_TIM_PWM_Start(&htim12, TIM_CHANNEL_1);
 
-    muted = (*(volatile uint32_t *)MUTE_ADDR == 1);   /* flash effacée = son actif */
+    muted = (storage_get(STORAGE_MUTE) == 1);   /* jamais écrit = son actif */
 }
 
 /* ---- Mode muet ------------------------------------------------------------- */
@@ -98,22 +95,7 @@ bool buzzer_muted(void)
 
 void buzzer_save(void)
 {
-    uint32_t stored = *(volatile uint32_t *)MUTE_ADDR;
-    if ((stored == 1) == muted)
-        return;
-
-    FLASH_EraseInitTypeDef erase = {
-        .TypeErase    = FLASH_TYPEERASE_SECTORS,
-        .Sector       = MUTE_SECTOR,
-        .NbSectors    = 1,
-        .VoltageRange = FLASH_VOLTAGE_RANGE_3,
-    };
-    uint32_t err;
-
-    HAL_FLASH_Unlock();
-    if (HAL_FLASHEx_Erase(&erase, &err) == HAL_OK)
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, MUTE_ADDR, muted ? 1 : 0);
-    HAL_FLASH_Lock();
+    storage_set(STORAGE_MUTE, muted ? 1 : 0);
 }
 
 /* ---- Lecture --------------------------------------------------------------- */
