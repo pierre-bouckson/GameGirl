@@ -299,7 +299,12 @@ void power_poll(void)
         check_battery();
     }
 
-    if (HAL_GetTick() - last_activity >= POWER_IDLE_MS - POWER_IDLE_WARN_MS)
+    /* last_activity lu AVANT l'heure : power_tick() (SysTick) peut le mettre à
+     * jour entre les deux lectures. Dans l'autre ordre, on obtiendrait
+     * T - (T + 1) = 0xFFFFFFFF en non signé, et le compte à rebours
+     * s'afficherait en pleine partie. */
+    uint32_t last = last_activity;
+    if (HAL_GetTick() - last >= POWER_IDLE_MS - POWER_IDLE_WARN_MS)
         idle_countdown();
 
     busy = false;

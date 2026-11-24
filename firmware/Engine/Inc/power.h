@@ -28,7 +28,7 @@
 #define POWER_BOOT_MIN_MV    (POWER_CUTOFF_MV + 50) /* hystérésis au démarrage, sans charge */
 #define POWER_CUTOFF_CHECKS  5                    /* mesures de suite sous le seuil */
 #define POWER_CHECK_MS       1000                 /* une mesure de batterie par seconde */
-#define POWER_IDLE_MS        (2UL * 60 * 1000)    /* veille après 2 min sans action */
+#define POWER_IDLE_MS        (5UL * 60 * 1000)    /* veille après 5 min sans action */
 #define POWER_IDLE_WARN_MS   10000                /* dont 10 s de compte à rebours */
 #define POWER_LOW_MSG_MS     4000                 /* durée du message batterie faible */
 
