@@ -73,7 +73,7 @@ L'écran n'est **pas soudé** au PCB : il est tenu par le boîtier (logement dan
 
 | Repère | Fonction | Centre X | Centre Y | Emprise au sol | Hauteur au-dessus du PCB |
 |---|---|---|---|---|---|
-| SW6 | Joystick analogique YHE-YG16-001 (avec clic) | **17,5** | **93,0** | 16,5 × 18,4 (X de 9,25 à 25,75 ; Y de 83,8 à 102,2) | **18,7** au sommet de la tige |
+| SW6 | Joystick analogique YHE-YG16-001 (avec clic) | **17,5** | **93,0** | 16,5 × 18,4 (X de 9,25 à 25,75 ; Y de 83,8 à 102,2) | **18,95** au sommet de la tige |
 | SW2 | Bouton **A** | **62,0** | **87,0** | 6,5 × 5,2 | 1,5 |
 | SW3 | Bouton **B** | **50,0** | **95,0** | 6,5 × 5,2 | 1,5 |
 | SW4 | **SELECT** | **28,0** | **109,0** | 6,5 × 5,2 | 1,5 |
@@ -81,7 +81,8 @@ L'écran n'est **pas soudé** au PCB : il est tenu par le boîtier (logement dan
 
 - **Boutons A, B, SELECT, START** : poussoirs CMS 5,1 × 5,1 mm (LCSC C318884), poussoir central Ø ≈ 3 mm, course ≈ 0,25 mm, effort ≈ 160 gf. Le boîtier doit fournir des **capuchons** qui appuient sur le centre de chaque poussoir (sommet du poussoir à Z = 1,5).
   Entraxe A–B : 12,0 en X, 8,0 en Y (A en haut à droite, B en bas à gauche, comme sur une Game Boy).
-- **Joystick** : composant traversant, origine de l'empreinte à (17,5 ; 93,0), mais **axe de la tige décalé, à environ (17,25 ; 91,55)** d'après le modèle 3D (corps jusqu'à Z ≈ 8, dôme jusqu'à ≈ 10,75, tige ≈ 3 × 4 mm). Le modèle 3D est `libs/EasyEDA/EasyEDA.3dshapes/SW-TH_YHE-YG16-001-SH1B166A1.step` : s'y référer pour la hauteur du corps, le diamètre de la tige et le débattement, que je n'ai pas pu confirmer par une datasheet (LCSC C42411044). **À mesurer sur la pièce réelle.**
+- **Joystick** : composant traversant, origine de l'empreinte à (17,5 ; 93,0), mais **axe de la tige décalé, à environ (17,25 ; 91,55)** d'après le modèle 3D. Cotes de la datasheet (`../docs/joy.pdf`, YHE-YG16-001, LCSC C42411044) : **corps de 7,5 mm de haut**, **tige ronde Ø 4,0 avec deux méplats à 3,0 mm**, trou central Ø 1,5, **haut de la tige à 18,95 mm du PCB**. Le dôme monte à ≈ 10,75 d'après le modèle 3D `libs/EasyEDA/EasyEDA.3dshapes/SW-TH_YHE-YG16-001-SH1B166A1.step`.
+  La tige est compatible avec les capuchons de manette PS4/PS5 du commerce. Leur jupe (≈ Ø 20) descend sous le haut de la tige : prévoir une ouverture assez large (≈ 24 mm) ou une face avant abaissée autour du joystick pour garder 30° de débattement sans contact.
   Prévoir une ouverture circulaire centrée sur (17,5 ; 93,0), assez large pour le débattement du capuchon.
 - La hauteur du joystick fixe la distance entre le PCB et la face avant du boîtier (de l'ordre de 9 à 12 mm selon le capuchon). C'est pour cela que l'écran est surélevé (voir § 3) et que les boutons demandent des capuchons longs.
 - Sérigraphie avant : « A », « B », « SELECT », « START » près des boutons, « GameGirl » centré vers Y = 74,5.
@@ -131,7 +132,7 @@ Hauteurs mesurées depuis la face arrière du PCB (ajouter 1,6 pour les avoir de
 
 | Z | Élément |
 |---|---|
-| ≈ +18,7 | sommet de la tige du joystick (sans capuchon) |
+| +18,95 | sommet de la tige du joystick (sans capuchon) |
 | +h à +h+2,8 | écran (h = 3 à 5 mm conseillé, voir § 3) |
 | +1,5 | sommet des poussoirs A, B, SELECT, START |
 | 0 | face avant du PCB |
@@ -153,6 +154,6 @@ Hauteurs mesurées depuis la face arrière du PCB (ajouter 1,6 pour les avoir de
 ## 10. Points à valider sur les pièces réelles
 
 1. Longueur utile de la nappe et hauteur h de l'écran (§ 3).
-2. Dimensions réelles du joystick : hauteur du corps, tige, débattement (§ 4).
+2. Joystick : cotes reprises de la datasheet (§ 4) ; reste à valider le débattement avec le capuchon PS4/PS5 retenu.
 3. Dépassement et course du levier de SW1 (§ 5).
 4. Hauteur exacte de l'embase USB-C et de J2 avec sa prise.

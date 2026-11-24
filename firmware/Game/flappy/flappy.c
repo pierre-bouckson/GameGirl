@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -8,6 +9,8 @@
 #include "display.h"
 #include "font8x8.h"
 #include "main.h"
+#include "easy.h"
+#include "storage.h"
 
 /* Terrain de 240x256 px sous le titre : 240 px de ciel puis 16 px de sol.
  * L'oiseau reste à une abscisse fixe et ne bouge qu'en hauteur (position
@@ -28,7 +31,7 @@
 #define CAP_W       (PIPE_W + 4)          /* chapeau du tuyau, 2 px de chaque côté */
 #define CAP_H       6
 #define GAP_MARGIN  24                    /* ouverture jamais collée au haut ni au sol */
-#define NB_PIPES    3                     /* assez pour couvrir 240 px à 130 px d'écart */
+#define NB_PIPES    3                     /* assez pour couvrir 240 px à 130 ou 150 px d'écart */
 
 #define P_SKY        RGB565(20, 20, 40)
 #define P_PIPE       RGB565(80, 200, 80)
@@ -68,33 +71,22 @@ static float bird_y, bird_vy, speed;
 static float ground_off;   /* décalage des rayures du sol, pour le défilement */
 static uint32_t score, best;
 
-/* ---- Meilleur score en flash -------------------------------------------- */
+/* Réglages de la partie, choisis selon le mode au lancement */
+static bool easy;
+static float gravity, flap_v, max_fall, speed_start, speed_up;
+static int gap, spacing, margin;
 
-/* Secteur 20 (128 Ko) : 21, 22 et 23 sont déjà pris par Tetris, Snake et 2048 */
-#define BEST_ADDR    0x08180000UL
-#define BEST_SECTOR  FLASH_SECTOR_20
+/* ---- Meilleur score en flash -------------------------------------------- */
 
 static uint32_t best_read(void)
 {
-    uint32_t v = *(volatile uint32_t *)BEST_ADDR;
-    return (v == 0xFFFFFFFF) ? 0 : v;   /* flash effacée = jamais écrit */
+    uint32_t v = storage_get(STORAGE_BEST_FLAPPY);
+    return (v == STORAGE_EMPTY) ? 0 : v;   /* jamais écrit */
 }
 
-/* Efface le secteur puis écrit la valeur : bloque ~1 à 2 s */
 static void best_write(uint32_t value)
 {
-    FLASH_EraseInitTypeDef erase = {
-        .TypeErase    = FLASH_TYPEERASE_SECTORS,
-        .Sector       = BEST_SECTOR,
-        .NbSectors    = 1,
-        .VoltageRange = FLASH_VOLTAGE_RANGE_3,   /* alim 2.7-3.6 V : écriture par mots de 32 bits */
-    };
-    uint32_t err;
-
-    HAL_FLASH_Unlock();
-    if (HAL_FLASHEx_Erase(&erase, &err) == HAL_OK)
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, BEST_ADDR, value);
-    HAL_FLASH_Lock();
+    storage_set(STORAGE_BEST_FLAPPY, value);
 }
 
 /* ---- Outils ----------------------------------------------------------------- */
@@ -153,7 +145,7 @@ static void draw_pipe_part(int x, int y, int w, int h)
 static void draw_pipe(const pipe_t *p)
 {
     int x = (int)p->x;
-    int bottom = p->gap_y + FLAPPY_GAP;
+    int bottom = p->gap_y + gap;
 
     draw_pipe_part(x, 0, PIPE_W, p->gap_y - CAP_H);
     draw_pipe_part(x - 2, p->gap_y - CAP_H, CAP_W, CAP_H);
@@ -211,6 +203,11 @@ static void draw_scene(int bird_px)
     snprintf(line, sizeof line, "%lu", (unsigned long)score);
     display_draw_string(7 * FONT_W, 37 * FONT_H, line, COLOR_WHITE, COLOR_BLACK);
 
+    if (easy)
+    {
+        display_draw_string(22 * FONT_W, 37 * FONT_H, "FACILE", EASY_COLOR, COLOR_BLACK);
+        return;
+    }
     display_draw_string(17 * FONT_W, 37 * FONT_H, "BEST", COLOR_GRAY, COLOR_BLACK);
     snprintf(line, sizeof line, "%lu", (unsigned long)((score > best) ? score : best));
     display_draw_string(22 * FONT_W, 37 * FONT_H, line, COLOR_YELLOW, COLOR_BLACK);
@@ -220,14 +217,14 @@ static void draw_scene(int bird_px)
 
 static int random_gap(void)
 {
-    return GAP_MARGIN + rand() % (SKY_H - FLAPPY_GAP - 2 * GAP_MARGIN + 1);
+    return GAP_MARGIN + rand() % (SKY_H - gap - 2 * GAP_MARGIN + 1);
 }
 
 /* Tuyaux alignés à droite de l'écran, hors champ */
 static void reset_pipes(void)
 {
     for (int i = 0; i < NB_PIPES; i++)
-        pipes[i] = (pipe_t){FIELD_W + 40 + i * FLAPPY_SPACING, random_gap(), false};
+        pipes[i] = (pipe_t){FIELD_W + 40 + i * spacing, random_gap(), false};
 }
 
 /* Fait défiler les tuyaux ; un tuyau sorti à gauche repart derrière le dernier.
@@ -243,7 +240,8 @@ static void pipes_step(void)
         {
             p->passed = true;
             score++;
-            speed = fminf(speed + FLAPPY_SPEED_UP, FLAPPY_SPEED_MAX);
+            buzzer_play(SND_POINT);
+            speed = fminf(speed + speed_up, FLAPPY_SPEED_MAX);
         }
 
         if (p->x + CAP_W < 0)
@@ -251,7 +249,7 @@ static void pipes_step(void)
             float last = pipes[0].x;
             for (int j = 1; j < NB_PIPES; j++)
                 last = fmaxf(last, pipes[j].x);
-            *p = (pipe_t){last + FLAPPY_SPACING, random_gap(), false};
+            *p = (pipe_t){last + spacing, random_gap(), false};
         }
     }
 
@@ -260,19 +258,21 @@ static void pipes_step(void)
         ground_off -= 12.0f;
 }
 
-/* L'oiseau touche-t-il un tuyau ou le sol ? Boîte réduite d'1 px de chaque côté */
+/* L'oiseau touche-t-il un tuyau ou le sol ? Boîte réduite de margin px de
+ * chaque côté (1 px, 4 en mode facile où le sol ne compte pas) */
 static bool collision(void)
 {
-    int bx = BIRD_X + 1, by = (int)bird_y + 1, bw = BIRD_W - 2, bh = BIRD_H - 2;
+    int bx = BIRD_X + margin, by = (int)bird_y + margin;
+    int bw = BIRD_W - 2 * margin, bh = BIRD_H - 2 * margin;
 
-    if (by + bh >= SKY_H)
+    if (!easy && by + bh >= SKY_H)
         return true;
 
     for (int i = 0; i < NB_PIPES; i++)
     {
         int x = (int)pipes[i].x;
         int top = pipes[i].gap_y;
-        int bottom = top + FLAPPY_GAP;
+        int bottom = top + gap;
 
         if (overlap(bx, by, bw, bh, x, 0, PIPE_W, top) ||
             overlap(bx, by, bw, bh, x - 2, top - CAP_H, CAP_W, CAP_H) ||
@@ -285,8 +285,16 @@ static bool collision(void)
 
 static void bird_step(void)
 {
-    bird_vy = fminf(bird_vy + FLAPPY_GRAVITY, FLAPPY_MAX_FALL);
+    bird_vy = fminf(bird_vy + gravity, max_fall);
     bird_y += bird_vy;
+
+    /* Mode facile : le sol fait rebondir l'oiseau au lieu de le tuer */
+    if (easy && bird_y + BIRD_H >= SKY_H)
+    {
+        bird_y = SKY_H - BIRD_H;
+        bird_vy = flap_v;
+        buzzer_play(SND_HIT);
+    }
 
     /* Plafond : l'oiseau s'y cogne sans mourir */
     if (bird_y < 0)
@@ -335,8 +343,11 @@ static void end_screen(bool record)
     snprintf(line, sizeof line, "%lu", (unsigned long)score);
     draw_centered(19, line, COLOR_WHITE, COLOR_BLACK);
 
-    snprintf(line, sizeof line, "BEST %lu", (unsigned long)(record ? score : best));
-    draw_centered(22, line, COLOR_GRAY, COLOR_BLACK);
+    if (!easy)
+    {
+        snprintf(line, sizeof line, "BEST %lu", (unsigned long)(record ? score : best));
+        draw_centered(22, line, COLOR_GRAY, COLOR_BLACK);
+    }
 
     draw_centered(27, "bouton : menu", COLOR_GRAY, COLOR_BLACK);
     display_swap();
@@ -344,9 +355,19 @@ static void end_screen(bool record)
 
 void menu_flappy(void)
 {
+    easy        = easy_mode();
+    gravity     = easy ? FLAPPY_EASY_GRAVITY  : FLAPPY_GRAVITY;
+    flap_v      = easy ? FLAPPY_EASY_FLAP     : FLAPPY_FLAP;
+    max_fall    = easy ? FLAPPY_EASY_MAX_FALL : FLAPPY_MAX_FALL;
+    speed_start = easy ? FLAPPY_EASY_SPEED    : FLAPPY_SPEED;
+    speed_up    = easy ? 0.0f          : FLAPPY_SPEED_UP;
+    gap         = easy ? FLAPPY_EASY_GAP      : FLAPPY_GAP;
+    spacing     = easy ? FLAPPY_EASY_SPACING  : FLAPPY_SPACING;
+    margin      = easy ? FLAPPY_EASY_MARGIN   : 1;
+
     score = 0;
     best = best_read();
-    speed = FLAPPY_SPEED;
+    speed = speed_start;
     ground_off = 0;
     bird_y = (SKY_H - BIRD_H) / 2;
     bird_vy = 0;
@@ -357,7 +378,7 @@ void menu_flappy(void)
     /* Le moment du premier battement sert de graine aléatoire pour les tuyaux */
     srand(HAL_GetTick());
     reset_pipes();
-    bird_vy = FLAPPY_FLAP;
+    bird_vy = flap_v;
 
     /* Le bouton sert à voler : la partie ne s'arrête qu'à la collision */
     uint32_t last_tick = HAL_GetTick();
@@ -367,7 +388,10 @@ void menu_flappy(void)
         last_tick = HAL_GetTick();
 
         if (flap_requested())
-            bird_vy = FLAPPY_FLAP;
+        {
+            bird_vy = flap_v;
+            buzzer_play(SND_HIT);
+        }
         bird_step();
         pipes_step();
 
@@ -375,14 +399,17 @@ void menu_flappy(void)
         display_swap();
     }
 
+    buzzer_play(SND_LOSE);
     HAL_Delay(DEATH_MS);   /* laisse voir la collision */
 
-    bool record = score > best;
+    bool record = !easy && score > best;   /* pas de record en mode facile */
+    if (record)
+        buzzer_play(SND_WIN);
     end_screen(record);
     if (record)
-        best_write(score);   /* l'écran reste figé pendant l'effacement */
+        best_write(score);
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     consume_button();
 }

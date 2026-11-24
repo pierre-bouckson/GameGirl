@@ -1,10 +1,13 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <stdio.h>
 #include <string.h>
 #include "tetris.h"
 #include "display.h"
 #include "font8x8.h"
 #include "input.h"
+#include "easy.h"
+#include "storage.h"
 
 /* tab[x][y] : x = colonne (0 à gauche), y = ligne (0 en bas, la pièce descend en y-1).
  * 0 = vide, > 0 = bloc posé, < 0 = bloc de la pièce qui tombe.
@@ -24,6 +27,7 @@ static uint32_t best  = 0;    /* meilleur score, gardé en flash */
 static uint32_t lines = 0;    /* lignes effacées depuis le début de la partie */
 static uint32_t level = 0;    /* lines / LINES_PER_LEVEL */
 static bool game_over = false;
+static bool easy = false;     /* mode facile, lu au lancement */
 
 /* Points gagnés selon le nombre de lignes effacées d'un coup (0 à 4), x (niveau + 1) */
 static const uint16_t line_points[SHAPE_SIZE + 1] = {0, 100, 300, 500, 800};
@@ -36,31 +40,15 @@ static int     next_shape = 0;   /* pièce suivante, affichée dans le panneau *
 
 /* ---- Meilleur score en flash -------------------------------------------- */
 
-/* Secteur 21 (128 Ko) : 22 et 23 sont déjà pris par Snake et 2048 */
-#define BEST_ADDR    0x081A0000UL
-#define BEST_SECTOR  FLASH_SECTOR_21
-
 static uint32_t best_read(void)
 {
-    uint32_t v = *(volatile uint32_t *)BEST_ADDR;
-    return (v == 0xFFFFFFFF) ? 0 : v;   /* flash effacée = jamais écrit */
+    uint32_t v = storage_get(STORAGE_BEST_TETRIS);
+    return (v == STORAGE_EMPTY) ? 0 : v;   /* jamais écrit */
 }
 
-/* Efface le secteur puis écrit la valeur : bloque ~1 à 2 s */
 static void best_write(uint32_t value)
 {
-    FLASH_EraseInitTypeDef erase = {
-        .TypeErase    = FLASH_TYPEERASE_SECTORS,
-        .Sector       = BEST_SECTOR,
-        .NbSectors    = 1,
-        .VoltageRange = FLASH_VOLTAGE_RANGE_3,   /* alim 2.7-3.6 V : écriture par mots de 32 bits */
-    };
-    uint32_t err;
-
-    HAL_FLASH_Unlock();
-    if (HAL_FLASHEx_Erase(&erase, &err) == HAL_OK)
-        HAL_FLASH_Program(FLASH_TYPEPROGRAM_WORD, BEST_ADDR, value);
-    HAL_FLASH_Lock();
+    storage_set(STORAGE_BEST_TETRIS, value);
 }
 
 /* Une case du plateau = 2x2 caractères (16x16 px) : 10x20 cases = 160x320 px,
@@ -101,6 +89,26 @@ static void draw_block(uint16_t px, uint16_t py, uint16_t size, uint16_t c)
     }
 }
 
+/* Nombre de lignes dont la pièce qui tombe peut descendre avant de se poser */
+static int drop_distance(void)
+{
+    int d = BOARD_H;
+    for (int x = 0; x < BOARD_W; x++)
+    {
+        for (int y = 0; y < BOARD_H; y++)
+        {
+            if (tab[x][y] >= 0)
+                continue;
+            int k = 0;
+            while (y - k - 1 >= 0 && tab[x][y - k - 1] <= 0)
+                k++;
+            if (k < d)
+                d = k;
+        }
+    }
+    return (d == BOARD_H) ? 0 : d;   /* pas de pièce : pas de fantôme */
+}
+
 /* Libellé gris puis valeur blanche en dessous, dans le panneau de droite */
 static void draw_stat(uint8_t row, const char *label, uint32_t value, uint16_t color)
 {
@@ -122,6 +130,9 @@ void print_tab(void)
         display_draw_char(T_WALL_R * FONT_W, row * FONT_H, '|', T_WALL, COLOR_BLACK);
     }
 
+    /* Mode facile : de combien de lignes la pièce peut encore descendre */
+    int ghost = easy ? drop_distance() : 0;
+
     for (int x = 0; x < BOARD_W; x++)
     {
         for (int y = 0; y < BOARD_H; y++)
@@ -133,6 +144,11 @@ void print_tab(void)
             if (v != 0)
             {
                 draw_block(px, py, 2 * FONT_W, piece_color[abs(v) - 1]);
+            }
+            else if (ghost > 0 && y + ghost < BOARD_H && tab[x][y + ghost] < 0)
+            {
+                /* Pièce fantôme : même forme, couleur deux fois plus sombre */
+                draw_block(px, py, 2 * FONT_W, darker(piece_color[cur_shape]));
             }
             else
             {
@@ -169,7 +185,10 @@ void print_tab(void)
     draw_stat(5,  "SCORE", score, COLOR_WHITE);
     draw_stat(8,  "LEVEL", level, COLOR_WHITE);
     draw_stat(11, "LINES", lines, COLOR_WHITE);
-    draw_stat(14, "BEST",  (score > best) ? score : best, COLOR_YELLOW);
+    if (easy)
+        display_draw_string((T_PANEL + 1) * FONT_W, 14 * FONT_H, "FACILE", EASY_COLOR, COLOR_BLACK);
+    else
+        draw_stat(14, "BEST",  (score > best) ? score : best, COLOR_YELLOW);
 
     /* Pièce suivante : sa grille 4x4, 1 caractère (8 px) par case */
     display_draw_string((T_PANEL + 1) * FONT_W, 18 * FONT_H, "NEXT", COLOR_GRAY, COLOR_BLACK);
@@ -322,14 +341,23 @@ static void clear_lines(void)
         y--;   /* la ligne du dessus est descendue ici : la revérifier */
     }
 
+    if (cleared == SHAPE_SIZE)
+        buzzer_play(SND_WIN);     /* 4 lignes d'un coup */
+    else if (cleared > 0)
+        buzzer_play(SND_POINT);
+
     score += line_points[cleared] * (level + 1);
     lines += cleared;
     level = lines / LINES_PER_LEVEL;
 }
 
-/* Période de chute du niveau courant : -15 % par niveau, avec un plancher */
+/* Période de chute du niveau courant : -15 % par niveau, avec un plancher
+ * (fixe en mode facile) */
 static uint32_t fall_period(void)
 {
+    if (easy)
+        return TETRIS_EASY_PERIOD_MS;   /* ne s'accélère jamais */
+
     uint32_t p = TETRIS_PERIOD_MS;
     for(uint32_t l = 0; l < level && p > TETRIS_PERIOD_MIN_MS; l++)
     {
@@ -492,6 +520,7 @@ static void end_screen(bool record)
 void menu_tetris(void)
 {
     srand(HAL_GetTick());
+    easy = easy_mode();
 
     /* Plateau et compteurs remis à zéro à chaque partie */
     memset(tab, 0, sizeof tab);
@@ -533,11 +562,14 @@ void menu_tetris(void)
                     turn_piece();
                 }
                 mouv_piece(mv);
+                if(mv.x >= 0)   /* pas de bip à chaque descente rapide */
+                    buzzer_play(SND_MOVE);
                 print_tab();
             }
             if(button_pressed)
             {
                 turn_piece();
+                buzzer_play(SND_MOVE);
                 button_pressed = 0;
                 print_tab();
             }
@@ -552,6 +584,7 @@ void menu_tetris(void)
         else
         {
             land();
+            buzzer_play(SND_HIT);   /* remplacé par SND_POINT si des lignes tombent */
             clear_lines();
 
             /* Pièce posée : la suivante repart à l'allure normale du niveau */
@@ -563,14 +596,17 @@ void menu_tetris(void)
         print_tab();
     }
 
+    buzzer_play(SND_LOSE);
     HAL_Delay(1000);   /* laisse voir la position finale */
 
-    bool record = score > best;
+    bool record = !easy && score > best;   /* pas de record en mode facile */
+    if (record)
+        buzzer_play(SND_WIN);
     end_screen(record);
     if (record)
-        best_write(score);   /* l'écran reste figé pendant l'effacement */
+        best_write(score);
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while(!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
     button_pressed = 0;
 }

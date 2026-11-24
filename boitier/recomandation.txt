@@ -1,0 +1,17 @@
+trou pour usb trop petit, besoin d'elargire
+
+bouton on off difficilement accessible, dois agrandir
+
+syeteme de fixation de ferletir du boitier a revoir, les supports casse sur la coque arriere, adopter un solition simple, vis a l'avant et boulon a l'arriere 
+
+ne fais pas de profondeur sur la face avant au niveau de l'ecran ca complique pour l'imprimante 3D
+
+joystick : utiliser des capuchons PS4/PS5 du commerce au lieu du capuchon imprime
+  - cotes reelles du joystick (datasheet docs/joy.pdf, YHE-YG16-001) : tige ronde Ø4,0 mm avec deux meplats a 3,0 mm, trou central Ø1,5 ; haut de la tige a 18,95 mm du PCB (pas 18,7) ; corps de 7,5 mm de haut (pas 8)
+  - corriger ces cotes dans boitier.py et PCB/MECANIQUE_BOITIER.md (le logement rectangulaire 3,15 x 4,15 du capuchon imprime n'est pas la bonne forme)
+  - le capuchon PS5 a une jupe d'environ 20 mm de diametre qui descend sous le haut de la tige : avec la face avant a 10,5 mm et un trou de 17 mm, la jupe risque de toucher ou de frotter a 30° d'inclinaison
+  - a la reception des capuchons : mesurer le diametre de la jupe et sa hauteur sous le fond du logement de tige, puis agrandir JOY_HOLE (vers 24 mm) ou abaisser localement la face avant autour du joystick pour garder le debattement de 30° sans contact
+  - supprimer capuchon_joystick.stl/.step de la liste des pieces a imprimer une fois le capuchon du commerce valide
+
+
+

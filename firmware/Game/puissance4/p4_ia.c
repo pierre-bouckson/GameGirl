@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include "p4_ia.h"
+#include "easy.h"
 
 /* Colonne où id gagne en 1 coup, ou -1. Le pion est posé puis retiré. */
 static int coup_gagnant(p4_jeux_t *jeu, uint8_t id)
@@ -20,13 +21,22 @@ static int coup_gagnant(p4_jeux_t *jeu, uint8_t id)
 
 int p4_ia_check_V_in_1(p4_jeux_t *jeu)
 {
-    int k = coup_gagnant(jeu, P4_J2);
-    if (k >= 0)
-        return k;
+    bool easy = easy_mode();
+    int k;
 
-    k = coup_gagnant(jeu, P4_J1);
-    if (k >= 0)
-        return k;
+    if (!easy || rand() % P4_EASY_WIN_CHANCE == 0)
+    {
+        k = coup_gagnant(jeu, P4_J2);
+        if (k >= 0)
+            return k;
+    }
+
+    if (!easy)
+    {
+        k = coup_gagnant(jeu, P4_J1);
+        if (k >= 0)
+            return k;
+    }
 
     /* La grille n'est pas pleine quand le bot joue, la boucle se termine */
     do

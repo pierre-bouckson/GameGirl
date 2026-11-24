@@ -27,6 +27,10 @@
 #include "menu.h"
 #include "input.h"
 #include "backlight.h"
+#include "buzzer.h"
+#include "game_exit.h"
+#include "easy.h"
+#include "power.h"
 
 /* USER CODE END Includes */
 
@@ -174,7 +178,13 @@ int main(void)
 
   backlight_init();   /* PWM du rétroéclairage, luminosité relue en flash */
 
+  buzzer_init();      /* PB14 = TIM12_CH1 */
+  game_exit_init();   /* START (PE4) : retour au menu depuis un jeu */
+  easy_init();        /* mode facile, relu en flash */
+  buzzer_play(SND_BOOT);
+
   display_init();
+  power_init();       /* veille si la batterie est déjà vide ; doit suivre display_init() */
 
   print_menu();
 
@@ -193,6 +203,7 @@ int main(void)
     {
       button_pressed = 0;
       HAL_GPIO_TogglePin(GPIOG, GPIO_PIN_13);
+      buzzer_play(SND_SELECT);
       start_game();
       print_menu();
     }
@@ -203,6 +214,7 @@ int main(void)
     {
       printf("selection X : %d    selection Y = %d \r\n", selection.x, selection.y);
       menu_move((joy_mv_t){selection.x, selection.y});
+      buzzer_play(SND_MOVE);
       print_menu();
     }
 
@@ -706,6 +718,10 @@ void HAL_GPIO_EXTI_Callback(uint16_t GPIO_Pin)
   if (GPIO_Pin == GPIO_PIN_0)
   {
     button_pressed = 1;
+  }
+  else if (GPIO_Pin == GPIO_PIN_4)   /* START */
+  {
+    game_exit_request();
   }
 }
 

@@ -8,6 +8,12 @@
 #include "flappy.h"
 #include "reglages.h"
 #include "battery.h"
+#include "backlight.h"
+#include "buzzer.h"
+#include "game_exit.h"
+#include "easy.h"
+
+extern volatile uint8_t button_pressed;   /* main.c */
 #include <stdio.h>
 #include <string.h>
 
@@ -200,21 +206,37 @@ void print_menu(void)
     uint16_t col = BATTERY_COL + 6 - strlen(battery_text);
     display_draw_string(col * FONT_W, BATTERY_ROW * FONT_H, battery_text, color, COLOR_BLACK);
 
+    /* Mode facile : badge en haut à gauche, en face de la batterie */
+    if (easy_mode())
+        display_draw_string(EASY_COL * FONT_W, EASY_ROW * FONT_H, " FACILE ",
+                            COLOR_BLACK, EASY_COLOR);
+
     display_swap();
 }
 
 void start_game(void)
 {
+    void (*entry)(void) = NULL;
+
     switch (selected_tile())
     {
-        case GAME_PUISSANCE4: menu_puissance4(); break;
-        case GAME_ROCKET:     menu_rocket();     break;
-        case GAME_2048:       menu_2048();       break;
-        case GAME_SNAKE:      game();            break;
-        case GAME_PONG:       menu_pong();       break;
-        case GAME_TETRIS:     menu_tetris();     break;
-        case GAME_FLAPPY:     menu_flappy();     break;
-        case GAME_REGLAGES:   menu_reglages();   break;
-        default:              break;   /* pas encore de jeu */
+        case GAME_PUISSANCE4: entry = menu_puissance4; break;
+        case GAME_ROCKET:     entry = menu_rocket;     break;
+        case GAME_2048:       entry = menu_2048;       break;
+        case GAME_SNAKE:      entry = game;            break;
+        case GAME_PONG:       entry = menu_pong;       break;
+        case GAME_TETRIS:     entry = menu_tetris;     break;
+        case GAME_FLAPPY:     entry = menu_flappy;     break;
+        case GAME_REGLAGES:   entry = menu_reglages;   break;
+        default:              return;   /* pas encore de jeu */
     }
+
+    /* Revient à la fin du jeu, ou tout de suite sur appui de START */
+    game_run(entry);
+
+    buzzer_play(SND_BACK);
+    backlight_save();     /* START depuis les réglages : sans effet si rien n'a changé */
+    buzzer_save();
+    easy_save();
+    button_pressed = 0;   /* un appui fait pendant le jeu ne relance pas le jeu */
 }

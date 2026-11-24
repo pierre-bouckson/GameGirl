@@ -17,6 +17,10 @@
 #define BATTERY_ROW     0
 #define BATTERY_COL     22
 
+/* Badge " FACILE " du mode facile, sur le cadre du haut à gauche (8 cases) */
+#define EASY_ROW        0
+#define EASY_COL        2
+
 /* Tuiles des jeux : cadres de 12 x 5 cases, positions dans tile_pos[] */
 #define TILE_W          12
 #define TILE_H          5

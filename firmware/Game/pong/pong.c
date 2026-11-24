@@ -1,4 +1,5 @@
 #include <stdlib.h>
+#include "buzzer.h"
 #include <string.h>
 #include <stdbool.h>
 #include <stdio.h>
@@ -8,6 +9,7 @@
 #include "display.h"
 #include "font8x8.h"
 #include "main.h"
+#include "easy.h"
 
 /* Terrain vertical de 240x240 px sous le titre, quadrillé en cases de 8x8
  * comme Snake. La balle et les raquettes, elles, bougent au pixel près
@@ -17,12 +19,13 @@
 #define F_Y0        (5 * FONT_H)
 #define CELLS       (FIELD_PX / FONT_W)   /* 30 cases de côté */
 #define NET_ROW     (CELLS / 2)
-#define BALL        8                     /* côté de la balle (px) */
-#define PAD_W       40                    /* largeur des raquettes (px) */
+#define BALL        ball_sz               /* côté de la balle (px), plus gros en mode facile */
+#define PAD_W       40                    /* largeur de la raquette du bot (px) */
 #define PAD_H       8                     /* épaisseur, une ligne de cases */
 #define PLAYER_Y    (FIELD_PX - PAD_H)    /* haut de la raquette du joueur */
 #define BALL_MAX_X  (FIELD_PX - BALL)
 #define PAD_MAX_X   (FIELD_PX - PAD_W)
+#define PLAYER_MAX_X (FIELD_PX - player_w)
 
 #define DEG2RAD     (3.14159265f / 180.0f)
 
@@ -55,7 +58,15 @@ static const level_t levels[] = {
 };
 #define LEVEL_COUNT (sizeof levels / sizeof levels[0])
 
+/* Bot du mode facile : lent, et vise jusqu'à 30 px à côté (il rate souvent) */
+static const level_t easy_level = {"FACILE", 1.2f, 30, false, RGB565(80, 220, 100)};
+
 static const level_t *level;
+
+/* Réglages de la partie, choisis selon le mode au lancement */
+static int ball_sz, player_w;
+static float speed_start, speed_max, accel, max_angle;
+static uint8_t win_score;
 
 /* Balle : coin haut-gauche et vitesse (px par image) ; raquettes : bord gauche */
 static float ball_x, ball_y, ball_vx, ball_vy, ball_speed;
@@ -109,6 +120,7 @@ static uint8_t choose_level(void)
 
     while (!button_pressed)
     {
+        HAL_Delay(10);   /* HAL_Delay : START reste actif */
         if (!new_selection())
             continue;
 
@@ -118,6 +130,7 @@ static uint8_t choose_level(void)
             sel++;
         if (mv.x == 1 && sel > 0)
             sel--;
+        buzzer_play(SND_MOVE);
         print_levels(sel);
     }
     consume_button();
@@ -136,7 +149,7 @@ static float clampf(float v, float lo, float hi)
 /* Vitesse de la raquette du joueur : axe Y proportionnel (courbe expo), 1 = droite */
 static float joy_speed(void)
 {
-    int v = (int)joy_expo(adc_values[ADC_IDX_JOY_Y]) - JOY_CENTER;
+    int v = (int)joy_expo(joy_raw_y()) - JOY_CENTER;
     if (abs(v) < JOY_DEADZONE / 2)
         return 0.0f;
     return PONG_PLAYER_SPD * v / (float)JOY_CENTER;
@@ -164,7 +177,7 @@ static void print_game(void)
         }
 
     fill_rect((int)bot_x, 0, PAD_W, PAD_H, level->color);
-    fill_rect((int)player_x, PLAYER_Y, PAD_W, PAD_H, P_PLAYER);
+    fill_rect((int)player_x, PLAYER_Y, player_w, PAD_H, P_PLAYER);
     fill_rect((int)ball_x, (int)ball_y, BALL, BALL, P_BALL);
 
     /* Score sous le terrain (lignes 35 à 39 libres) */
@@ -199,7 +212,7 @@ static void serve(int dir)
 {
     ball_x = (FIELD_PX - BALL) / 2;
     ball_y = (FIELD_PX - BALL) / 2;
-    ball_speed = PONG_SPEED;
+    ball_speed = speed_start;
     launch((float)(rand() % 61 - 30), dir);   /* -30° à +30° */
     bot_new_aim();
 }
@@ -230,17 +243,17 @@ static void bot_move(void)
 
 /* Renvoi : l'angle dépend du point d'impact, 0° au centre de la raquette,
  * PONG_MAX_ANGLE au bord. dir = sens de départ (1 = vers le joueur). */
-static void bounce(float pad_x, int dir)
+static void bounce(float pad_x, int pad_w, int dir)
 {
-    float off = ((ball_x + BALL / 2) - (pad_x + PAD_W / 2)) / (PAD_W / 2 + BALL / 2);
+    float off = ((ball_x + BALL / 2.0f) - (pad_x + pad_w / 2.0f)) / (pad_w / 2.0f + BALL / 2.0f);
 
-    ball_speed = clampf(ball_speed * PONG_ACCEL, 0, PONG_SPEED_MAX);
-    launch(clampf(off, -1, 1) * PONG_MAX_ANGLE, dir);
+    ball_speed = clampf(ball_speed * accel, 0, speed_max);
+    launch(clampf(off, -1, 1) * max_angle, dir);
 }
 
-static bool on_pad(float pad_x)
+static bool on_pad(float pad_x, int pad_w)
 {
-    return ball_x + BALL > pad_x && ball_x < pad_x + PAD_W;
+    return ball_x + BALL > pad_x && ball_x < pad_x + pad_w;
 }
 
 /* Avance la balle d'une image. Retourne 1 si le joueur marque, -1 si le bot
@@ -263,17 +276,19 @@ static int ball_step(void)
     float ny = ball_y + ball_vy;
 
     /* Franchit la ligne de la raquette du joueur pendant cette image ? */
-    if (ball_vy > 0 && ball_y + BALL <= PLAYER_Y && ny + BALL > PLAYER_Y && on_pad(player_x))
+    if (ball_vy > 0 && ball_y + BALL <= PLAYER_Y && ny + BALL > PLAYER_Y && on_pad(player_x, player_w))
     {
         ball_y = PLAYER_Y - BALL;
-        bounce(player_x, -1);
+        bounce(player_x, player_w, -1);
         bot_new_aim();
+        buzzer_play(SND_HIT);
         return 0;
     }
-    if (ball_vy < 0 && ball_y >= PAD_H && ny < PAD_H && on_pad(bot_x))
+    if (ball_vy < 0 && ball_y >= PAD_H && ny < PAD_H && on_pad(bot_x, PAD_W))
     {
         ball_y = PAD_H;
-        bounce(bot_x, 1);
+        bounce(bot_x, PAD_W, 1);
+        buzzer_play(SND_HIT);
         return 0;
     }
 
@@ -289,6 +304,7 @@ static void end_screen(void)
     char line[16];
     bool win = score_player > score_bot;
 
+    buzzer_play(win ? SND_WIN : SND_LOSE);
     display_clear(COLOR_BLACK);
     draw_centered(13, win ? "GAGNE !" : "PERDU", win ? COLOR_YELLOW : COLOR_RED, COLOR_BLACK);
     draw_centered(16, level->name, level->color, COLOR_BLACK);
@@ -299,19 +315,36 @@ static void end_screen(void)
     display_swap();
 
     button_pressed = 0;   /* ignore les appuis faits pendant la partie */
-    while (!button_pressed);
+    while (!button_pressed) HAL_Delay(1);   /* HAL_Delay : START reste actif */
 }
 
 void menu_pong(void)
 {
-    level = &levels[choose_level()];
+    bool easy = easy_mode();
+
+    ball_sz     = easy ? PONG_EASY_BALL      : 8;
+    player_w    = easy ? PONG_EASY_PAD_W     : PAD_W;
+    speed_start = easy ? PONG_EASY_SPEED     : PONG_SPEED;
+    speed_max   = easy ? PONG_EASY_SPEED_MAX : PONG_SPEED_MAX;
+    accel       = easy ? PONG_EASY_ACCEL     : PONG_ACCEL;
+    max_angle   = easy ? PONG_EASY_MAX_ANGLE : PONG_MAX_ANGLE;
+    win_score   = easy ? PONG_EASY_WIN_SCORE : PONG_WIN_SCORE;
+
+    /* Mode facile : pas d'écran de choix, le bot facile joue directement */
+    if (easy)
+    {
+        consume_button();
+        level = &easy_level;
+    }
+    else
+        level = &levels[choose_level()];
     /* Le moment de l'appui sur le bouton sert de graine aléatoire pour le bot */
     srand(HAL_GetTick());
 
     score_player = 0;
     score_bot = 0;
-    player_x = PAD_MAX_X / 2;
-    bot_x = player_x;
+    player_x = PLAYER_MAX_X / 2;
+    bot_x = PAD_MAX_X / 2;
     serve(1);
 
     uint32_t last_tick = HAL_GetTick();
@@ -323,7 +356,7 @@ void menu_pong(void)
         while (HAL_GetTick() - last_tick < PONG_FRAME_MS);
         last_tick = HAL_GetTick();
 
-        player_x = clampf(player_x + joy_speed(), 0, PAD_MAX_X);
+        player_x = clampf(player_x + joy_speed(), 0, PLAYER_MAX_X);
         bot_move();
         int point = ball_step();
         print_game();
@@ -332,9 +365,10 @@ void menu_pong(void)
         {
             if (point > 0) score_player++;
             else           score_bot++;
+            buzzer_play(point > 0 ? SND_POINT : SND_BACK);
             HAL_Delay(POINT_MS);
 
-            if (score_player >= PONG_WIN_SCORE || score_bot >= PONG_WIN_SCORE)
+            if (score_player >= win_score || score_bot >= win_score)
             {
                 end_screen();
                 break;

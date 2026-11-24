@@ -13,6 +13,10 @@
 #define TETRIS_ACCEL     85    /* chaque niveau : période *= 85 % */
 #define LINES_PER_LEVEL  10    /* lignes à effacer pour passer un niveau */
 
+/* Mode facile : chute lente qui n'accélère jamais, et une pièce fantôme
+ * (couleur sombre) montre où la pièce va se poser */
+#define TETRIS_EASY_PERIOD_MS   900
+
 typedef enum { SHAPE_I, SHAPE_O, SHAPE_T, SHAPE_S, SHAPE_Z, SHAPE_J, SHAPE_L } shape_id_t;
 
 /* Formes des tétrominos (shape.c) : 1 = case pleine, 0 = vide */

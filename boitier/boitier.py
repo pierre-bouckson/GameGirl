@@ -31,15 +31,22 @@ DISP = (15.64, 6.00, 58.36, 65.46)       # contour du module
 AA_C = (37.0, 33.48)                     # centre de la zone active
 WIN = (37.5, 49.8)                       # fenêtre
 DISP_T = 2.8
-RECESS = 1.5                             # enfoncement de la lunette d'écran
+WIN_CHAMF = 1.0                          # chanfrein de la fenêtre (face avant plane, pas de lunette en creux)
 Z_DISP_IN = Z_IN - 1.0                   # 7.5 : appui de la vitre de l'écran
 H_DISP = Z_DISP_IN - DISP_T              # 4.7 : dos de l'écran au-dessus du PCB
 # commandes
 JOY = (17.25, 91.55)                     # axe de la tige (centre des pattes du blindage)
-JOY_HOLE = 17.0
+JOY_HOLE = 26.0                          # capuchon PS4/PS5 : jupe Ø24, balayage à 30° autour du pivot (Z 7,5) + 0,75 de jeu
+JOY_BODY_H = 7.5                         # hauteur du corps (datasheet docs/joy.pdf, YHE-YG16-001)
+JOY_STEM_TOP = 18.95                     # haut de la tige au-dessus du PCB
+JOY_STEM_D, JOY_STEM_FLAT = 4.0, 3.0     # tige ronde Ø4 avec deux méplats à 3,0 (trou central Ø1,5)
 BTN_A, BTN_B = (62.0, 87.0), (50.0, 95.0)
 BTN_SEL, BTN_STA = (28.0, 109.0), (46.0, 109.0)
 SW_TOP = 1.5                             # sommet des poussoirs
+# fixation : vis M2.5 x 20 tête bombée par l'avant, écrou M2.5 (6 pans 5 mm) logé au dos
+SCREW_D = 2.9                            # passage de vis
+HEAD_D, HEAD_H = 5.6, 2.0                # lamage de la tête dans la face avant
+NUT_AF, NUT_H = 5.4, 2.4                 # logement d'écrou (sur plats) dans le fond de la coque arrière
 # dos
 USB_X = 37.05
 SW1_Y = 79.0
@@ -96,14 +103,10 @@ front = front.cut(cavity(Z_PART - 1, Z_IN))
 # jupe du joint en feuillure : moitié extérieure de la paroi, descend de LAP sous le plan de joint
 front = front.union(prism(0, Z_PART - LAP, Z_PART).cut(prism(1.2, Z_PART - LAP - 1, Z_PART + 1)))
 
-# --- lunette d'écran enfoncée (chanfrein à 45°) + logement du module
+# --- logement du module d'écran (face avant plane : aucune lunette en creux, imprimable à plat)
 mx1, my1, mx2, my2 = DISP
 PK = 0.3                                                   # jeu autour du module
 rx1, ry1, rx2, ry2 = mx1 - 1.6, my1 - 1.7, mx2 + 1.6, my2 + 1.7     # fond de la lunette
-rec = (cq.Workplane('XY').workplane(offset=Z_FACE)
-       .center((rx1 + rx2) / 2, -(ry1 + ry2) / 2)
-       .rect(rx2 - rx1 + 2 * RECESS, ry2 - ry1 + 2 * RECESS).extrude(-RECESS, taper=45))
-front = front.cut(rec)
 # surépaisseur intérieure sous la lunette : la face d'appui de la vitre descend à Z_DISP_IN
 front = front.union(box(rx1 - 1.2, ry1 - 1.2, rx2 + 1.2, ry2 + 1.2, Z_DISP_IN, Z_IN + 0.01))
 # nervure de centrage du module (ouverte en bas pour la nappe)
@@ -113,12 +116,16 @@ rib = rib.cut(box(37 - 19.5, my2 - 2, 37 + 19.5, my2 + 5, 0, Z_DISP_IN - 0.0))
 front = front.union(rib)
 # fenêtre
 front = front.cut(box(AA_C[0] - WIN[0] / 2, AA_C[1] - WIN[1] / 2, AA_C[0] + WIN[0] / 2, AA_C[1] + WIN[1] / 2, 0, Z_FACE + 1))
+# chanfrein à 45° du bord de la fenêtre (porte-à-faux de 45°, imprimable face sur le plateau)
+front = front.cut(cq.Workplane('XY').workplane(offset=Z_FACE + 0.01).center(AA_C[0], -AA_C[1])
+                  .rect(WIN[0] + 2 * WIN_CHAMF + 0.02, WIN[1] + 2 * WIN_CHAMF + 0.02).extrude(-WIN_CHAMF - 0.01, taper=45))
 
-# --- colonnettes de fixation (vis M2.5 auto-taraudeuse, avant-trou Ø2,1)
+# --- colonnettes de fixation : la vis entre par la face avant (lamage pour la tête) et traverse tout
 for hx, hy in HOLES:
     front = front.union(cyl(hx, hy, 6.0, 0.0, Z_IN + 0.01))
 for hx, hy in HOLES:
-    front = front.cut(cyl(hx, hy, 2.1, -0.1, Z_IN - 0.8))
+    front = front.cut(cyl(hx, hy, SCREW_D, -0.1, Z_FACE + 1))
+    front = front.cut(cyl(hx, hy, HEAD_D, Z_FACE - HEAD_H, Z_FACE + 1))
 
 # --- joystick
 front = front.cut(cyl(JOY[0], JOY[1], JOY_HOLE, Z_IN - 1, Z_FACE + 1))
@@ -158,12 +165,18 @@ back = back.cut(prism(WALL, Z_BACK_IN, Z_PART))
 tongue = prism(1.3, Z_PART - LAP - 0.01, Z_PART - 0.1).cut(prism(WALL, Z_PART - LAP - 1, Z_PART + 1))
 back = back.union(tongue)
 
-# --- colonnettes d'appui sous le PCB + passage de vis et lamage pour la tête
+# --- colonnettes d'appui sous le PCB (travaillent en compression entre le PCB et l'écrou)
+#     Ø6 au contact du PCB (zone dégagée Ø6,2), Ø8 en dessous des CMS pour la solidité
+Z_COL_STEP = -3.6
 for hx, hy in HOLES:
-    back = back.union(cyl(hx, hy, 6.0, Z_BACK_IN - 0.01, Z_PART))
+    back = back.union(cyl(hx, hy, 8.0, Z_BACK_IN - 0.01, Z_COL_STEP))
+    back = back.union(cyl(hx, hy, 6.0, Z_COL_STEP - 0.01, Z_PART))
+back = back.cut(box(*BAT, Z_BACK_IN, Z_COL_STEP + 0.01))       # H3 : la colonnette ne mord pas sur la batterie
 for hx, hy in HOLES:
-    back = back.cut(cyl(hx, hy, 2.9, Z_BACK - 1, Z_PART + 1))
-    back = back.cut(cyl(hx, hy, 5.4, Z_BACK - 1, Z_BACK + 2.5))
+    back = back.cut(cyl(hx, hy, SCREW_D, Z_BACK - 1, Z_PART + 1))
+    nut = (cq.Workplane('XY').workplane(offset=Z_BACK - 1).center(hx, -hy)
+           .polygon(6, NUT_AF / math.cos(math.radians(30))).extrude(NUT_H + 1))
+    back = back.cut(nut)
 
 # --- logement batterie : cadre de nervures
 bx1, by1, bx2, by2 = BAT
@@ -186,13 +199,15 @@ back = back.cut(box(67.3, 28.3, 70.7, 36.8, Z_BACK - 1, Z_BACK_IN + 1))
 
 # ================================================================== OUVERTURES COMMUNES AUX DEUX COQUES
 yb = PCB_H + GAP + WALL
-# USB-C : passage de l'embase + dégagement extérieur pour le surmoulage de la prise
-usb = box(USB_X - 4.9, PCB_H - 1.0, USB_X + 4.9, yb + 1, -PCB_T - 3.5, -PCB_T + 0.05)
-usb_out = (cq.Workplane('XZ').workplane(offset=yb - 1.7).center(USB_X, -PCB_T - 1.7)
-           .rect(13.0, 7.0).extrude(-3.0).edges('|Y').fillet(2.0))
-# interrupteur : lumière traversante + cuvette extérieure
-sw = box(-GAP - WALL - 1, SW1_Y - 4.5, 1.0, SW1_Y + 4.5, -PCB_T - 2.0, -PCB_T + 0.05)
-sw_out = box(-GAP - WALL - 1, SW1_Y - 7.0, -GAP - 0.9, SW1_Y + 7.0, -PCB_T - 3.2, -PCB_T + 1.2)
+# USB-C : passage de l'embase + paroi entièrement ouverte devant le nez de l'embase,
+#         pour que le surmoulage de la prise (jusqu'à 13,5 x 7,5) vienne en butée sur l'embase
+usb = box(USB_X - 5.3, PCB_H - 1.0, USB_X + 5.3, yb + 1, -PCB_T - 3.9, -PCB_T + 0.05)
+usb_out = box(USB_X - 6.75, PCB_H + 0.5, USB_X + 6.75, yb + 1, -PCB_T - 1.6 - 3.75, -PCB_T - 1.6 + 3.75).edges('|Y').fillet(2.5)
+# interrupteur : lumière traversante + large cuvette évasée (45°) dont le fond affleure le bout du levier
+sw = box(-GAP - WALL - 1, SW1_Y - 5.0, 1.0, SW1_Y + 5.0, -PCB_T - 2.7, -PCB_T + 0.05)
+SW_BOT_X = -0.85                                              # fond de la cuvette = bout du levier
+sw_out = (cq.Workplane('YZ').workplane(offset=SW_BOT_X).center(-SW1_Y, -PCB_T - 0.6)
+          .rect(16.0, 5.2).extrude(-(SW_BOT_X + GAP + WALL) - 0.5, taper=-45))
 for c in (usb, usb_out, sw, sw_out):
     front = front.cut(c)
     back = back.cut(c)
@@ -223,10 +238,13 @@ def pill_cap(L, w, top):
 
 cap_ab = round_cap(10.0, 1.6)
 cap_ss = pill_cap(9.0, 4.5, 1.0)
-# capuchon de joystick : champignon emmanché sur la tige (section mesurée sur le modèle 3D : 3,0 x 4,0)
+# capuchon de joystick imprimé (provisoire : à remplacer par un capuchon PS4/PS5 du commerce)
+# emmanché sur la tige ronde Ø4 à deux méplats de 3,0 (datasheet), haut de tige à Z 18,95
 joy_cap = cyl(0, 0, 7.0, 11.6, 17.0).union(cyl(0, 0, 19.0, 16.0, 20.5).faces('>Z').edges().fillet(1.2))
 joy_cap = joy_cap.cut(cq.Workplane('XY').workplane(offset=20.5 + 28.5).sphere(29.3))          # cuvette pour le pouce (fond à Z 19,7)
-joy_cap = joy_cap.cut(cq.Workplane('XY').workplane(offset=11.5).rect(3.15, 4.15).extrude(7.2))   # tige jusqu'à Z 18,7
+stem = (cq.Workplane('XY').workplane(offset=11.5).circle((JOY_STEM_D + 0.15) / 2).extrude(JOY_STEM_TOP + 0.1 - 11.5)
+        .intersect(cq.Workplane('XY').workplane(offset=11.4).rect(JOY_STEM_FLAT + 0.15, 10).extrude(10)))
+joy_cap = joy_cap.cut(stem)                                                                        # tige jusqu'à Z 19,05
 
 # ================================================================== contrôles + export
 def vol(s):
@@ -240,7 +258,7 @@ def place(shape, xy):
 pcb = cavity(-PCB_T, 0).cut(box(18.5, 65.75, 55.5, 68.25, -2, 1))          # approx. (contour + jeu)
 pcb_exact = rrect_wire(0, 0, PCB_W, PCB_H, 4, 4, 4, 4).extrude(PCB_T).translate((0, 0, -PCB_T))
 keep = {   # volumes des composants principaux (x1, y1, x2, y2, z1, z2)
-    'joystick corps': (9.0, 83.1, 25.5, 100.8, 0, 8.0),
+    'joystick corps': (9.0, 83.1, 25.5, 100.8, 0, JOY_BODY_H),
     'bouton A': (59.4, 84.4, 64.6, 89.6, 0, 1.5), 'bouton B': (47.4, 92.4, 52.6, 97.6, 0, 1.5),
     'SELECT': (25.4, 106.4, 30.6, 111.6, 0, 1.5), 'START': (43.4, 106.4, 48.6, 111.6, 0, 1.5),
     'USB-C': (32.6, 113.8, 41.5, 122.3, -4.8, -1.6), 'SW1': (-0.85, 75.6, 4.0, 82.4, -3.1, -1.6),
@@ -304,3 +322,5 @@ print('export terminé')
 for n, bx in (('USB paroi ext.', (31, 123.3, 43, 124.7, -5.0, -2.0)), ('USB traversant', (33, 122.5, 41, 123.0, -4.8, -1.8)),
               ('SW1 traversant', (-2.7, 76, -0.5, 82, -3.4, -1.8))):
     print(n, ': matière restante %.2f mm3' % (vol(front.union(back).intersect(box(*bx[:4], bx[4], bx[5])))))
+for hx, hy in HOLES:   # passage de vis libre sur toute la hauteur
+    print('vis (%g ; %g) : matière dans le passage %.3f mm3' % (hx, hy, vol(front.union(back).intersect(cyl(hx, hy, 2.5, Z_BACK, Z_FACE)))))
